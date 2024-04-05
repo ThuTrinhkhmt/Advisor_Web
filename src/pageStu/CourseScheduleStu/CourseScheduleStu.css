@@ -1,5 +1,6 @@
-#SSkillPage{
+#CListPage{
     margin-top : 50px;
     margin-left: 20%;
     padding : 30px;
+    min-height: 500px;
 }
