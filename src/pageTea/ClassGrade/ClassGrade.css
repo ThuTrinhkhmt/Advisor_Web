@@ -1,0 +1,44 @@
+.page{
+    margin-top : 50px;
+    margin-left: 22%;
+    padding : 30px;
+    min-height: 500px;
+}
+.page h1 {
+  color : #3e678f;
+  text-transform: uppercase;
+  margin-top: 24px;
+  margin-bottom: 32px;
+  font-weight: 650;
+  line-height: 32px;
+  font-size: 36px;
+  padding-bottom: 8px;
+  text-align: center;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2); /* Thêm shadow */
+}
+
+.page td a{
+  text-decoration: none;
+  color : black
+}
+  
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+table th, table td {
+  padding: 8px;
+  text-align: left;
+  border: 1px solid #ddd; /* Thêm đường kẻ cột */
+}
+
+table th {
+  background-color: #f2f2f2;
+}
+
+.color-draw{
+  background: linear-gradient(to bottom, rgba(38, 129, 129, 0.5), rgba(38, 129, 129, 0.8));
+  color : white;
+}
+

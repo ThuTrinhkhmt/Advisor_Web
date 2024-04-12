@@ -1,19 +1,19 @@
-import './StudySkillTea.css'
+import './CreateClass.css'
 import Header from '../../components/ComponentTea/HeaderTea/HeaderTea'
 import Footer from '../../components/ComponentTea/FooterTea/FooterTea'
 import Nav from '../../components/ComponentTea/NavTea/NavTea'
 import { Fragment } from 'react'
-function StudySkillTea() {
+function CreateClass() {
     return (
         <Fragment>
             <Header />
-            <Nav />
-        <div id = "SSkillPage">
-            <h1>Hướng dẫn học tập!</h1>
-        </div>
-        <Footer />
+            <Nav key = 'Nav'/>
+            <div id = "page">
+               <h1>Tạo lớp học</h1>
+            </div>
+            <Footer />
         </Fragment>
     )
 }
 
-export default StudySkillTea
+export default CreateClass

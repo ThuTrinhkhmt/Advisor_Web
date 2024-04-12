@@ -1,17 +1,18 @@
-.footer{
-    left : 20%;
+.footer {
     font-size: 17px;
     background-color: #495057;
-    color : white;
-    position: relative;
+    color: white;
     z-index: 0;
-    width : 100%;
+    width: 100%;
+    margin-bottom: 0;
+    overflow: hidden;
 }
 
 .footer .footer-box {
-    margin : 30px 0 0 0;
-    padding : 45px 30px 0 45px;
+    margin: 30px 0 0 0;
+    padding: 45px 30px 0 45px;
 }
+
 .footer p {
     line-height: 1.5;
 }
@@ -24,34 +25,40 @@
     color: white;
     display: flex;
     justify-content: center;
-    align-items: center; 
+    align-items: center;
+    transform: translateX(-9%);
     height: 100%;
     line-height: 1.5;
-    margin-left: 20%; 
     font-size: 17px;
+    width: 100%;
 }
-.footer-box1, .footer-box2{
-    margin-bottom : 16px;
+
+.footer-box1,
+.footer-box2 {
+    margin-bottom: 16px;
 }
-.footer-box3{
+
+.footer-box3 {
     text-align: center;
-    padding : 8px;
+    transform: translateX(-10%);
+    padding: 8px;
 }
-.footer .social-lists{
+
+.footer .social-lists {
     font-size: 24px;
     margin: 8px;
 }
 
-.footer .social-lists a{
+.footer .social-lists a {
     color: rgba(255, 255, 255, 0.6);
     text-decoration: none;
-    margin-right: 8px; 
+    margin-right: 8px;
 }
 
 .footer .social-lists a:last-child {
     margin-right: 0;
 }
 
-.footer .social-lists a:hover{
+.footer .social-lists a:hover {
     opacity: 0.3;
 }

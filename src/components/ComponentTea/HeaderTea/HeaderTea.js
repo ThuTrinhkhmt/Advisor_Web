@@ -4,12 +4,11 @@ function HeaderTea() {
   return (
     <div id="Header">
         <div className="WebName">Teacher Advisor Web</div>
-        <div className="Close">
-            <Link to="/teacherServer" className = "close">
-                {/* <i className="ti-share"></i> */}
-                Đăng xuất
-            </Link>
-        </div>
+        <Link to="/teacherServer" className = "close">
+            <div className="Close">
+            Đăng xuất
+            </div>
+        </Link>
     </div>
 )
 

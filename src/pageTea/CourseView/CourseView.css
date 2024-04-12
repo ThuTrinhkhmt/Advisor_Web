@@ -1,0 +1,41 @@
+.page{
+    margin-top : 50px;
+    margin-left: 20%;
+    padding : 30px;
+    min-height: 500px;
+}
+.page h1{
+    color : rgb(103, 108, 112);
+    text-transform: uppercase;
+    margin-bottom: 12px;
+    font-weight: 650;
+    line-height : 32px;
+    font-size:  27px;
+}
+  
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+table th, table td {
+  padding: 8px;
+  text-align: left;
+  border: 1px solid #ddd; /* Thêm đường kẻ cột */
+}
+
+table th {
+  background-color: #f2f2f2;
+}
+
+table tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+table tr:hover {
+  background-color: #ddd;
+}
+  .centerTable{
+    align-items: center;
+    text-align: center;
+  }

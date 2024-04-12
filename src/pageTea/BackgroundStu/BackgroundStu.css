@@ -1,0 +1,104 @@
+.page{
+    margin-left: 20%;
+    min-height: 500px;
+}
+h1{
+    margin : 32px;
+}
+.row-2 {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px; /* Khoảng cách giữa các hàng */
+  }
+  
+  /* CSS cho lớp col */
+.col {
+    flex: 1; /* Chia đều không gian cho các cột */
+    margin-left: 32px;
+    margin-bottom: 8px;
+  }
+
+.img-contain img{
+    width: 150px;
+    height: auto;
+    display: block; 
+    margin: 0 auto;
+    border-radius: 50%;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+}
+
+.img-contain p{
+    margin: 12px;
+    margin-bottom: 48px;
+    display: block;
+    text-align: center;
+    color : #3e678f;
+    text-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2), 0px 0px 10px rgba(75, 192, 192, 0.1);;
+    font-weight: 700;
+    line-height: 1.5;
+    letter-spacing: 2px;
+    font-size: 36px;
+}
+.empty {
+    border-bottom: 1px solid #ccc; 
+    margin: 32px;
+    padding-bottom: 10px;
+}
+
+.chart{
+    display: block;
+    width: 120px;
+    height : auto;
+    margin-top: 48px;
+}
+
+#myChartCanvas{
+    margin-left: 60px;
+}
+
+.Study-containt {
+    margin-top: 30px;
+    margin-bottom: 40px;
+    display: block;
+}
+
+.Study-containt ul {
+    list-style-type: none;
+    padding: 0;
+    margin-left: 24px;
+    width: 94%;
+}
+
+.Study-containt li {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+    margin-bottom: 24px;
+    box-shadow: inset 0 5px 5px -5px rgba(0, 0, 0, 0.3); 
+}
+
+.Study-containt li div {
+    margin-bottom: 5px;
+    padding: 2px;
+}
+
+.Study-containt li div:last-child {
+    margin-bottom: 0;
+}
+.chart {
+    width : 90%;
+    height : 500px;
+    margin : 0 auto;
+}
+
+.chart-name {
+    text-align: center;
+    padding: 10px;
+    margin-bottom: 14px;
+    font-size: 36px;
+    font-weight: 550;
+    border: 1px;
+    color : #3e678f;
+    text-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2), 0px 0px 10px rgba(75, 192, 192, 0.1);
+    text-transform: uppercase;
+}

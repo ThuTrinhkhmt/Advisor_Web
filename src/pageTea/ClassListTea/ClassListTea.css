@@ -4,3 +4,70 @@
     padding : 30px;
     min-height: 500px;
 }
+
+#CListPage .title{
+    border-bottom: solid 0.67px;
+    border-bottom-color: rgba(0, 0, 0, 0.125);
+    padding : 0 0 8px 0;
+}
+
+#CListPage h1{
+    color : rgb(103, 108, 112);
+    text-transform: uppercase;
+    font-weight: 650;
+    line-height : 32px;
+    font-size:  27px;
+    padding-top: 8px;
+    padding-bottom :  8px;
+}
+
+
+#CListPage h1,
+#CListPage h2 {
+    display: block;
+    margin: 12px;
+    width: 100%;
+}
+
+#CListPage h2{
+    color : rgb(103, 108, 112);
+    font-weight: 600;
+    font-size: 18px;
+    line-height: 22px;
+    padding-bottom :  12px;
+}
+
+.ClassList:first-child {
+    margin-top: 48px;
+}
+
+ul{
+    list-style: none;
+}
+
+.ClassList{
+    padding: 8px;
+}
+
+.ClassArray{
+    border-bottom: solid 0.67px;
+    border-bottom-color: rgba(0, 0, 0, 0.125);
+    line-height: 1.5;
+}
+
+.ClassInfo {
+    padding-bottom: 4px;
+}
+
+.ClassGroup{
+    padding-bottom: 15px;
+}
+
+#CListPage a{
+    color : #0f6cbf;
+    text-decoration: none;
+}
+.ClassGroup a{
+    margin-left: 8px;
+    font-size: 15px;
+}

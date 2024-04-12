@@ -9,6 +9,8 @@ import Footer from '../../components/ComponentTea/FooterTea/FooterTea'
 const imagePath1 = process.env.PUBLIC_URL + '/img/i1.jpg';
 const imagePath2 = process.env.PUBLIC_URL + '/img/i2.jpg';
 const imagePath3 = process.env.PUBLIC_URL + '/img/i3.jpg';
+const hcmutImg1 = process.env.PUBLIC_URL + '/img/hcmut1.jpg';
+const hcmutImg2 = process.env.PUBLIC_URL + '/img/hcmut2.jpg';
 
 function HomeTea() {
     const swiperRef = useRef(null);
@@ -17,7 +19,7 @@ function HomeTea() {
         swiperRef.current = new Swiper('.swiper-container', {
             loop: true,
             spaceBetween: 30,
-            speed: 2000,
+            speed: 1000,
         });
 
         const interval = setInterval(() => {
@@ -37,7 +39,7 @@ function HomeTea() {
     return (
         <Fragment>
             <Header />
-            <Nav />
+            <Nav key = 'Nav'/>
         <div id="HomePage">
             <div className="swiper-container">
                 <div className="swiper-wrapper">
@@ -59,8 +61,11 @@ function HomeTea() {
                 sinh.
                 </p>
             </div>
+            <h2 className="section-heading">Sơ đồ khoa</h2>
+            {/* <img className = "hcmut" src = {hcmutImg1} alt = "hcmut"></img> */}
+            <img className = "hcmut"src = {hcmutImg2} alt = "hcmut"></img>
         </div>
-        <Footer />
+            <Footer/>
         </Fragment>
     );
 }

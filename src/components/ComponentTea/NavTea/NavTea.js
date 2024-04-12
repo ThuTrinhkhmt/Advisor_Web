@@ -18,8 +18,8 @@ function NavTea() {
             </Link>
           </li>
           <li>
-            <Link to="/studySkillTea">
-              <i className="ti-pencil-alt"></i> Hướng dẫn học tập
+            <Link to="/createClass">
+              <i className="ti-check-box"></i> Tạo lớp học
             </Link>
           </li>
           <li>

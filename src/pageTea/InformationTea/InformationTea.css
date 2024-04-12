@@ -1,6 +1,45 @@
-#InformationPage{
-    margin-top : 50px;
-    margin-left: 20%;
-    padding : 30px;
+#InformationPage {
+    margin-top: 50px;
+    padding: 30px;
     min-height: 500px;
+    margin-left: 20%;
+}
+
+h1 {
+    margin: 32px;
+}
+
+.row-2 {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px; /* Khoảng cách giữa các hàng */
+}
+
+/* CSS cho lớp col */
+.col {
+    flex: 1; /* Chia đều không gian cho các cột */
+    margin-left: 32px;
+    margin-bottom: 8px;
+    align-items: flex-start; /* Căn nội dung về bên trái */
+}
+
+.img-contain img {
+    width: 150px;
+    height: auto;
+    display: block;
+    margin: 0 auto;
+    border-radius: 50%;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+}
+
+.img-contain p {
+    margin: 12px;
+    margin-bottom: 48px;
+    display: block;
+    text-align: center;
+    color: #3e678f;
+    font-weight: 700;
+    line-height: 1.5;
+    letter-spacing: 2px;
+    font-size: 36px;
 }
