@@ -85,14 +85,16 @@
   width : 180px;
 }
 .pageGradeClass .input-update {
-  margin: 0 !important;
-  width: 130px !important; 
-  height: 30px !important;
+  margin: 0;
+  width: 130px; 
+  height: 30px;
+  padding: 8px;
 }
 .pageGradeClass .input-update1{
-  margin: 0 !important;
-  width: 170px !important;
-  height: 30px !important;
+  margin: 0;
+  width: 170px;
+  height: 30px;
+  padding: 8px;
 }
 .pageGradeClass .edited {
   background-color: rgba(255, 0, 0, 0.5)

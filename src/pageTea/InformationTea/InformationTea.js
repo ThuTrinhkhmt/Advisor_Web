@@ -7,6 +7,9 @@ import './InformationTea.css';
 function InformationTea() {
     const preTeacher = useRef(null);
     const [editable, setEditable] = useState(false);
+    //Hai biến này của tớ
+
+    //Này là từ giáo viên cậu tự lấy thông tin giáo viên và lưu vô biến teacher cho tớ nha, ở chổ useState á
     const [teacher, setTeacher] = useState({
         name: "Nguyễn Văn A",
         dateOfBirth: "01/01/1990",
@@ -51,49 +54,49 @@ function InformationTea() {
                             : teacher.name}
                     </p>
                 </div>
-                <div className="row-2">
-                    <div className="col">
+                <div className="row">
+                    <div className="col-2">
                         <strong>Ngày sinh: </strong> 
                         {editable ? 
                             <input type="text" name="dateOfBirth" className="input-date" value={teacher.dateOfBirth} onChange={handleInputChange} /> 
                             : teacher.dateOfBirth}
                     </div>
-                    <div className="col">
+                    <div className="col-2">
                         <strong>Giới tính: </strong> 
                         {editable ? 
                             <input type="text" name="gender" className="input-gender" value={teacher.gender} onChange={handleInputChange} /> 
                             : teacher.gender}
                     </div>
                 </div>
-                <div className="row-2">
-                    <div className="col">
+                <div className="row">
+                    <div className="col-2">
                         <strong>Chuyên môn: </strong> 
                         {editable ? 
                             <input type="text" name="specialization" className="input-specialization" value={teacher.specialization} onChange={handleInputChange} /> 
                             : teacher.specialization}
                     </div>
-                    <div className="col">
+                    <div className="col-2">
                         <strong>Bằng cấp: </strong> 
                         {editable ? 
                             <input type="text" name="degree" className="input-degree" value={teacher.degree} onChange={handleInputChange} /> 
                             : teacher.degree}
                     </div>
                 </div>
-                <div className="row-2">
-                    <div className="col">
+                <div className="row">
+                    <div className="col-2">
                         <strong>Chức vụ: </strong> 
                         {editable ? 
                             <input type="text" name="position" className="input-position" value={teacher.position} onChange={handleInputChange} /> 
                             : teacher.position}
                     </div>
-                    <div className="col">
+                    <div className="col-2">
                         <strong>Khoa: </strong> 
                         {editable ? 
                             <input type="text" name="faculty" className="input-faculty" value={teacher.faculty} onChange={handleInputChange} /> 
                             : teacher.faculty}
                     </div>
                 </div>
-                <div className="row-2">
+                <div className="row">
                     <div className="col">
                         <strong>Địa chỉ: </strong> 
                         {editable ? 

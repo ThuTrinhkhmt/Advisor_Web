@@ -16,8 +16,9 @@ import PageStu from './pageStu/HomeStu/HomeStu';
 import PageTea from './pageTea/HomeTea/HomeTea';
 import CourseView from './pageTea/CourseView/CourseView';
 import BackgroundStu from './pageTea/BackgroundStu/BackgroundStu';
-import ClassGrade from './pageTea/ClassGrade/ClassGrade'
+import ClassGrade from './pageTea/ClassGrade/ClassGrade';
 import { useParams } from 'react-router-dom';
+import Login from './loginPage/Login_page'
 import './App.css';
 
 
@@ -38,7 +39,7 @@ function App() {
           <Route path="/informationTea" element={<Information2 />} />
           <Route path="/classListTea" element={<ClassList2 />} />
           <Route path="/AppealAnnounce" element={<AppealAnnounce />} />
-          <Route path="/course/:courseID" element={<CourseView />} />
+          <Route path="/course/CourseView/:courseID/:group" element={<CourseView />} />
           <Route path="/course/:courseID/:group" element={<ClassGrade />} />
           <Route path="/course/:courseID/:group/:studentID" element={<BackgroundStu />} />
           <Route path="/teacherServer" element={<TeacherServer />} />

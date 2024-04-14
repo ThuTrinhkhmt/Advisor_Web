@@ -6,7 +6,7 @@ import Nav from '../../components/ComponentTea/NavTea/NavTea';
 import './ClassListTea.css';
 
 function ClassListTea() {
-  // Mảng chứa các đối tượng classInfo
+  // Từ giáo viên đó cậu tìm ra danh sách các môn học mà ổng dạy á
   const [classInfoArray, setClassInfoArray] = useState([
     { name: 'Giải tích 1', courseID: 'MT1003', group: 'L17' },
     { name: 'Lập trình web', courseID: 'CS2001', group: 'L18' },
@@ -32,14 +32,12 @@ function ClassListTea() {
             <li key={index} className="ClassList">
               <div className="ClassArray">
                 <div className="ClassInfo">
-                  {/* Sử dụng thẻ Link để tạo liên kết */}
-                  <Link to={`/course/${classInfo.courseID}`}>
+                  <Link to={`/course/CourseView/${classInfo.courseID}/${classInfo.group}`}>
                     {classInfo.name} ({classInfo.courseID})
                   </Link>
                 </div>
                 <div className="ClassGroup">
                   Nhóm :
-                  {/* Sử dụng thẻ Link để tạo liên kết */}
                   <Link to={`/course/${classInfo.courseID}/${classInfo.group}`}>
                     {classInfo.group}
                   </Link>

@@ -12,19 +12,22 @@
     text-align: center;
 }
 
-#InformationPage .row-2 {
+#InformationPage .row {
     display: flex;
     justify-content: space-between;
     margin-bottom: 10px;
 }
 
-#InformationPage .col {
+#InformationPage .col-2 {
     flex: 1;
     margin-left: 32px;
-    margin-bottom: 8px;
+    margin-bottom: 14px;
     align-items: flex-start;
+    font-size: 18px;
 }
-
+#InformationPage .col-2:nth-child(even) {
+    margin-right: 36px;
+}
 #InformationPage .img-contain img {
     width: 150px;
     height: auto;
@@ -63,24 +66,34 @@
     text-align: center !important; 
     margin: 0 auto !important;
     margin-top: 8px !important;
+    padding: 8px;
+    border: 1px solid rgba(0, 0, 0, 0.1); 
 }
 
-.input-date,
-.input-gender,
-.input-specialization,
-.input-degree,
-.input-position,
-.input-faculty {
-    width: 70% !important;
-    margin-top: 8px !important;
+#InformationPage .input-date,
+#InformationPage .input-gender,
+#InformationPage .input-specialization,
+#InformationPage .input-degree,
+#InformationPage .input-position,
+#InformationPage .input-faculty {
+    width: 100%;
+    margin-top: 8px;
     display: inline-block;
-    margin-bottom: 0px !important;
+    margin-bottom: 8px;
+    padding: 8px;
+    border: 1px solid rgba(0, 0, 0, 0.1); 
 }
-
+#InformationPage .col{
+    margin-right: 36px;
+    font-size: 18px;
+    margin-bottom: 18px;
+}
 #InformationPage .input-address {
-    width : 79% !important;
-    margin-top: 8px !important;
-    display: inline-block
+    width : 100%;
+    margin-top: 8px;
+    display: inline-block;
+    padding: 8px;
+    border: 1px solid rgba(0, 0, 0, 0.1);
 }
 
 #InformationPage .button-container {
@@ -88,11 +101,11 @@
     justify-content: center;
 }
 
-.btn-save,
-.btn-cancel {
+#InformationPage .btn-save,
+#InformationPage .btn-cancel {
     margin: 0 5px;
 }
-.btn-editer{
+#InformationPage .btn-editer{
     padding: 8px 16px !important;
     position: absolute !important;
 }

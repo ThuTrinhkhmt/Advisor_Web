@@ -1,4 +1,5 @@
 import React, { Fragment, useState } from 'react';
+import { useParams } from 'react-router-dom';
 import Header from '../../components/ComponentTea/HeaderTea/HeaderTea';
 import Footer from '../../components/ComponentTea/FooterTea/FooterTea';
 import Nav from '../../components/ComponentTea/NavTea/NavTea';
@@ -8,10 +9,13 @@ import 'react-quill/dist/quill.snow.css';
 import './CourseView.css';
 
 function CourseView() {
+  let { courseID, group } = useParams();
+      //Từ courseID và group (này là mã môn và nhóm lớp), cậu tìm ra cái class tài liệu hướng dẫn dì á
   const [editing, setEditing] = useState(false);
   const [title, setTitle] = useState('Tiêu đề môn học');
   const [content, setContent] = useState('Nội dung môn học');
   const [links, setLinks] = useState([]);
+  // Ba tham số cuối ở đây là của tài liệu hướng dẫn, tiêu đề nội dung và link, cái editing là của tớ riêng á
 
   const handleEdit = () => {
     setEditing(!editing);

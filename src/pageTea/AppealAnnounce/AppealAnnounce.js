@@ -5,6 +5,7 @@ import Nav from '../../components/ComponentTea/NavTea/NavTea';
 import './AppealAnnounce.css'
 
 function AppealAnnounce() {
+    // Này thì từ giáo viên cậu tìm ra danh sách các sinh viên gửi phúc khảo cho ổng luôn, ở mọi lớp luôn nha
     const [students, setStudents] = useState([
         { name: 'Nguyễn Văn A', studentID: '123456', course: 'Giải tích 1', courseID: 'MT1003', group: 'L07', appeal: false, isEdited: false },
         { name: 'Trần Thị B', studentID: '234567', course: 'Lập trình web', courseID: 'CS2001', group: 'L10', appeal: true, isEdited: true },

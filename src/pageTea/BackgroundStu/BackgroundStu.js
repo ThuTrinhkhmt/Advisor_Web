@@ -11,6 +11,10 @@ function BackgroundStu() {
     let { studentID } = useParams();
     let { courseID } = useParams();
     let { group } = useParams();
+    //Từ studentID, courseID và group, cậu phải tìm ra sinh viên đó và tiến trình học tập của nó
+    //Ở trang này có nút chỉnh sửa nên cập nhật dữ liệu thường xuyên nè
+
+    //Biến này của tớ
     const gradient = useMemo(() => {
         const ctx = document.createElement('canvas').getContext('2d');
         const gradient = ctx.createLinearGradient(0, 0, 0, 500);
@@ -18,7 +22,7 @@ function BackgroundStu() {
         gradient.addColorStop(1, 'rgba(75, 192, 192, 0)');
         return gradient;
     }, []);
-
+    //Student này nè
     const student = useMemo(() => ({
         name: "Nguyễn Văn A",
         studentID: "SV001",
@@ -27,7 +31,7 @@ function BackgroundStu() {
         faculty: "Khoa Học Máy Tính",
         address: "123 Đường ABC, Quận XYZ, Thành phố ABC"
     }), []);
-
+    //Tiến trình đây nữa
     const [weeklyFeedback ,setWeeklyFeedback] = useState(() => ([
         { week: 1, comment: "Tuần đầu tiên, mọi thứ vẫn diễn ra suôn sẻ.", rating: 4 },
         { week: 2, comment: "Tuần này có một số khó khăn nhưng vẫn hoàn thành được nhiệm vụ.", rating: 5 },
@@ -43,6 +47,7 @@ function BackgroundStu() {
 
     const chartRef = useRef();
     const [editFeedback, setEditFeedback] = useState({});
+    //Hai biến này củng là của tớ
 
     useEffect(() => {
         const ctx = chartRef.current.getContext('2d');
