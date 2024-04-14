@@ -1,21 +1,32 @@
-import React, { Fragment } from 'react';
+import React, { useState, useEffect, Fragment } from 'react';
 import { Link } from 'react-router-dom';
 import Header from '../../components/ComponentTea/HeaderTea/HeaderTea';
 import Footer from '../../components/ComponentTea/FooterTea/FooterTea';
 import Nav from '../../components/ComponentTea/NavTea/NavTea';
 import './ClassListTea.css';
+import { db, ref, get, child } from "../../firebase/firebase.js";
 
 function ClassListTea() {
   // Mảng chứa các đối tượng classInfo
-  const classInfoArray = [
-    { name: 'Giải tích 1', courseID: 'MT1003', group: 'L17' },
-    { name: 'Lập trình web', courseID: 'CS2001', group: 'L18' },
-    { name: 'Toán cao cấp', courseID: 'MT1005', group: 'L19' },
-    { name: 'Giải tích 21', courseID: 'MT1003', group: 'L15' },
-    { name: 'Lập trình web 2', courseID: 'CS2001', group: 'L18' },
-    { name: 'Toán cao cấp 2', courseID: 'MT1005', group: 'L13' },
-  ];
-  classInfoArray.sort((a, b) => a.name.localeCompare(b.name));
+  const [classInfoArray, setClassInfoArray] = useState([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const dbRef = ref(db);
+        const snapshot = await get(child(dbRef, "Course"));
+        const tempArray = [];
+        snapshot.forEach(childSnapshot => {
+          tempArray.push({ name: childSnapshot.val().NameOfCourse, courseID: childSnapshot.val().CodeCourse, group: childSnapshot.val().Description });
+        });
+        tempArray.sort((a, b) => a.name.localeCompare(b.name));
+        setClassInfoArray(tempArray);
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
+    };
+    fetchData();
+  }, []);
 
   // Trong phần render
   return (
