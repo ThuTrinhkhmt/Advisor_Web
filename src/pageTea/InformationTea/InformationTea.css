@@ -3,27 +3,29 @@
     padding: 30px;
     min-height: 500px;
     margin-left: 20%;
+    margin-bottom: 48px;
 }
 
-h1 {
+#InformationPage h1 {
     margin: 32px;
+    margin-bottom: 54px !important;
+    text-align: center;
 }
 
-.row-2 {
+#InformationPage .row-2 {
     display: flex;
     justify-content: space-between;
-    margin-bottom: 10px; /* Khoảng cách giữa các hàng */
+    margin-bottom: 10px;
 }
 
-/* CSS cho lớp col */
-.col {
-    flex: 1; /* Chia đều không gian cho các cột */
+#InformationPage .col {
+    flex: 1;
     margin-left: 32px;
     margin-bottom: 8px;
-    align-items: flex-start; /* Căn nội dung về bên trái */
+    align-items: flex-start;
 }
 
-.img-contain img {
+#InformationPage .img-contain img {
     width: 150px;
     height: auto;
     display: block;
@@ -32,8 +34,8 @@ h1 {
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
 }
 
-.img-contain p {
-    margin: 12px;
+#InformationPage .img-contain p {
+    margin: 36px;
     margin-bottom: 48px;
     display: block;
     text-align: center;
@@ -42,4 +44,55 @@ h1 {
     line-height: 1.5;
     letter-spacing: 2px;
     font-size: 36px;
+}
+#InformationPage button{
+    padding: 8px 16px;
+    font-size: 16px;
+    background-color:  rgb(65, 119, 173);
+    color: #fff; 
+    border: none;
+    border-radius: 4px;
+    cursor: pointer; 
+}
+#InformationPage button:hover{
+    background-color:  rgb(44, 79, 117);
+}
+
+#InformationPage .input-name {
+    width: 50% !important;
+    text-align: center !important; 
+    margin: 0 auto !important;
+    margin-top: 8px !important;
+}
+
+.input-date,
+.input-gender,
+.input-specialization,
+.input-degree,
+.input-position,
+.input-faculty {
+    width: 70% !important;
+    margin-top: 8px !important;
+    display: inline-block;
+    margin-bottom: 0px !important;
+}
+
+#InformationPage .input-address {
+    width : 79% !important;
+    margin-top: 8px !important;
+    display: inline-block
+}
+
+#InformationPage .button-container {
+    display: flex;
+    justify-content: center;
+}
+
+.btn-save,
+.btn-cancel {
+    margin: 0 5px;
+}
+.btn-editer{
+    padding: 8px 16px !important;
+    position: absolute !important;
 }

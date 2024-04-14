@@ -5,9 +5,8 @@ import Footer from '../../components/ComponentTea/FooterTea/FooterTea';
 import Nav from '../../components/ComponentTea/NavTea/NavTea';
 import Chart from 'chart.js/auto';
 import 'chartjs-adapter-date-fns';
-import './BackgroundStu.css';
 
-function BackgroundStu() {
+function text() {
     let { studentID } = useParams();
     let { courseID } = useParams();
     let { group } = useParams();
@@ -28,7 +27,7 @@ function BackgroundStu() {
         address: "123 Đường ABC, Quận XYZ, Thành phố ABC"
     }), []);
 
-    const [weeklyFeedback ,setWeeklyFeedback] = useState(() => ([
+    const weeklyFeedback = useMemo(() => ([
         { week: 1, comment: "Tuần đầu tiên, mọi thứ vẫn diễn ra suôn sẻ.", rating: 4 },
         { week: 2, comment: "Tuần này có một số khó khăn nhưng vẫn hoàn thành được nhiệm vụ.", rating: 5 },
         { week: 3, comment: "Cần cải thiện việc quản lý thời gian trong tuần này.", rating: 4 },
@@ -39,10 +38,10 @@ function BackgroundStu() {
         { week: 8, comment: "Cảm thấy mệt mỏi nhưng vẫn tiếp tục phấn đấu.", rating: 3 },
         { week: 9, comment: "Cần thêm sự tổ chức trong lịch làm việc của mình.", rating: 0 },
         { week: 10, comment: "Hoàn thành mọi nhiệm vụ một cách xuất sắc.", rating: 2 }
-    ]));
+    ]), []);
 
     const chartRef = useRef();
-    const [editFeedback, setEditFeedback] = useState({});
+    const [editFeedback, setEditFeedback] = useState({ week: null, comment: "", rating: 0 });
 
     useEffect(() => {
         const ctx = chartRef.current.getContext('2d');
@@ -87,7 +86,7 @@ function BackgroundStu() {
             plugins: {
                 title: {
                     display : true,
-                    text: "Tiến trình học tập",
+                  text: "Tiến trình học tập",
                 }
             }
         });
@@ -96,41 +95,25 @@ function BackgroundStu() {
     }, []);
 
     const handleEditWeek = (week, comment, rating) => {
-        setEditFeedback({ ...editFeedback, [week]: { ...editFeedback[week], comment: comment, rating: rating, editing: true } });
+        setEditFeedback({ week, comment, rating });
     };
 
-    const handleSaveWeek = (week) => {
-        const updatedFeedback = weeklyFeedback.map(item => {
-            if (item.week === week) {
-                return { ...item, comment: editFeedback[week].comment, rating: editFeedback[week].rating };
-            } else {
-                return item;
-            }
-        });
-        setWeeklyFeedback(updatedFeedback);
-        setEditFeedback({ ...editFeedback, [week]: false });
+    const handleSaveWeek = () => {
+        // Lưu dữ liệu chỉnh sửa
+        console.log(editFeedback);
+        setEditFeedback({ week: null, comment: "", rating: 0 });
     };
 
-    const handleCancelEdit = (week) => {
-        setEditFeedback({ ...editFeedback, [week]: false });
-    };
-
-    const handleAddWeek = () => {
-        const newWeek = { week: weeklyFeedback.length + 1, comment: "", rating: 0 };
-        setWeeklyFeedback([...weeklyFeedback, newWeek]);
-    };
-
-    const handleDeleteWeek = () => {
-        if (weeklyFeedback.length > 0) {
-            setWeeklyFeedback(weeklyFeedback.slice(0, -1));
-        }
+    const handleCancelEdit = () => {
+        // Hủy bỏ chỉnh sửa
+        setEditFeedback({ week: null, comment: "", rating: 0 });
     };
     
     return (
         <Fragment>
             <Header />
             <Nav key='Nav' />
-            <div className="pageBackground">
+            <div className="page">
                 <h1>Thông Tin Sinh Viên</h1>
                 <div className="img-contain">
                     <img src="../../../img/avt.jpg" alt="Avatar" />
@@ -141,7 +124,7 @@ function BackgroundStu() {
                         <strong>Ngày sinh:</strong> {student.dateOfBirth}
                     </div>
                     <div className="col">
-                        <strong>Giới tính:</strong> {student.gender}
+                    <strong>Giới tính:</strong> {student.gender}
                     </div>
                 </div>
                 <div className="row-2">
@@ -161,55 +144,38 @@ function BackgroundStu() {
                 <h1>Tiến trình học tập</h1>
                 <div className="Study-containt">
                     <ul>
-                    {weeklyFeedback.map((item, index) => (
-                        <li key={index}>
-                            <div>
-                                <p className = 'content-11'><strong>Tuần:</strong> {item.week}</p>
-                                {editFeedback[item.week] ? ( // Kiểm tra trạng thái chỉnh sửa của ô tương ứng
-                                    <div className = "btn-div">
-                                        <p className = 'content-22'><strong>Nhận xét:</strong></p>
+                        {weeklyFeedback.map((item, index) => (
+                            <li key={index}>
+                                <div><strong>Tuần :</strong> {item.week}</div>
+                                {editFeedback.week === item.week ? (
+                                    <div>
+                                        <label>Nhận xét:</label>
                                         <input
-                                            className = "input-content"
                                             type="text"
-                                            value={editFeedback[item.week].comment}
-                                            onChange={(e) => setEditFeedback({ ...editFeedback, [item.week]: { ...editFeedback[item.week], comment: e.target.value } })}
+                                            value={editFeedback.comment}
+                                            onChange={(e) => setEditFeedback({ ...editFeedback, comment: e.target.value })}
                                         />
-                                        <div className="parent-container">
-                                        <p className = 'content-23'>
-                                            <strong>Điểm:</strong>
-                                            </p>
+                                        <label>Điểm:</label>
                                         <input
-                                            className = "input-score"
                                             type="number"
-                                            value={editFeedback[item.week].rating}
-                                            onChange={(e) => setEditFeedback({ ...editFeedback, [item.week]: { ...editFeedback[item.week], rating: parseInt(e.target.value) } })}
+                                            value={editFeedback.rating}
+                                            onChange={(e) => setEditFeedback({ ...editFeedback, rating: parseInt(e.target.value) })}
                                         />
-                                        </div>
-                                        <button className="btn-edit1" onClick={() => handleSaveWeek(item.week)}>Lưu</button>
-                                        <button className="btn-edit2" onClick={() => handleCancelEdit(item.week)}>Hủy</button>
+                                        <button onClick={() => handleSaveWeek()}>Lưu</button>
+                                        <button className = "btn-edit2" onClick={() => handleCancelEdit()}>Hủy</button>
                                     </div>
                                 ) : (
-                                    <div className = "btn-div">
-                                        <div className='comment-container'>
-                                            <p className = 'content-12'><strong>Nhận xét:</strong> {item.comment}</p>
-                                        </div>
+                                    <div>
+                                        <strong>Nhận xét :</strong> {item.comment}
                                         <br />
-                                        <p className = 'content-13'><strong >
-                                            Điểm:</strong> {item.rating + '/5'}</p>
+                                        <strong>Điểm :</strong> {item.rating + '/5'}
                                         <br />
-                                        <div className="button-container">
-                                            <button className="btn-editing" onClick={() => handleEditWeek(item.week, item.comment, item.rating)}>Chỉnh sửa</button>
-                                        </div>
+                                        <button className = "btn-edit" onClick={() => handleEditWeek(item.week, item.comment, item.rating)}>Chỉnh sửa</button>
                                     </div>
                                 )}
-                            </div>
-                        </li>
-                    ))}
+                            </li>
+                        ))}
                     </ul>
-                    <div className="button-container2">
-                        <button className="btn-add" onClick={handleAddWeek}>Thêm</button>
-                        <button className="btn-delete" onClick={handleDeleteWeek}>Xóa</button>
-                    </div>
                 </div>
                 <div className="empty"></div>
                 <div className="chart">
@@ -222,4 +188,4 @@ function BackgroundStu() {
     );
 }
 
-export default BackgroundStu;
+export default text;

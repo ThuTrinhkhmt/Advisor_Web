@@ -1,0 +1,66 @@
+#pageAppeal{
+    margin-top : 50px;
+    margin-left: 20%;
+    padding : 30px;
+    min-height: 500px;
+}
+#pageAppeal h1{
+    text-align: center;
+    margin-bottom: 100px;
+}
+#pageAppeal .student-info {
+    font-size: 18px;
+    background-color: #f2f2f2;
+    padding: 20px;
+    margin-bottom: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin-left: 36px;
+    margin-top: 48px;
+    width : 90%;
+    position: relative;
+}
+#pageAppeal .student-info input[type="checkbox"] {
+    margin-top: 10px;
+    margin-left: 0;
+}
+
+#pageAppeal .student-info input[type="checkbox"]:checked {
+    background-color: #4CAF50; /* Màu xanh lá */
+    border-color: #4CAF50; /* Màu viền xanh lá */
+}
+
+#pageAppeal .student-info p {
+    margin: 10px 0;
+    font-size: 18px;
+}
+
+#pageAppeal .student-info p strong {
+    font-weight: bold;
+}
+#pageAppeal .sticky-button {
+    pointer-events: none;
+    transform: scale(1.5);
+    position: absolute;
+    top: 10px; 
+    right: 24px;
+}
+#pageAppeal .student-info p:first-child{
+    margin-top: 24px !important;
+}
+#pageAppeal .name-studentID {
+    display: flex;
+    align-items: center;
+}
+#pageAppeal .row1{
+    display: inline-block;
+    margin-top: 24px;
+    margin-left:36px;
+}
+#pageAppeal .col2{
+    width : 340px;
+    margin-bottom: 24px;
+}
+#pageAppeal .col2:nth-child(even){
+    margin-bottom: 12px;
+}

@@ -7,7 +7,7 @@ import Information1 from './pageStu/InformationStu/InformationStu';
 import CourseRegistation1 from './pageStu/CourseRegistationStu/CourseRegistationStu';
 import GradeAppeal1 from './pageStu/GradeAppealStu/GradeAppealStu';
 import Home2 from './pageTea/HomeTea/HomeTea';
-import CreateClass2 from './pageTea/CreateClass/CreateClass';
+import AppealAnnounce from './pageTea/AppealAnnounce/AppealAnnounce';
 import ClassList2 from './pageTea/ClassListTea/ClassListTea';
 import Information2 from './pageTea/InformationTea/InformationTea';
 import StudentServer from './loginPage/StudentServer/StudentServer';
@@ -37,7 +37,7 @@ function App() {
           <Route path="/Tea" element={<Home2 />} />
           <Route path="/informationTea" element={<Information2 />} />
           <Route path="/classListTea" element={<ClassList2 />} />
-          <Route path="/createClass" element={<CreateClass2 />} />
+          <Route path="/AppealAnnounce" element={<AppealAnnounce />} />
           <Route path="/course/:courseID" element={<CourseView />} />
           <Route path="/course/:courseID/:group" element={<ClassGrade />} />
           <Route path="/course/:courseID/:group/:studentID" element={<BackgroundStu />} />

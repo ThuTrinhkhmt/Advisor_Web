@@ -1,41 +1,146 @@
-.page{
-    margin-top : 50px;
-    margin-left: 20%;
-    padding : 30px;
-    min-height: 500px;
+.pageView {
+  margin-top: 50px;
+  padding: 30px;
+  min-height: 500px;
+  margin-left: 24%;
+  margin-bottom: 36px;
 }
-.page h1{
-    color : rgb(103, 108, 112);
-    text-transform: uppercase;
-    margin-bottom: 12px;
-    font-weight: 650;
-    line-height : 32px;
-    font-size:  27px;
+
+.pageView .course-info {
+  background-color :white;
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  min-height: 600px;
+  margin-top: 36px;
+  margin-left: 42px;
 }
-  
-table {
+
+.pageView .course-info h1 {
+  font-size: 36px;
+  margin-bottom: 60px;
+  text-align: center;
+}
+
+.pageView .course-info p {
+  font-size: 18px !important;
+  line-height: 1.6;
+  text-align: justify;
+  padding-right: 36px;
+}
+
+.pageView .links h3 {
+  font-size: 20px;
+  margin-bottom: 10px;
+  transform: translateX(-35px);
+}
+
+.pageView .links a{
+  font-size: 18px;
+  margin-bottom: 10px;
+  transform: translateX();
+  text-decoration: none;
+  color: #007bff;
+  display: block;
+}
+
+.pageView .course-info div{
+  margin-left: 30px;
+  font-size: 18px;
+}
+
+.pageView input[type="text"] {
   width: 100%;
-  border-collapse: collapse;
-}
-
-table th, table td {
+  margin-right: 10px;
+  margin-bottom: 24px;
   padding: 8px;
-  text-align: left;
-  border: 1px solid #ddd; /* Thêm đường kẻ cột */
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  display: block;
+}
+.pageView input[type="text"]:last-child {
+  margin-top: 0;
+}
+.pageView input[type="text"]:nth-child(odd) {
+  margin-top: 10px;
+  margin-bottom: 8px;
+}
+.pageView input[type="text"]:nth-child(even) {
+  margin-top: 0;
+}
+.pageView .quill{
+  height : 300px;
+  width : 94%;
+  display: block;
+  margin-bottom: 24px;
+  margin-top: 18px !important;
+  margin-left: -4px !important;
+  overflow: hidden;
 }
 
-table th {
-  background-color: #f2f2f2;
+.pageView h3{
+  margin: 36px;
+  display: block;
+  overflow: hidden;
 }
 
-table tr:nth-child(even) {
-  background-color: #f2f2f2;
+.pageView input{
+  width: 90% !important;
+  margin-bottom: 10px;
+  margin-top: 10px;
+  margin-left: 24px;
+  padding: 4px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  display: block;
 }
 
-table tr:hover {
-  background-color: #ddd;
+.pageView .links input[type="text"]:focus {
+  border-color: #007bff;
 }
-  .centerTable{
-    align-items: center;
-    text-align: center;
-  }
+
+.pageView .btn {
+  padding: 10px 20px;
+  font-size: 16px;
+  background-color: rgb(65, 119, 173);
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  float: right;
+  transform: translateX(-40px);
+  margin-top: 24px;
+  margin-bottom: 36px;
+}
+.pageView .link-btn {
+  margin-right: 10px;
+  cursor: pointer;
+}
+
+.pageView .btn:hover {
+  background-color: rgb(54, 118, 118);
+}
+
+.pageView .save-btn:hover {
+  background-color: rgb(54, 118, 118);
+}
+
+.pageView .save-btn {
+  padding: 10px 20px;
+  font-size: 16px;
+  background-color: rgb(75, 192, 192);
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  float: left;
+  margin-top: 24px;
+  margin-bottom: 36px;
+  transform: translateX(70px);
+}
+
+.pageView .add-link-btn {
+  float: left;
+}

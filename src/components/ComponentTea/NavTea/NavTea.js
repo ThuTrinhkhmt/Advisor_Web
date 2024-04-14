@@ -18,8 +18,8 @@ function NavTea() {
             </Link>
           </li>
           <li>
-            <Link to="/createClass">
-              <i className="ti-check-box"></i> Tạo lớp học
+            <Link to="/AppealAnnounce">
+              <i className="ti-check-box"></i> TBao phúc khảo
             </Link>
           </li>
           <li>

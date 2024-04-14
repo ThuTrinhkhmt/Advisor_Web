@@ -1,10 +1,10 @@
-.page{
+.pageGradeClass{
     margin-top : 50px;
     margin-left: 22%;
     padding : 30px;
     min-height: 500px;
 }
-.page h1 {
+.pageGradeClass h1 {
   color : #3e678f;
   text-transform: uppercase;
   margin-top: 24px;
@@ -16,29 +16,87 @@
   text-align: center;
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2); /* Thêm shadow */
 }
-
-.page td a{
+.pageGradeClass td a{
   text-decoration: none;
   color : black
 }
   
-table {
+.pageGradeClass table {
   width: 100%;
   border-collapse: collapse;
 }
 
-table th, table td {
+.pageGradeClass table th, table td {
   padding: 8px;
   text-align: left;
-  border: 1px solid #ddd; /* Thêm đường kẻ cột */
+  border: 1px solid #ddd;
+  font-size: 18px;
 }
 
-table th {
+.pageGradeClass table th {
   background-color: #f2f2f2;
 }
-
-.color-draw{
+.pageGradeClass thead th {
+  font-size: 18px;
+}
+.pageGradeClass .color-draw{
   background: linear-gradient(to bottom, rgba(38, 129, 129, 0.5), rgba(38, 129, 129, 0.8));
   color : white;
 }
 
+.pageGradeClass .editable:hover{
+  background-color: #f2f2f2;
+}
+.pageGradeClass .color-btn{
+  background-color :rgba(38, 129, 129, 0.5);
+}
+.pageGradeClass .btn{
+  border: none;
+  background-color: none;
+}
+.pageGradeClass .btn-contain{
+  padding: 0;
+}
+.pageGradeClass edit-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer; 
+  background: transparent;
+  
+}
+.pageGradeClass .hover-btn:hover {
+  background-color: #f2f2f2;
+}
+.pageGradeClass table tr:nth-child(even) {
+  background-color: #ffffff; /* Màu trắng */
+}
+.pageGradeClass table tr:nth-child(odd) {
+  background-color: #ffffff; /* Màu trắng */
+}
+.pageGradeClass .editable {
+  cursor: pointer;
+  padding: 4px;
+  width : 140px;
+}
+.pageGradeClass .dif{
+  cursor: pointer;
+  padding: 4px;
+  width : 180px;
+}
+.pageGradeClass .input-update {
+  margin: 0 !important;
+  width: 130px !important; 
+  height: 30px !important;
+}
+.pageGradeClass .input-update1{
+  margin: 0 !important;
+  width: 170px !important;
+  height: 30px !important;
+}
+.pageGradeClass .edited {
+  background-color: rgba(255, 0, 0, 0.5)
+}
+.pageGradeClass .centerTable{
+  text-align: center;
+}

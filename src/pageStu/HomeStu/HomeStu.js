@@ -60,7 +60,7 @@ function HomeStu() {
                 </p>
             </div>
             <h2 className="section-heading">Sơ đồ khoa</h2>
-            <img className = "hcmut" src = {hcmutImg1} alt = "hcmut"></img>
+            {/* <img className = "hcmut" src = {hcmutImg1} alt = "hcmut"></img> */}
             <img className = "hcmut"src = {hcmutImg2} alt = "hcmut"></img>
         </div>
             <Footer />

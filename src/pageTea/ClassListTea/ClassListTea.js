@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, useState } from 'react';
 import { Link } from 'react-router-dom';
 import Header from '../../components/ComponentTea/HeaderTea/HeaderTea';
 import Footer from '../../components/ComponentTea/FooterTea/FooterTea';
@@ -7,14 +7,14 @@ import './ClassListTea.css';
 
 function ClassListTea() {
   // Mảng chứa các đối tượng classInfo
-  const classInfoArray = [
+  const [classInfoArray, setClassInfoArray] = useState([
     { name: 'Giải tích 1', courseID: 'MT1003', group: 'L17' },
     { name: 'Lập trình web', courseID: 'CS2001', group: 'L18' },
     { name: 'Toán cao cấp', courseID: 'MT1005', group: 'L19' },
     { name: 'Giải tích 21', courseID: 'MT1003', group: 'L15' },
     { name: 'Lập trình web 2', courseID: 'CS2001', group: 'L18' },
     { name: 'Toán cao cấp 2', courseID: 'MT1005', group: 'L13' },
-  ];
+  ]);
   classInfoArray.sort((a, b) => a.name.localeCompare(b.name));
 
   // Trong phần render

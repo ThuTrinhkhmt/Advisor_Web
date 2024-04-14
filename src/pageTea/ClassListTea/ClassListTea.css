@@ -1,39 +1,39 @@
 #CListPage{
-    margin-top : 50px;
-    margin-left: 20%;
-    padding : 30px;
+    margin-top: 50px;
+    padding: 30px;
     min-height: 500px;
+    margin-left: 24%;
+    margin-bottom: 36px;
 }
 
 #CListPage .title{
     border-bottom: solid 0.67px;
     border-bottom-color: rgba(0, 0, 0, 0.125);
     padding : 0 0 8px 0;
+    text-align: center;
 }
 
 #CListPage h1{
-    color : rgb(103, 108, 112);
-    text-transform: uppercase;
     font-weight: 650;
     line-height : 32px;
-    font-size:  27px;
-    padding-top: 8px;
-    padding-bottom :  8px;
+    font-size:  32px;
+    margin-bottom: 0;
+    text-align: center;
 }
 
-
-#CListPage h1,
 #CListPage h2 {
     display: block;
-    margin: 12px;
+    margin-top: 24px;
+    margin-bottom: 8px;
     width: 100%;
+    text-align: center;
 }
 
 #CListPage h2{
-    color : rgb(103, 108, 112);
+    color : black;
     font-weight: 600;
     font-size: 18px;
-    line-height: 22px;
+    line-height: 25px;
     padding-bottom :  12px;
 }
 
@@ -57,10 +57,12 @@ ul{
 
 .ClassInfo {
     padding-bottom: 4px;
+    font-size: 18px;
 }
 
 .ClassGroup{
     padding-bottom: 15px;
+    font-size: 18px;
 }
 
 #CListPage a{

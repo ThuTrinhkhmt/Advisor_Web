@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React, { useState, useRef } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import Header from '../../components/ComponentTea/HeaderTea/HeaderTea';
 import Footer from '../../components/ComponentTea/FooterTea/FooterTea';
@@ -7,139 +7,160 @@ import './ClassGrade.css';
 
 function ClassGrade() {
     let { courseID, group } = useParams();
+    const [students, setStudents] = useState([
+        {
+            name: "John Doe",
+            studentID: "1235456",
+            componentScore: "KT:8 BTL:7 TN:8.5",
+            examScore: 7.5,
+            totalScore: 9.0,
+            isEditing: false,
+            isEdited: false
+        },
+        {
+            name: "Peter Scale",
+            studentID: "2213412",
+            componentScore: "KT:8.5 BTL:4 TN:8.8",
+            examScore: 9.0,
+            totalScore: 8.5,
+            isEditing: false,
+            isEdited: false
+        },
+        {
+            name: "Jane Smith",
+            studentID: "3456789",
+            componentScore: "KT:7 BTL:6.5 TN:8",
+            examScore: 8.5,
+            totalScore: 8.0,
+            isEditing: false,
+            isEdited: false
+        },
+        {
+            name: "Emily Johnson",
+            studentID: "4567890",
+            componentScore: "KT:8 BTL:7 TN:6.5",
+            examScore: 7.0,
+            totalScore: 7.5,
+            isEditing: false,
+            isEdited: false
+        },
+        {
+            name: "Michael Williams",
+            studentID: "5678901",
+            componentScore: "KT:7.5 BTL:8 TN:7.5",
+            examScore: 8.0,
+            totalScore: 8.0,
+            isEditing: false,
+            isEdited: false
+        },
+        {
+            name: "Jessica Brown",
+            studentID: "6789012",
+            componentScore: "KT:8.5 BTL:7 TN:8",
+            examScore: 8.5,
+            totalScore: 8.5,
+            isEditing: false,
+            isEdited: false
+        },
+        {
+            name: "Christopher Lee",
+            studentID: "7890123",
+            componentScore: "KT:7 BTL:6.5 TN:7",
+            examScore: 7.5,
+            totalScore: 7.0,
+            isEditing: false,
+            isEdited: false
+        },
+        {
+            name: "Amanda Taylor",
+            studentID: "8901234",
+            componentScore: "KT:8 BTL:7.5 TN:8",
+            examScore: 7.5,
+            totalScore: 8.0,
+            isEditing: false,
+            isEdited: false
+        },
+        {
+            name: "David Martinez",
+            studentID: "9012345",
+            componentScore: "KT:7.5 BTL:8 TN:8",
+            examScore: 7.5,
+            totalScore: 8.0,
+            isEditing: false,
+            isEdited: false
+        },
+        {
+            name: "Ashley Garcia",
+            studentID: "0123456",
+            componentScore: "KT:8 BTL:8 TN:8",
+            examScore: 8.0,
+            totalScore: 8.0,
+            isEditing: false,
+            isEdited: false
+        }
+    ]);
+    const prevStudents = useRef([...students]);
+    const [unsavedChanges, setUnsavedChanges] = useState(false);
+    const [editMode, setEditMode] = useState(false);
+    const [editingIndex, setEditingIndex] = useState(null);
 
-    const students = [
-      {
-        name: "John Doe",
-        studentID: "1235456",
-        componentScore: "KT:8 BTL:7 TN:8.5",
-        examScore: 7.5,
-        totalScore: 9.0
-      },
-      {
-        name: "Render Smith",
-        studentID: "7890612",
-        componentScore: "KT:7.5 BTL:6 TN:7.8",
-        examScore: 8.0,
-        totalScore: 8.5
-      },
-      {
-        name: "Mike Johnson",
-        studentID : "4345678",
-        componentScore: "KT:9.5 BTL:6.5 TN:9",
-        examScore: 6.5,
-        totalScore: 7.3
-      },
-      {
-        name: "Alibaba Grande",
-        studentID: "9961342",
-        componentScore: "KT:6 BTL:7 TN:9",
-        examScore: 10,
-        totalScore: 9.4
-      },
-      {
-        name: "Peter Scale",
-        studentID: "2213412",
-        componentScore: "KT:8.5 BTL:4 TN:8.8",
-        examScore: 9.0,
-        totalScore: 8.5
-      },
-      {
-        name: "Bob Jashon",
-        studentID : "2213413",
-        componentScore: "KT:9.5 BTL:10 TN:9",
-        examScore: 9,
-        totalScore: 9.4
-      },
-      {
-        name: "John Doe",
-        studentID: "1235456",
-        componentScore: "KT:8 BTL:7 TN:8.5",
-        examScore: 7.5,
-        totalScore: 9.0
-      },
-      {
-        name: "Render Smith",
-        studentID: "7890612",
-        componentScore: "KT:7.5 BTL:6 TN:7.8",
-        examScore: 8.0,
-        totalScore: 8.5
-      },
-      {
-        name: "Mike Johnson",
-        studentID : "4345678",
-        componentScore: "KT:9.5 BTL:6.5 TN:9",
-        examScore: 6.5,
-        totalScore: 7.3
-      },
-      {
-        name: "Alibaba Grande",
-        studentID: "9961342",
-        componentScore: "KT:6 BTL:7 TN:9",
-        examScore: 10,
-        totalScore: 9.4
-      },
-      {
-        name: "Peter Scale",
-        studentID: "2213412",
-        componentScore: "KT:8.5 BTL:4 TN:8.8",
-        examScore: 9.0,
-        totalScore: 8.5
-      },
-      {
-        name: "Bob Jashon",
-        studentID : "2213413",
-        componentScore: "KT:9.5 BTL:10 TN:9",
-        examScore: 9,
-        totalScore: 9.4
-      },
-      {
-        name: "John Doe",
-        studentID: "1235456",
-        componentScore: "KT:8 BTL:7 TN:8.5",
-        examScore: 7.5,
-        totalScore: 9.0
-      },
-      {
-        name: "Render Smith",
-        studentID: "7890612",
-        componentScore: "KT:7.5 BTL:6 TN:7.8",
-        examScore: 8.0,
-        totalScore: 8.5
-      },
-      {
-        name: "Mike Johnson",
-        studentID : "4345678",
-        componentScore: "KT:9.5 BTL:6.5 TN:9",
-        examScore: 6.5,
-        totalScore: 7.3
-      },
-      {
-        name: "Alibaba Grande",
-        studentID: "9961342",
-        componentScore: "KT:6 BTL:7 TN:9",
-        examScore: 10,
-        totalScore: 9.4
-      },
-      {
-        name: "Peter Scale",
-        studentID: "2213412",
-        componentScore: "KT:8.5 BTL:4 TN:8.8",
-        examScore: 9.0,
-        totalScore: 8.5
-      },
-    ];
+    const handleChange = (event, index) => {
+        const { name, value } = event.target;
+        const updatedStudents = [...students];
+        updatedStudents[index][name] = value;
+        setStudents(updatedStudents);
+        setUnsavedChanges(true);
+    };
 
-    students.sort((a, b) => a.name.localeCompare(b.name));
+    const handleEditScore = (index) => {
+        prevStudents.current = [...students]; // Lưu trạng thái trước khi chỉnh sửa
+        const updatedStudents = [...students];
+        updatedStudents[index] = {
+            ...updatedStudents[index],
+            isEditing: true
+        };
+        setStudents(updatedStudents);
+        setUnsavedChanges(true);
+        setEditMode(true);
+        setEditingIndex(index);
+    };
+    
+    const handleSaveScore = (index) => {
+        if (window.confirm("Bạn có muốn cập nhật điểm không?")) {
+            const updatedStudents = [...students];
+            updatedStudents[index].isEditing = false;
+            updatedStudents[index].isEdited = true;
+            setStudents(updatedStudents);
+            setUnsavedChanges(false);
+        } else {
+            setStudents([...prevStudents.current]); // Khôi phục lại trạng thái trước khi chỉnh sửa
+            setUnsavedChanges(false);
+        }
+        setEditMode(false);
+    };
+
+    const handleBlur = (index) => {
+        if (window.confirm("Bạn có muốn cập nhật điểm không?")) {
+            const updatedStudents = [...students];
+            updatedStudents[index].isEditing = false;
+            updatedStudents[index].isEdited = true;
+            setStudents(updatedStudents);
+            setUnsavedChanges(false);
+        } else {
+            setStudents([...prevStudents.current]);
+            setUnsavedChanges(false);
+        }
+        setEditMode(false);
+    };
 
     return (
-        <Fragment>
+        <>
             <Header />
             <Nav key='Nav' />
-            <div className="page">
+            <div className="pageGradeClass">
                 <h1>Bảng điểm môn {courseID} lớp {group}</h1>
                 <table>
-                    <thead >
+                    <thead>
                         <tr>
                             <th className="color-draw centerTable">STT</th>
                             <th className="color-draw centerTable">Tên</th>
@@ -147,26 +168,86 @@ function ClassGrade() {
                             <th className="color-draw centerTable">Điểm thành phần</th>
                             <th className="color-draw centerTable">Điểm thi</th>
                             <th className="color-draw centerTable">Điểm tổng kết</th>
+                            <th className="color-draw centerTable">Sửa Điểm</th>
                         </tr>
                     </thead>
                     <tbody>
                         {students.map((student, index) => (
                             <tr key={index}>
-                                <td className="centerTable">{index + 1}</td>
-                                <td>
-                                    <Link to={`/course/${courseID}/${group}/${student.studentID}`}>{student.name}</Link>
+                                <td className={`centerTable ${student.isEdited ? 'edited' : ''}`}>
+                                        {index + 1}</td>
+                                <td className={`${student.isEdited ? 'edited' : ''}`}>
+                                    <Link to={`/course/${courseID}/${group}/${student.studentID}`}>
+                                        {student.name}</Link>
                                 </td>
-                                <td className="centerTable">{student.studentID}</td>
-                                <td>{student.componentScore}</td>
-                                <td className="centerTable">{student.examScore}</td>
-                                <td className="centerTable">{student.totalScore}</td>
+                                <td className={`centerTable ${student.isEdited ? 'edited' : ''}`}>
+                                    {student.studentID}</td>
+                                <td
+                                    className={`${student.isEdited ? 'edited' : ''}`}
+                                >
+                                    {student.isEditing && editMode && editingIndex === index ? (
+                                        <input
+                                            className='input-update1'  
+                                            type="text"
+                                            name="componentScore"
+                                            value={student.componentScore}
+                                            onChange={(event) => handleChange(event, index)}
+                                            onBlur={() => handleBlur(index)}
+                                        />
+                                    ) : (
+                                        student.componentScore
+                                    )}
+                                </td>
+                                <td
+                                    className={`centerTable ${
+                                        student.isEdited ? 'edited' : ''
+                                    }`}
+                                >
+                                    {student.isEditing && editMode && editingIndex === index ? (
+                                        <input
+                                            className='input-update'
+                                            type="text"
+                                            name="examScore"
+                                            value={student.examScore}
+                                            onChange={(event) => handleChange(event, index)}
+                                            onBlur={() => handleBlur(index)}
+                                        />
+                                    ) : (
+                                        student.examScore
+                                    )}
+                                </td>
+                                <td
+                                    className={`centerTable ${
+                                        student.isEdited ? 'edited' : ''
+                                    }`}
+                                >
+                                    {student.isEditing && editMode && editingIndex === index ? (
+                                        <input
+                                            type="text"
+                                            className='input-update'
+                                            name="totalScore"
+                                            value={student.totalScore}
+                                            onChange={(event) => handleChange(event, index)}
+                                            onBlur={() => handleBlur(index)}
+                                        />
+                                    ) : (
+                                        student.totalScore
+                                    )}
+                                </td>
+                                <td className={`centerTable hover-btn ${student.isEdited ? 'edited' : ''}`}>
+                                    {student.isEditing && editMode && editingIndex === index ? (
+                                        <div className="edit-button" onClick={() => handleSaveScore(index)}>O</div>
+                                    ) : (
+                                        <div className="edit-button" onClick={() => handleEditScore(index)}>X</div>
+                                    )}
+                                </td>
                             </tr>
                         ))}
                     </tbody>
                 </table>
             </div>
             <Footer />
-        </Fragment>
+        </>
     );
 }
 

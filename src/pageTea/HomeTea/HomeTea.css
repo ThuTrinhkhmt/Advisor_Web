@@ -3,34 +3,35 @@
     margin-left: 20%;
     padding : 30px;
     min-height: 500px;
+    margin-bottom: 32px;
 }
 
-.swiper-container {
+#HomePage .swiper-container {
     position: relative;
     width: 100%;
     height: 400px; 
     z-index: 0;
 }
 
-.swiper-slide img {
+#HomePage .swiper-slide img {
     width: 100%;
     height: 100%;
     object-fit: cover;
     position: relative;
 }
 
-.swiper-slide {
+#HomePage .swiper-slide {
     transition: transform 0.5s ease;
 }
 
-.content-section {
+#HomePage .content-section {
     padding: 64px 16px;
     margin: 0 auto 0 auto;
     width: 800px;
     overflow: hidden;
 }
 
-.section-heading {
+#HomePage .section-heading {
     text-transform: uppercase;
     font-size: 30px;
     letter-spacing: 4px;
@@ -42,7 +43,7 @@
 }
 
 
-.section-sub-heading{
+#HomePage .section-sub-heading{
     font-style : italic;
     opacity : 0.6;
     margin : 10px 0;
@@ -50,14 +51,14 @@
     font-size : 15px;
 }
 
-.about-text{
+#HomePage .about-text{
     text-align: justify;
     font-size : 18px;
     margin : 16px 0;
     line-height: 1.4;
 }
 
-.hcmut {
+#HomePage .hcmut {
     width: 80%;
     height: auto;
     margin-top: 36px;
