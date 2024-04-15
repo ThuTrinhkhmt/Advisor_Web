@@ -9,7 +9,6 @@ import { db, ref, get, child } from "../../firebase/firebase.js";
 function ClassListTea() {
   // Mảng chứa các đối tượng classInfo
   const [classInfoArray, setClassInfoArray] = useState([]);
-  //m bi khung
 
   useEffect(() => {
     const fetchData = async () => {
