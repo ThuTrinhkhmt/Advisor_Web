@@ -17,7 +17,7 @@ function ClassGrade() {
             examScore: 7.5,
             totalScore: 9.0,
             isEditing: false,
-            isEdited: false
+            isEdited: 0
         },
         {
             name: "Peter Scale",
@@ -26,7 +26,7 @@ function ClassGrade() {
             examScore: 9.0,
             totalScore: 8.5,
             isEditing: false,
-            isEdited: false
+            isEdited: 0
         },
         {
             name: "Jane Smith",
@@ -35,7 +35,7 @@ function ClassGrade() {
             examScore: 8.5,
             totalScore: 8.0,
             isEditing: false,
-            isEdited: false
+            isEdited: 0
         },
         {
             name: "Emily Johnson",
@@ -44,7 +44,7 @@ function ClassGrade() {
             examScore: 7.0,
             totalScore: 7.5,
             isEditing: false,
-            isEdited: false
+            isEdited: 0
         },
         {
             name: "Michael Williams",
@@ -53,7 +53,7 @@ function ClassGrade() {
             examScore: 8.0,
             totalScore: 8.0,
             isEditing: false,
-            isEdited: false
+            isEdited: 0
         },
         {
             name: "Jessica Brown",
@@ -62,7 +62,7 @@ function ClassGrade() {
             examScore: 8.5,
             totalScore: 8.5,
             isEditing: false,
-            isEdited: false
+            isEdited: 0
         },
         {
             name: "Christopher Lee",
@@ -71,7 +71,7 @@ function ClassGrade() {
             examScore: 7.5,
             totalScore: 7.0,
             isEditing: false,
-            isEdited: false
+            isEdited: 0
         },
         {
             name: "Amanda Taylor",
@@ -80,7 +80,7 @@ function ClassGrade() {
             examScore: 7.5,
             totalScore: 8.0,
             isEditing: false,
-            isEdited: false
+            isEdited: 0
         },
         {
             name: "David Martinez",
@@ -89,7 +89,7 @@ function ClassGrade() {
             examScore: 7.5,
             totalScore: 8.0,
             isEditing: false,
-            isEdited: false
+            isEdited: 0
         },
         {
             name: "Ashley Garcia",
@@ -98,7 +98,7 @@ function ClassGrade() {
             examScore: 8.0,
             totalScore: 8.0,
             isEditing: false,
-            isEdited: false
+            isEdited: 0
         }
     ]);
     const prevStudents = useRef([...students]);
@@ -131,7 +131,7 @@ function ClassGrade() {
         if (window.confirm("Bạn có muốn cập nhật điểm không?")) {
             const updatedStudents = [...students];
             updatedStudents[index].isEditing = false;
-            updatedStudents[index].isEdited = true;
+            updatedStudents[index].isEdited++;
             setStudents(updatedStudents);
             setUnsavedChanges(false);
         } else {
@@ -145,7 +145,7 @@ function ClassGrade() {
         if (window.confirm("Bạn có muốn cập nhật điểm không?")) {
             const updatedStudents = [...students];
             updatedStudents[index].isEditing = false;
-            updatedStudents[index].isEdited = true;
+            updatedStudents[index].isEdited++;
             setStudents(updatedStudents);
             setUnsavedChanges(false);
         } else {
@@ -176,16 +176,16 @@ function ClassGrade() {
                     <tbody>
                         {students.map((student, index) => (
                             <tr key={index}>
-                                <td className={`centerTable ${student.isEdited ? 'edited' : ''}`}>
+                                <td className={`centerTable ${student.isEdited >= 2 ? 'edited' : ''}`}>
                                         {index + 1}</td>
-                                <td className={`${student.isEdited ? 'edited' : ''}`}>
+                                <td className={`${student.isEdited >= 2 ? 'edited' : ''}`}>
                                     <Link to={`/course/${courseID}/${group}/${student.studentID}`}>
                                         {student.name}</Link>
                                 </td>
-                                <td className={`centerTable ${student.isEdited ? 'edited' : ''}`}>
+                                <td className={`centerTable ${student.isEdited >= 2 ? 'edited' : ''}`}>
                                     {student.studentID}</td>
                                 <td
-                                    className={`${student.isEdited ? 'edited' : ''}`}
+                                    className={`${student.isEdited >= 2 ? 'edited' : ''}`}
                                 >
                                     {student.isEditing && editMode && editingIndex === index ? (
                                         <input
@@ -202,7 +202,7 @@ function ClassGrade() {
                                 </td>
                                 <td
                                     className={`centerTable ${
-                                        student.isEdited ? 'edited' : ''
+                                        student.isEdited >= 2 ? 'edited' : ''
                                     }`}
                                 >
                                     {student.isEditing && editMode && editingIndex === index ? (
@@ -220,7 +220,7 @@ function ClassGrade() {
                                 </td>
                                 <td
                                     className={`centerTable ${
-                                        student.isEdited ? 'edited' : ''
+                                        student.isEdited >= 2 ? 'edited' : ''
                                     }`}
                                 >
                                     {student.isEditing && editMode && editingIndex === index ? (
@@ -236,7 +236,7 @@ function ClassGrade() {
                                         student.totalScore
                                     )}
                                 </td>
-                                <td className={`centerTable hover-btn ${student.isEdited ? 'edited' : ''}`}>
+                                <td className={`centerTable hover-btn ${student.isEdited >= 2 ? 'edited' : ''}`}>
                                     {student.isEditing && editMode && editingIndex === index ? (
                                         <div className="edit-button" onClick={() => handleSaveScore(index)}>O</div>
                                     ) : (
