@@ -44,6 +44,7 @@ function App() {
           <Route path="/course/:courseID/:group/:studentID" element={<BackgroundStu />} />
           <Route path="/teacherServer" element={<TeacherServer />} />
           <Route path="/pageTea" element={<PageTea />} />
+          <Route path="/Login" element={<Login />} />
         </Routes>
         
     </div>

@@ -1,14 +1,17 @@
 import './Login_page.css';
 import { Fragment } from 'react';
 import React, { useState } from 'react';
-import { BrowserRouter as Router, Route, Link, Routes } from "react-router-dom";
-
+import { BrowserRouter as Router, Route, Link, Routes, useNavigate } from "react-router-dom";
+import { getUserData, updateUserData, addUserData, deleteUserData } from '../firebase/firebasefunction';
+import { Account } from '../model/Account';
+import { PersonFactory } from '../model/PersonFactory';
 const login_img=process.env.PUBLIC_URL + 'img/login_page.png'; 
 
 function Login() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [role, setRole] = useState('');
+  const navigate = useNavigate();
   const handleUsernameChange = (event) => {
     setUsername(event.target.value);
   };
@@ -18,9 +21,18 @@ function Login() {
   const handleRoleChange = (event) => {
     setRole(event.target.value);
   };
-  const login = () => {
+  const login = async() => {
+    const account=new Account(role, username);
     if (username.length > 0 && password.length > 0 && role.length >0) {
-      alert(`Login successful! You are logged in as a ${role}.`);
+      //const userData = await getUserData(username); // Lấy thông tin người dùng từ Firebase
+      await account.loadFromDatabase();
+      if (account.getPassword() === password) {
+        alert(`Login successful! You are logged in as a ${role}.`);
+        // Điều hướng đến trang chính sau khi đăng nhập thành công
+        if(role==="Teacher") navigate('/Tea'); else navigate('/Stu');
+      } else {
+        alert("Invalid username or password!");
+      }
     } else {
       alert("Invalid username or password!");
     }
@@ -39,11 +51,11 @@ function Login() {
           <h2>Loginnn!</h2>
           <select id="role" onChange={handleRoleChange} >
             <option value="">Login as:</option>
-            <option value="teacher">Teacher</option>
-            <option value="student">Student</option>
+            <option value="Teacher">Teacher</option>
+            <option value="Student">Student</option>
           </select>
           <input type="text" id="username" onChange={handleUsernameChange} placeholder="Type your id or user name" />
-          <input type="text" id="password" onChange={handlePasswordChange} placeholder="Type your password" />
+          <input type="password" id="password" onChange={handlePasswordChange} placeholder="Type your password" />
           <div id="Buttons">
             <button onClick={login}>Login</button>
             <button>Change password</button>
