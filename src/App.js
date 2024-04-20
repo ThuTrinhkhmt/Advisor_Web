@@ -16,8 +16,9 @@ import PageStu from './pageStu/HomeStu/HomeStu';
 import PageTea from './pageTea/HomeTea/HomeTea';
 import CourseView from './pageTea/CourseView/CourseView';
 import BackgroundStu from './pageTea/BackgroundStu/BackgroundStu';
-import ClassGrade from './pageTea/ClassGrade/ClassGrade'
+import ClassGrade from './pageTea/ClassGrade/ClassGrade';
 import { useParams } from 'react-router-dom';
+import Login from './loginPage/Login_page'
 import './App.css';
 
 
@@ -25,7 +26,7 @@ function App() {
   return (
     <div id="Platform">
         <Routes>
-          <Route path="/" element={<StudentServer />} />
+          <Route path="/" element={<Login />} />
           <Route path="/Stu" element={<Home1 />} />
           <Route path="/informationStu" element={<Information1 />} />
           <Route path="/courseScheduleStu" element={<CourseSchedule1 />} />
