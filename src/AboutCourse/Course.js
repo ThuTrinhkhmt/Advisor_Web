@@ -4,7 +4,6 @@ import Footer from '../../components/ComponentStu/FooterStu/FooterStu'
 import Nav from '../../components/ComponentStu/NavStu/NavStu'
 import { Fragment, useState } from 'react'
 import {Link} from 'react-router-dom';
-
 function Course() {
     const [isOpen, setIsOpen] = useState(false);
 
