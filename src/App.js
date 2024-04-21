@@ -26,7 +26,7 @@ function App() {
   return (
     <div id="Platform">
         <Routes>
-          <Route path="/" element={<StudentServer />} />
+          <Route path="/" element={<Login />} />
           <Route path="/Stu" element={<Home1 />} />
           <Route path="/informationStu" element={<Information1 />} />
           <Route path="/courseScheduleStu" element={<CourseSchedule1 />} />

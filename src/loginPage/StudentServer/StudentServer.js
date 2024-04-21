@@ -10,7 +10,7 @@ function StudentServer() {
             Đăng nhập
         </Link>
         <Link to = "/teacherServer">
-            Chuyển server
+            Chuyển server st i don't know
         </Link>
         </div>
     );
