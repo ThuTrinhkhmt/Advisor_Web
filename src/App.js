@@ -19,6 +19,8 @@ import BackgroundStu from './pageTea/BackgroundStu/BackgroundStu';
 import ClassGrade from './pageTea/ClassGrade/ClassGrade';
 import { useParams } from 'react-router-dom';
 import Login from './loginPage/Login_page'
+import ChangePassword from './ChangePw/ChangePass'
+import Course from './pageStu/AboutCourse/Course'
 import './App.css';
 
 
@@ -26,8 +28,10 @@ function App() {
   return (
     <div id="Platform">
         <Routes>
-          <Route path="/" element={<Login />} />
+          <Route path="/" element={<Login />}/>
+          <Route path="/ChangePw" element ={<ChangePassword/>}/>
           <Route path="/Stu" element={<Home1 />} />
+          <Route path="/StuCourse" element={<Course />} />
           <Route path="/informationStu" element={<Information1 />} />
           <Route path="/courseScheduleStu" element={<CourseSchedule1 />} />
           <Route path="/gradeReportStu" element={<GradeReport1 />} />
