@@ -1,0 +1,25 @@
+#CListPage .header{
+    text-align: center;
+    
+}
+#CListPage .header{
+    text-align: left;
+    
+}
+.CourseView{
+    position: absolute;
+    text-align: left;
+    left: 100px;
+}
+#CListPage .buttons{
+    text-align: center;
+    display: flex;
+    flex-direction: row;
+    gap:20px;
+    
+}
+#CListPage .buttons button{
+    background-color: rgb(92, 136, 233);
+    width: 150px;
+    border-radius: 5px;
+}
