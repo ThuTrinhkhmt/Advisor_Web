@@ -1,27 +1,27 @@
-#InformationPage{
+#CourseRegistationStu1{
     margin-top : 50px;
     margin-left: 20%;
     padding : 30px;
     min-height: 500px;
   
 }
-#InformationPage .head{
+#CourseRegistationStu1 .head{
     display: flex;
     flex-direction: row;
     gap: 10px;
 }
-#InformationPage #Inputsubject{
+#CourseRegistationStu1 #Inputsubject{
     border-radius: 5px;
     height: 30px;
     flex: 2;
 }
-#InformationPage button{
+#CourseRegistationStu1 .button-registation-stu{
     border-radius: 5px;
     height: 30px;
     flex:1;
     border-color: rgb(63, 205, 221);
 }
-#InformationPage button:hover{
+#CourseRegistationStu1 .button-registation-stu:hover{
     background-color: rgba(62, 112, 231, 0.479);
 
 }

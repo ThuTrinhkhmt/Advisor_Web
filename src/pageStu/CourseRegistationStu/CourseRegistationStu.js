@@ -64,7 +64,7 @@ function CourseRegistationStu() {
         <Fragment>
             <Header />
             <Nav />
-            <div id = "InformationPage">
+            <div id = "CourseRegistationStu1">
                 <h1>Đăng kí khóa học</h1>
                 <p>Học kì: 223.</p>
                 <p style={{fontStyle: 'italic'}}>Thời gian đăng kí: 10/07/2022 - 20/7/2022.</p>
@@ -72,7 +72,7 @@ function CourseRegistationStu() {
                 <p>Các thao tác ngoài thời gian đăng kí môn sẽ không được chấp nhận.</p>
                 <div className="head">
                     <input id="Inputsubject" placeholder="Insert name subject or code"></input>
-                    <button> Find </button>
+                    <button className = "button-registation-stu"> Find </button>
                 </div>
                 <div className="Registed_sub">
                     <RegistedTab registedSub={registedSub}/>

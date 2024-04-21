@@ -43,7 +43,7 @@ function CourseScheduleStu() {
         <Fragment>
             <Header />
             <Nav />
-            <div id = "CListPage">
+            <div id = "CourseScheduleStu1">
                 <h1 className='header'>Danh sách khóa học</h1>
                 <div>
                     <SubjectTab subjectArr={subjects}/>

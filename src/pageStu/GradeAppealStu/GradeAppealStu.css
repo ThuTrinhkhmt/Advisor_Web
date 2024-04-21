@@ -1,4 +1,4 @@
-#InformationPage{
+#GradeAppealStu1{
     margin-top : 50px;
     margin-left: 20%;
     padding : 30px;
@@ -7,26 +7,26 @@
     flex-direction: column;
     gap: 20px;
 }
-#InformationPage h1{ 
+#GradeAppealStu1 h1{ 
     text-align: center;
 }
-#InformationPage .Appeal{ 
+#GradeAppealStu1 .Appeal{ 
     display: flex;
     flex-direction: column;
     gap: 20px;
 }
-#InformationPage .Infor{ 
+#GradeAppealStu1 .Infor{ 
     display: flex;
     flex-direction: row;
    
 }
-#InformationPage .Infor .Student_infor{ 
+#GradeAppealStu1 .Infor .Student_infor{ 
     display: flex;
     flex-direction: column;
     gap: 5px;
    
 }
-#InformationPage .Infor .Realtime_infor{ 
+#GradeAppealStu1 .Infor .Realtime_infor{ 
     display: flex;
     flex-direction: column;
     gap: 5px;
@@ -35,35 +35,35 @@
     
 }
 
-#InformationPage div{ 
+#GradeAppealStu1 div{ 
     display: flex;
     flex-direction: column;
     gap: 5px;
 }
-#InformationPage ul{ 
+#GradeAppealStu1 ul{ 
     display: flex;
     flex-direction: column;
     gap: 5px;
     color:rgb(82, 96, 202);
     font-style: italic;
 }
-#InformationPage table td{ 
+#GradeAppealStu1 table td{ 
     text-align: center;
 }
-#InformationPage .Appeal .shell{ 
+#GradeAppealStu1 .Appeal .shell{ 
     width: 150px;
     
 }
-#InformationPage .Appeal .Confirm { 
+#GradeAppealStu1 .Appeal .Confirm { 
    text-align: center;
 }
-#InformationPage .Appeal .Confirm button { 
+#GradeAppealStu1 .Appeal .Confirm .btn-appeal-stu { 
     margin: 0 auto;
     display:block;
     border-color: rgba(240, 248, 255, 0.321);
  }
  
- #InformationPage .Appeal .Confirm button:hover{
+ #GradeAppealStu1 .Appeal .Confirm .btn-appeal-stu:hover{
     background-color: rgba(62, 132, 231, 0.479);
 
 }

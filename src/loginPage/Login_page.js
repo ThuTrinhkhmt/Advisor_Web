@@ -49,22 +49,22 @@ function Login() {
           <div id="Buttons">
           {role === '' && (
             
-              <button onClick={login}>Login</button>
+              <button className = "btn-loginpage"  onClick={login}>Login</button>
            
           )}
           {role === 'teacher' && (
             <Link to="/Tea">
-              <button onClick={login}>Login</button>
+              <button className = "btn-loginpage"  onClick={login}>Login</button>
             </Link>
           )}
           {role === 'student' && (
             <Link to="/Stu">
-              <button onClick={login}>Login</button>
+              <button className = "btn-loginpage" onClick={login}>Login</button>
             </Link>
           )}
               
               <Link id ="Goto" to="/ChangePw">
-                <button>Change password</button>
+                <button className = "btn-loginpage" >Change password</button>
               </Link>
           </div>               
       </div>

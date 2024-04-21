@@ -72,7 +72,7 @@ function GradeReportStu() {
         <Fragment>
             <Header />
             <Nav />
-            <div id = "SSkillPage">
+            <div id = "GradeReportStu1">
             <h1>BẢNG ĐIỂM SINH VIÊN</h1>
                 <div id="Student_infor">
                     <p>Họ tên: Trần Văn A</p>

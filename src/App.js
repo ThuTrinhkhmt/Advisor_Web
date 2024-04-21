@@ -7,11 +7,8 @@ import Information1 from './pageStu/InformationStu/InformationStu';
 import CourseRegistation1 from './pageStu/CourseRegistationStu/CourseRegistationStu';
 import GradeAppeal1 from './pageStu/GradeAppealStu/GradeAppealStu';
 import Home2 from './pageTea/HomeTea/HomeTea';
-import AppealAnnounce from './pageTea/AppealAnnounce/AppealAnnounce';
 import ClassList2 from './pageTea/ClassListTea/ClassListTea';
 import Information2 from './pageTea/InformationTea/InformationTea';
-import StudentServer from './loginPage/StudentServer/StudentServer';
-import TeacherServer from './loginPage/TeacherServer/TeacherServer';
 import PageStu from './pageStu/HomeStu/HomeStu';
 import PageTea from './pageTea/HomeTea/HomeTea';
 import CourseView from './pageTea/CourseView/CourseView';
@@ -20,6 +17,8 @@ import ClassGrade from './pageTea/ClassGrade/ClassGrade';
 import { useParams } from 'react-router-dom';
 import Login from './loginPage/Login_page'
 import ChangePassword from './ChangePw/ChangePass'
+import Course from './pageStu/AboutCourse/Course'
+import AppealAnnounce from './pageTea/AppealAnnounce/AppealAnnounce';
 import './App.css';
 
 
@@ -30,21 +29,20 @@ function App() {
           <Route path="/" element={<Login />}/>
           <Route path="/ChangePw" element ={<ChangePassword/>}/>
           <Route path="/Stu" element={<Home1 />} />
+          <Route path="/StuCourse" element={<Course />} />
           <Route path="/informationStu" element={<Information1 />} />
           <Route path="/courseScheduleStu" element={<CourseSchedule1 />} />
           <Route path="/gradeReportStu" element={<GradeReport1 />} />
           <Route path="/gradeAppealStu" element={<GradeAppeal1 />} />
-          <Route path="/studentServer" element={<StudentServer />} />
+          <Route path="/AppealAnnounce" element={<AppealAnnounce />} />
           <Route path="/pageStu" element={<PageStu />} />
           <Route path="/courseRegistation" element = {<CourseRegistation1/>} />
           <Route path="/Tea" element={<Home2 />} />
           <Route path="/informationTea" element={<Information2 />} />
           <Route path="/classListTea" element={<ClassList2 />} />
-          <Route path="/AppealAnnounce" element={<AppealAnnounce />} />
           <Route path="/course/CourseView/:courseID/:group" element={<CourseView />} />
           <Route path="/course/:courseID/:group" element={<ClassGrade />} />
           <Route path="/course/:courseID/:group/:studentID" element={<BackgroundStu />} />
-          <Route path="/teacherServer" element={<TeacherServer />} />
           <Route path="/pageTea" element={<PageTea />} />
         </Routes>
         

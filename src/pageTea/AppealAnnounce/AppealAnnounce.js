@@ -48,7 +48,7 @@ function AppealAnnounce() {
         <Fragment>
             <Header />
             <Nav />
-            <div id="pageAppeal">
+            <div id="pageAppeal2">
                 <h1>Thông báo phúc khảo</h1>
                 {feedbackList}
             </div>

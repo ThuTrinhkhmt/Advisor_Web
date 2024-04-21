@@ -9,7 +9,7 @@ function GradeAppealStu() {
         <Fragment>
             <Header />
             <Nav />
-            <div id = "InformationPage">
+            <div id = "GradeAppealStu1">
                 <h1>Phúc tra điểm</h1>
                 <div className='Infor'>
                     <div className="Student_infor">
@@ -44,7 +44,7 @@ function GradeAppealStu() {
                             <td>L04</td>
                             <td>3.0</td>
                             <td className='Confirm'>
-                                <button>Xác nhận phúc tra</button>
+                                <button className = "btn-appeal-stu">Xác nhận phúc tra</button>
                             </td>
                             
                         </tr>  

@@ -22,7 +22,7 @@ function ClassListTea() {
     <Fragment>
       <Header />
       <Nav key='Nav' />
-      <div id="CListPage">
+      <div id="CListPage2">
         <div className="title">
           <h1>Lớp học của tôi</h1>
           <h2>Tổng quan lớp học</h2>

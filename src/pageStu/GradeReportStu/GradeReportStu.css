@@ -1,4 +1,4 @@
-#SSkillPage{
+#GradeReportStu1{
     margin-top : 50px;
     margin-left: 20%;
     padding : 30px;
@@ -7,10 +7,10 @@
     flex-direction: column;
     gap: 20px;
 }
-#SSkillPage h1{
+#GradeReportStu1 h1{
     text-align: center;
 }
-#SSkillPage #Student_infor{
+#GradeReportStu1 #Student_infor{
     display: flex;
     flex-direction: column;
     justify-content: left; 
@@ -18,13 +18,13 @@
     gap: 5px;
     color:rgb(83, 133, 243);
 }
-#SSkillPage .Select_sem{
+#GradeReportStu1 .Select_sem{
     height: 30px;
 }
-#SSkillPage #Grade_table td{
+#GradeReportStu1 #Grade_table td{
     text-align: center; 
 }
-#SSkillPage .review{
+#GradeReportStu1 .review{
     display: flex;
     flex-direction: column;
     justify-content: left; 

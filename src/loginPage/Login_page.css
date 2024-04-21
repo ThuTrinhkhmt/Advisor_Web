@@ -16,7 +16,7 @@ body{
     align-items: center; /*Căn giữa theo chiều dọc */
     border-radius: 20px;
 }
-.left_side {
+.login_page .left_side {
     width: 300px;
     height: 400px; 
     display: flex;
@@ -24,14 +24,14 @@ body{
     justify-content: center; 
     align-items: center; 
 }
-.left_side > div {
+.login_page .left_side > div {
      margin-top: 2px;
     margin-bottom: 50px;
 }
- #text{
+.login_page #text{
     text-align: center;  
  }
-.right_side{
+ .login_page .right_side{
     width: 300px;
     height: 400px;
     display: flex;
@@ -39,7 +39,7 @@ body{
     justify-content: center; 
     align-items: center;
 }
-#role {
+.login_page #role {
     display: block; 
     width: 300px;
     height: 30px;
@@ -48,7 +48,7 @@ body{
     border-color: rgba(240, 248, 255, 0.049);
     background-color: rgb(248, 245, 245);
 }
-#username, #password {
+.login_page #username,.login_page #password {
     display: block; 
     width: 300px;
     height: 30px;
@@ -57,11 +57,11 @@ body{
     border-radius: 10px;
     border-color: rgba(240, 248, 255, 0.079);
 }
-#Buttons {
+.login_page #Buttons {
       display: flex; 
       margin-bottom: 20px;
 } 
-#Buttons button{
+.login_page #Buttons .btn-loginpage{
     border-radius: 10px;
     border-color: rgba(240, 248, 255, 0.008);
     background-color:rgb(130, 179, 244);
@@ -69,7 +69,7 @@ body{
     width: 145px;
     height: 30px; 
 }
-#Goto{
+.login_page #Goto{
     text-decoration: none; /* Tắt hiệu ứng gạch chân */
     color: inherit; /* Kế thừa màu chữ từ phần tử cha */
 } 

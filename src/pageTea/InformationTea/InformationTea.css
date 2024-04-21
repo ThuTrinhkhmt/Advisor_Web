@@ -49,7 +49,7 @@
     font-size: 36px;
 }
 #InformationPage2 button{
-    padding: 8px 16px;
+    padding: 4px 8px;
     font-size: 16px;
     background-color:  rgb(65, 119, 173);
     color: #fff; 
@@ -86,7 +86,9 @@
 #InformationPage2 .col{
     margin-right: 36px;
     font-size: 18px;
+    margin-left: 32px;
     margin-bottom: 18px;
+    width: 100%;
 }
 #InformationPage2 .input-address {
     width : 100%;
@@ -103,9 +105,18 @@
 
 #InformationPage2 .btn-save,
 #InformationPage2 .btn-cancel {
+    width : 80px;
+    height : 36px;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
     margin: 0 5px;
 }
 #InformationPage2 .btn-editer{
-    padding: 8px 16px !important;
+    width : 120px;
+    height : 36px;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
     position: absolute !important;
 }

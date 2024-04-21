@@ -135,7 +135,7 @@ function BackgroundStu() {
         <Fragment>
             <Header />
             <Nav key='Nav' />
-            <div className="pageBackground">
+            <div className="pageBackground2">
                 <h1>Thông Tin Sinh Viên</h1>
                 <div className="img-contain">
                     <img src="../../../img/avt.jpg" alt="Avatar" />
