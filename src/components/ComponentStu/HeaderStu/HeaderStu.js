@@ -7,7 +7,7 @@ function HeaderStu() {
     return (
         <div id="Header">
             <div className="WebName">Student Advisor Web</div>
-            <Link to="/studentServer" className = "close">
+            <Link to="/" className = "close">
                 <div className="Close">
                 Đăng xuất
                 </div>
