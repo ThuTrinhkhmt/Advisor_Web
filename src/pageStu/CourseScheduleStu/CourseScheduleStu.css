@@ -4,3 +4,24 @@
     padding : 30px;
     min-height: 500px;
 }
+#CListPage .header{
+    text-align: center;  
+}
+.Subject{
+    padding: 8px;
+}
+
+.Subject{
+    border-bottom: solid 0.67px;
+    border-bottom-color: rgba(0, 0, 0, 0.125);
+    line-height: 1.5;
+}
+
+.Subject .NameSub {
+    padding-bottom: 4px;
+}
+
+.Subject .GroupSub{
+    padding-bottom: 15px;
+}
+
