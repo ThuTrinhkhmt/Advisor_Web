@@ -17,7 +17,7 @@ function InformationStu() {
         <Fragment>
             <Header />
             <Nav />
-            <div id = "InformationPage">
+            <div id = "InformationPage1">
             <h1>Thông Tin Sinh Viên</h1>
                 <div className = "img-contain">
                     <img src="../../../img/avt.jpg" alt="Avatar" />

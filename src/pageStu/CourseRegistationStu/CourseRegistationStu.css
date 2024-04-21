@@ -3,4 +3,25 @@
     margin-left: 20%;
     padding : 30px;
     min-height: 500px;
+  
+}
+#InformationPage .head{
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+}
+#InformationPage #Inputsubject{
+    border-radius: 5px;
+    height: 30px;
+    flex: 2;
+}
+#InformationPage button{
+    border-radius: 5px;
+    height: 30px;
+    flex:1;
+    border-color: rgb(63, 205, 221);
+}
+#InformationPage button:hover{
+    background-color: rgba(62, 112, 231, 0.479);
+
 }

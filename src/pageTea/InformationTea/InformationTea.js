@@ -44,7 +44,7 @@ function InformationTea() {
         <Fragment>
             <Header />
             <Nav key="Nav" />
-            <div id="InformationPage">
+            <div id="InformationPage2">
                 <h1>Thông Tin Giảng Viên</h1>
                 <div className="img-contain">
                     <img src="../../../img/avt.jpg" alt="Avatar" />

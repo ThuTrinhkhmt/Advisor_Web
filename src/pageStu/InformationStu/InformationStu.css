@@ -1,29 +1,29 @@
-#InformationPage{
+#InformationPage1{
     margin-top : 50px;
     margin-left: 20%;
     padding : 30px;
     min-height: 500px;
 }
 
-h1 {
+#InformationPage1 h1 {
     margin: 32px;
 }
 
-.row-2 {
+#InformationPage1 .row-2 {
     display: flex;
     justify-content: space-between;
     margin-bottom: 10px; /* Khoảng cách giữa các hàng */
 }
 
 /* CSS cho lớp col */
-.col {
+#InformationPage1 .col {
     flex: 1; /* Chia đều không gian cho các cột */
     margin-left: 32px;
     margin-bottom: 8px;
     align-items: flex-start; /* Căn nội dung về bên trái */
 }
 
-.img-contain img {
+#InformationPage1 .img-contain img {
     width: 150px;
     height: auto;
     display: block;
@@ -32,7 +32,7 @@ h1 {
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
 }
 
-.img-contain p {
+#InformationPage1 .img-contain p {
     margin: 12px;
     margin-bottom: 48px;
     display: block;

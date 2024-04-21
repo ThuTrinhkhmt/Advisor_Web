@@ -4,7 +4,7 @@ function HeaderTea() {
   return (
     <div id="Header">
         <div className="WebName">Teacher Advisor Web</div>
-        <Link to="/teacherServer" className = "close">
+        <Link to="/" className = "close">
             <div className="Close">
             Đăng xuất
             </div>

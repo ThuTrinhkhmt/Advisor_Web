@@ -2,5 +2,68 @@
     margin-top : 50px;
     margin-left: 20%;
     padding : 30px;
-    min-height: 500px;
+    min-height: 500px;   
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+#InformationPage h1{ 
+    text-align: center;
+}
+#InformationPage .Appeal{ 
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+#InformationPage .Infor{ 
+    display: flex;
+    flex-direction: row;
+   
+}
+#InformationPage .Infor .Student_infor{ 
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+   
+}
+#InformationPage .Infor .Realtime_infor{ 
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    position: absolute; 
+    right: 25px;
+    
+}
+
+#InformationPage div{ 
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+#InformationPage ul{ 
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    color:rgb(82, 96, 202);
+    font-style: italic;
+}
+#InformationPage table td{ 
+    text-align: center;
+}
+#InformationPage .Appeal .shell{ 
+    width: 150px;
+    
+}
+#InformationPage .Appeal .Confirm { 
+   text-align: center;
+}
+#InformationPage .Appeal .Confirm button { 
+    margin: 0 auto;
+    display:block;
+    border-color: rgba(240, 248, 255, 0.321);
+ }
+ 
+ #InformationPage .Appeal .Confirm button:hover{
+    background-color: rgba(62, 132, 231, 0.479);
+
 }
