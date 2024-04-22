@@ -1,34 +1,60 @@
 export class Score {
-    constructor(cl, studentID, course) {
-        this.cl = cl;
-        this.studentID = studentID;
-        this.course = course;
-        this.DiemThanhPhan = 0;
-        this.DiemGiuaKi = 0;
-        this.DiemCuoiKy = 0;
+    #componentScore;
+	#finalScore;
+	#aveScore;
+	#isEditing;
+	#isEdited;
+	#appeal;
+	#isDone;
+    constructor(componentScore, finalScore, aveScore, isEdited, appeal, isDone) {
+        this.#componentScore = componentScore;
+        this.#aveScore = finalScore = finalScore;
+		this.#aveScore = aveScore;
+		this.#isEditing = false;
+		this.#isEdited = isEdited;
+		this.#appeal = appeal;
+		this.#isDone = isDone;
     }
 
-    getDiemThanhPhan() {
-        return this.DiemThanhPhan;
-    }
-
-    setDiemThanhPhan(DiemThanhPhan) {
-        this.DiemThanhPhan = DiemThanhPhan;
-    }
-
-    getDiemGiuaKi() {
-        return this.DiemGiuaKi;
-    }
-
-    setDiemGiuaKi(DiemGiuaKi) {
-        this.DiemGiuaKi = DiemGiuaKi;
-    }
-
-    getDiemCuoiKy() {
-        return this.DiemCuoiKy;
-    }
-
-    setDiemCuoiKy(DiemCuoiKy) {
-        this.DiemCuoiKy = DiemCuoiKy;
-    }
+    setAllScore(componentScore, finalScore, aveScore) {
+		this.#componentScore = componentScore;
+		this.#finalScore = finalScore;
+		this.#aveScore = aveScore;
+		this.#isEdited = 1;
+	}
+    getComponentScore() {
+		return this.#componentScore;
+	}
+	getFinalScore() {
+		return this.#finalScore;
+	}
+	getAverScore() {
+		return this.#aveScore;
+	}
+    editScore(finalScore, aveScore) {
+		this.#finalScore = finalScore;
+		this.#aveScore = aveScore;
+		this.#isEdited = 2;
+	}
+	setIsEditing(isEditing) {
+		this.#isEditing = isEditing;
+	}
+	getIsEditing() {
+		return this.#isEditing;
+	}
+	setAppeal(appeal) {
+		this.#appeal = appeal;
+	}
+	getAppeal() {
+		return this.#appeal;
+	}
+	setIsDone(isDone) {
+		this.#isDone = isDone;
+	}
+	getIsDone() {
+		return this.#isDone;
+	}
+    getIsEdited() {
+		return this.#isEdited;
+	}
 }

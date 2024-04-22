@@ -2,7 +2,6 @@ import './Login_page.css';
 import { Fragment } from 'react';
 import React, { useState } from 'react';
 import { BrowserRouter as Router, Route, Link, Routes, useNavigate } from "react-router-dom";
-import { getUserData, updateUserData, addUserData, deleteUserData } from '../firebase/firebasefunction';
 import { Account } from '../model/Account';
 import { PersonFactory } from '../model/PersonFactory';
 const login_img=process.env.PUBLIC_URL + 'img/login_page.png'; 
@@ -23,9 +22,10 @@ function Login() {
   };
   const login = async() => {
     const account=new Account(role, username);
+    await account.loadFromDatabase();
+    localStorage.setItem('personID', JSON.stringify({ id: account.getID() }));
+    localStorage.setItem('personRole', JSON.stringify({role: account.getRole()}));
     if (username.length > 0 && password.length > 0 && role.length >0) {
-      //const userData = await getUserData(username); // Lấy thông tin người dùng từ Firebase
-      await account.loadFromDatabase();
       if (account.getPassword() === password) {
         alert(`Login successful! You are logged in as a ${role}.`);
         // Điều hướng đến trang chính sau khi đăng nhập thành công

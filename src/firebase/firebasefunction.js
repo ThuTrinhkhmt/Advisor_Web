@@ -1,10 +1,27 @@
 import { db, ref, set, get, child, update, remove } from './firebase';
+//Tra ve Account theo role va username
 const getUserData = async (role, username) => {
     const userRef = ref(db, `Account/${role}/${username}`);
     try {
         const snapshot = await get(userRef);
         
         if (snapshot.exists()) {
+            return snapshot.val();
+        } else {
+            return null;
+        }
+    } catch (error) {
+        alert("Error loading user data:");
+        return null;
+    }
+};
+//Lay du lieu thong tin
+const getStuData = async (id) => {
+    const userRef = ref(db, `Student/${id}`);
+    try {
+        const snapshot = await get(userRef);
+        if (snapshot.exists()) {
+            alert(snapshot.Name);
             return snapshot.val();
         } else {
             return null;
@@ -50,4 +67,4 @@ const deleteUserData = async (username) => {
     }
 };
 
-export { getUserData, updateUserData, addUserData, deleteUserData };
+export { getUserData, getPersonData, getStuData, updateUserData, addUserData, deleteUserData };

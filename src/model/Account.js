@@ -1,14 +1,12 @@
-import { getUserData, updateUserData, addUserData, deleteUserData } from '../firebase/firebasefunction';
+import { getUserData } from '../firebase/firebasefunction';
 export class Account {
     #role;
     #username;
-    #password;
-    #id;
+    #password=null;
+    #id=null;
     constructor(role, username) {
         this.#role=role;
-        this.#id=null;
         this.#username = username;
-        this.#password = null;
         this.loadFromDatabase();
     }
     async loadFromDatabase() {
@@ -27,6 +25,10 @@ export class Account {
         return this.#password;
     }
 
+    getId(){
+        return this.#id;
+    }
+
     getRole() {
         return this.#role;
     }
@@ -37,5 +39,12 @@ export class Account {
 
     setPassword(password) {
         this.#password = password;
+    }
+    setId(id){
+       this.#id=id;
+    }
+
+    setRole(role) {
+        this.#role=role;
     }
 }

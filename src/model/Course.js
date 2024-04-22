@@ -1,62 +1,66 @@
 export class Course {
-    constructor(name, courseCode, description, numOfCredit) {
-        this.name = name;
-        this.courseCode = courseCode;
-        this.description = description;
-        this.numOfCredit = numOfCredit;
-        this.documents = [];
+    #idCourse;
+    #name;
+    #description;
+    #numOfCredit;
+    #documents = [];
+    #groups = [];
+    constructor(idCourse, name, description, numOfCredit) {
+        this.#idCourse=idCourse;
+        this.#name = name;
+        this.#description = description;
+        this.#numOfCredit = numOfCredit;
     }
 
     setName(name) {
-        this.name = name;
+        this.#name = name;
     }
 
     getName() {
-        return this.name;
+        return this.#name;
     }
 
-    setCourseCode(courseCode) {
-        this.courseCode = courseCode;
+    setCourseCode(idCourse) {
+        this.#idCourse = idCourse;
     }
 
     getCourseCode() {
-        return this.courseCode;
+        return this.#idCourse;
     }
 
     setDescription(description) {
-        this.description = description;
+        this.#description = description;
     }
 
     getDescription() {
-        return this.description;
+        return this.#description;
     }
 
     setNumOfCredit(numOfCredit) {
-        this.numOfCredit = numOfCredit;
+        this.#numOfCredit = numOfCredit;
     }
 
     getNumOfCredit() {
-        return this.numOfCredit;
+        return this.#numOfCredit;
     }
 
     addDocument(document) {
-        this.documents.push(document);
+        this.#documents.push(document);
     }
 
     getDocuments() {
-        return this.documents;
+        return this.#documents;
     }
+    getGroup(){
 
-    view() {
-        console.log("Name Of Course: " + this.name);
-        console.log("Code Of Course: " + this.courseCode);
-        console.log("Description: " + this.description);
-        console.log("Number Of Credits: " + this.numOfCredit);
-        console.log("List Of Documents: ");
-        if (this.documents.length === 0) {
-            console.log("Khong co");
-        } else {
-            this.documents.forEach(doc => console.log(doc));
-        }
+    }
+    getAGroup(groupName){
+
+    }
+    addGroup(groups){
+
+    }
+    deleteGroup(groupName){
+        
     }
 }
