@@ -122,7 +122,7 @@
 .pageView .link-btn {
   margin-right: 10px;
   cursor: pointer;
-  width : 110px;
+  width : 80px;
   height : 36px;
   text-align: center;
   justify-content: center;
@@ -132,6 +132,7 @@
   border: none;
   border-radius: 5px;
   color : white;
+  transform: translateX(30px);
 }
 .pageView .link-btn:hover {
   background-color:  rgb(64, 105, 146);
@@ -163,6 +164,17 @@
   transform: translateX(70px);
 }
 
-.pageView .add-link-btn {
+.pageView .btn-delete-link{
+  width : 80px;
+  height : 36px;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+  font-size: 16px;
+  background-color: rgb(65, 119, 173);
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
   float: left;
 }

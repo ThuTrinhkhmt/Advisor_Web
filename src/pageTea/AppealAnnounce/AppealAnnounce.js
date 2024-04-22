@@ -7,17 +7,17 @@ import './AppealAnnounce.css'
 function AppealAnnounce() {
     // Này thì từ giáo viên cậu tìm ra danh sách các sinh viên gửi phúc khảo cho ổng luôn, ở mọi lớp luôn nha
     const [students, setStudents] = useState([
-        { name: 'Nguyễn Văn A', studentID: '123456', course: 'Giải tích 1', courseID: 'MT1003', group: 'L07', appeal: false, isEdited: false },
-        { name: 'Trần Thị B', studentID: '234567', course: 'Lập trình web', courseID: 'CS2001', group: 'L10', appeal: true, isEdited: true },
-        { name: 'Phạm Văn C', studentID: '345678', course: 'Toán cao cấp', courseID: 'MT1005', group: 'L15', appeal: false, isEdited: false },
-        { name: 'Nguyễn Văn D', studentID: '143456', course: 'Giải tích 1', courseID: 'MT1003', group: 'L07', appeal: false, isEdited: true },
-        { name: 'Trần Thị E', studentID: '234367', course: 'Lập trình web', courseID: 'CS2001', group: 'L10', appeal: true, isEdited: false },
-        { name: 'Phạm Văn F', studentID: '347378', course: 'Toán cao cấp', courseID: 'MT1005', group: 'L05', appeal: true, isEdited: true },
+        { name: 'Nguyễn Văn A', studentID: '123456', course: 'Giải tích 1', courseID: 'MT1003', group: 'L07', appeal: false, isDone: false },
+        { name: 'Trần Thị B', studentID: '234567', course: 'Lập trình web', courseID: 'CS2001', group: 'L10', appeal: true, isDone: true },
+        { name: 'Phạm Văn C', studentID: '345678', course: 'Toán cao cấp', courseID: 'MT1005', group: 'L15', appeal: false, isDone: false },
+        { name: 'Nguyễn Văn D', studentID: '143456', course: 'Giải tích 1', courseID: 'MT1003', group: 'L07', appeal: false, isDone: true },
+        { name: 'Trần Thị E', studentID: '234367', course: 'Lập trình web', courseID: 'CS2001', group: 'L10', appeal: true, isDone: false },
+        { name: 'Phạm Văn F', studentID: '347378', course: 'Toán cao cấp', courseID: 'MT1005', group: 'L05', appeal: true, isDone: true },
     ]);
 
     const handleCheckboxChange = (index) => {
         const updatedStudents = [...students];
-        updatedStudents[index].isEdited = !updatedStudents[index].isEdited;
+        updatedStudents[index].isDone = !updatedStudents[index].isDone;
         setStudents(updatedStudents);
     };
 
@@ -36,7 +36,7 @@ function AppealAnnounce() {
                 <input
                     className='sticky-button'
                     type="checkbox"
-                    checked={student.isEdited}
+                    checked={student.isDone}
                     onChange={() => handleCheckboxChange(index)}
                 />
             </div>
