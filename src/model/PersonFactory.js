@@ -1,14 +1,14 @@
 import { Student } from './Student';
 import { Teacher } from './Teacher';
-import { getPersonData, getStuData } from '../firebase/firebasefunction';
+import { getUserData } from '../firebase/firebasefunction';
 export class PersonFactory {
-    static async createPerson(type, id) {
+    static async createPerson(type, username) {
         switch(type) {
             case 'Student':
-                const userData = await getStuData(id);
+                const userData = await getUserData('Student', username);
                 return new Student(userData.Name, userData.DateOfBirth, userData.Address, userData.Faculity, userData.Gender, userData.ID);
             case 'Teacher':
-                const TeacherData = await getPersonData('Teacher', id);
+                const TeacherData = await getPersonData('Teacher', username);
                 return new Teacher(TeacherData.Name, TeacherData.DateOfBirth, TeacherData.Address, TeacherData.Faculity, TeacherData.Gender, TeacherData.ID,
                     TeacherData.Specialize, TeacherData.Degree, TeacherData.Position);
             default:

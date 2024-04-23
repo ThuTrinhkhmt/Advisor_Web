@@ -15,13 +15,12 @@ const getUserData = async (role, username) => {
         return null;
     }
 };
-//Lay du lieu thong tin
-const getStuData = async (id) => {
-    const userRef = ref(db, `Student/${id}`);
+const getCourseData = async (idCourse) => {
+    const userRef = ref(db, `Course/${idCourse}`);
     try {
         const snapshot = await get(userRef);
+        
         if (snapshot.exists()) {
-            alert(snapshot.Name);
             return snapshot.val();
         } else {
             return null;
@@ -67,4 +66,4 @@ const deleteUserData = async (username) => {
     }
 };
 
-export { getUserData, getPersonData, getStuData, updateUserData, addUserData, deleteUserData };
+export { getUserData, getPersonData, getStuData, getCourseData, updateUserData, addUserData, deleteUserData };

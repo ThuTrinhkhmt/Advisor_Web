@@ -1,3 +1,4 @@
+import { getCourseData } from '../firebase/firebasefunction';
 export class Course {
     #idCourse;
     #name;
@@ -5,62 +6,78 @@ export class Course {
     #numOfCredit;
     #documents = [];
     #groups = [];
-    constructor(idCourse, name, description, numOfCredit) {
+    constructor(idCourse) {
         this.#idCourse=idCourse;
-        this.#name = name;
-        this.#description = description;
-        this.#numOfCredit = numOfCredit;
+        this.loadFromDatabase();
     }
 
-    setName(name) {
+    async loadFromDatabase() {
+        const CourseData = await getCourseData(this.#idCourse);
+        
+        if (userData) {
+            this.#name = CourseData.NameOfCourse;
+            this.#description = CourseData.Desciption;
+            this.#numOfCredit = CourseData.NumOfCredits;
+        }
+    }
+
+    async setName(name) {
         this.#name = name;
     }
 
-    getName() {
+    async getName() {
         return this.#name;
     }
 
-    setCourseCode(idCourse) {
+    async setCourseCode(idCourse) {
         this.#idCourse = idCourse;
     }
 
-    getCourseCode() {
+    async getCourseCode() {
         return this.#idCourse;
     }
 
-    setDescription(description) {
+    async setDescription(description) {
         this.#description = description;
     }
 
-    getDescription() {
+    async getDescription() {
         return this.#description;
     }
 
-    setNumOfCredit(numOfCredit) {
+    async setNumOfCredit(numOfCredit) {
         this.#numOfCredit = numOfCredit;
     }
 
-    getNumOfCredit() {
+    async getNumOfCredit() {
         return this.#numOfCredit;
     }
 
-    addDocument(document) {
+    async addDocument(document) {
         this.#documents.push(document);
     }
 
-    getDocuments() {
+    async getDocuments() {
         return this.#documents;
     }
-    getGroup(){
-
+    async getGroup(){
+        return this.#groups;
     }
-    getAGroup(groupName){
-
+    async getAGroup(groupName){
+        for (let group of this.groups) {
+            if (group.getGroupName() === groupName) {
+                return group;
+            }
+        }
+        return null;
     }
     addGroup(groups){
-
+        this.#groups.push(groups);
     }
     deleteGroup(groupName){
-        
+        let index = this.groups.findIndex(group => group.getName() === groupName);
+        if (index !== -1) {
+            this.groups.splice(index, 1);
+        }
     }
 }

@@ -36,13 +36,23 @@ export class Teacher extends Person {
     }
 
     getGroup(){
-
+        return this.#groups;
     }
 
     addGroup(course, groupName){
-
+        const courseGroups = course.getGroup();
+        for (let group of courseGroups) {
+            if (group.getName() === groupName) {
+                this.groups.push(group);
+            }
+        }
     }
     getAGroup(groupName){
-
+        for (let group of this.groups) {
+            if (group.getGroupName() === groupName) {
+                return group;
+            }
+        }
+        return null;
     }
 }

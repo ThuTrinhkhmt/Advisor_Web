@@ -17,34 +17,44 @@ export class Account {
             this.#id = userData.ID;
         }
     }
-    getUsername() {
+    async getUsername() {
         return this.#username;
     }
 
-    getPassword() {
+    async getPassword() {
         return this.#password;
     }
 
-    getId(){
+    async getId(){
         return this.#id;
     }
 
-    getRole() {
+    async getRole() {
         return this.#role;
     }
 
-    setUsername(username) {
+    async setUsername(username) {
         this.#username = username;
     }
 
-    setPassword(password) {
-        this.#password = password;
+    async setPassword(newPassword) {
+        const userRef = ref(db, `Account/${this.#role}/${this.#username}`);
+    
+        try {
+            await update(userRef, {
+                Password: newPassword
+            });
+            this.#password = newPassword;
+            console.log("User data updated successfully");
+        } catch (error) {
+            console.error("Error updating user data:", error);
+        }
     }
-    setId(id){
+    async setId(id){
        this.#id=id;
     }
 
-    setRole(role) {
+    async setRole(role) {
         this.#role=role;
     }
 }

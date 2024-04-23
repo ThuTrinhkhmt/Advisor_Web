@@ -7,17 +7,16 @@ export class Person {
     #faculity; 
     #gender;
     #ListClass;
-    #account;
+    #account = new Account(null,null);
     #id;
     constructor(name, dateOfBirth, address, faculity, gender, id) {
-        this.name = name;
-        this.dateOfBirth = dateOfBirth;
-        this.address = address;
-        this.faculity = faculity;
-        this.gender = gender;
-        this.id=id;
-        this.ListClass = [];
-        this.account = new Account(null,null);
+        this.#name = name;
+        this.#dateOfBirth = dateOfBirth;
+        this.#address = address;
+        this.#faculity = faculity;
+        this.#gender = gender;
+        this.#id=id;
+        this.#ListClass = [];
     }
     setName(name) {
         this.#name = name;

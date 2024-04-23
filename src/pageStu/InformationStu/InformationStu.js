@@ -4,31 +4,19 @@ import Footer from '../../components/ComponentStu/FooterStu/FooterStu'
 import Nav from '../../components/ComponentStu/NavStu/NavStu'
 import { Fragment } from 'react'
 import React, { useEffect, useState } from 'react';
+import {role, username} from '../../loginPage/Login_page'
 import { PersonFactory } from '../../model/PersonFactory';
 function InformationStu() {
     const [student, setStudent] = useState(null);
-
+    const [account, setAccount] = useState(null);
     useEffect(() => {
-        const fetchData = async () => {
-            const personRole = JSON.parse(localStorage.getItem('personRole'));
-            const personID = JSON.parse(localStorage.getItem('personID'));
-            alert(personID.id);
-            const studentInfo = await PersonFactory.createPerson(personRole.role, personID.id);
-            studentInfo.getName();
-            //alert(studentInfo.getFaculity());
-            const studentData = {
-                name: "Le Cong Minh",
-                studentID: studentInfo.getID(),
-                dateOfBirth: studentInfo.getDateOfBirth(),
-                gender: "Nu",
-                faculty: "Khoa Học Máy Tính",
-                address: "123 Đường ABC, Quận XYZ, Thành phố ABC"
-            };
-                setStudent(studentData);
+        const loadAccount = async () => {
+          const acc = new Account(role, username);
+          await acc.loadFromDatabase();
+          setAccount(acc);
         };
-
-        fetchData();
-    }, []);
+        loadAccount();
+      }, []);
 
     if (!student) {
         return <div>Loading...</div>;
@@ -42,27 +30,27 @@ function InformationStu() {
             <h1>Thông Tin Sinh Viên</h1>
                 <div className = "img-contain">
                     <img src="../../../img/avt.jpg" alt="Avatar" />
-                    <p>{student.name}</p>
+                    <p>{}</p>
                 </div>
                 <div className="row-2">
                     <div className="col">
                         <strong>Ngày sinh:</strong> {}
                     </div>
                     <div className="col">
-                    <strong>Giới tính:</strong> {student.gender}
+                    <strong>Giới tính:</strong> {}
                     </div>
                 </div>
                 <div className="row-2">
                     <div className="col">
-                        <strong>MSSV:</strong> {student.studentID}
+                        <strong>MSSV:</strong> {}
                     </div>
                     <div className="col">
-                        <strong>Khoa:</strong> {student.faculty}
+                        <strong>Khoa:</strong> {}
                     </div>
                 </div>
                 <div className="row-2">
                     <div className="col">
-                        <strong>Địa chỉ:</strong> {student.address}
+                        <strong>Địa chỉ:</strong> {}
                     </div>
                 </div>
             </div>

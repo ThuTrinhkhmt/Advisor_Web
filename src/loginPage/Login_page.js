@@ -6,10 +6,12 @@ import { Account } from '../model/Account';
 import { PersonFactory } from '../model/PersonFactory';
 const login_img=process.env.PUBLIC_URL + 'img/login_page.png'; 
 
+// Declare username and role as global variables
+let username = '';
+let role = '';
+
 function Login() {
-  const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const [role, setRole] = useState('');
   const navigate = useNavigate();
   const handleUsernameChange = (event) => {
     setUsername(event.target.value);
