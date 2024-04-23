@@ -6,15 +6,15 @@ export class Person {
     #address;
     #faculity; 
     #gender;
-    #ListClass;
+    #ListClass = [];
     #account = new Account(null,null);
     #id;
-    constructor(name, dateOfBirth, address, faculity, gender, id) {
-        this.#name = name;
-        this.#dateOfBirth = dateOfBirth;
-        this.#address = address;
-        this.#faculity = faculity;
-        this.#gender = gender;
+    constructor(id) {
+        this.#name = null;
+        this.#dateOfBirth = null;
+        this.#address = null;
+        this.#faculity = null;
+        this.#gender = null;
         this.#id=id;
         this.#ListClass = [];
     }

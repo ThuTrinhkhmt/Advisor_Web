@@ -6,11 +6,14 @@ export class PersonFactory {
         switch(type) {
             case 'Student':
                 const userData = await getUserData('Student', username);
-                return new Student(userData.Name, userData.DateOfBirth, userData.Address, userData.Faculity, userData.Gender, userData.ID);
+                return new Student(userData.ID);
             case 'Teacher':
                 const TeacherData = await getUserData('Teacher', username);
-                return new Teacher(TeacherData.Name, TeacherData.DateOfBirth, TeacherData.Address, TeacherData.Faculity, TeacherData.Gender, TeacherData.ID,
-                    TeacherData.Specialize, TeacherData.Degree, TeacherData.Position);
+                if(TeacherData){
+                    return new Teacher(TeacherData.ID);
+                } else{
+                    alert("Error");
+                }
             default:
                 throw new Error(`Invalid person type: ${type}`);
         }

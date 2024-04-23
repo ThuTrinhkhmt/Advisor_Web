@@ -40,7 +40,6 @@ export class Account {
 
     async setPassword(newPassword) {
         const userRef = ref(db, `Account/${this.#role}/${this.#username}`);
-    
         try {
             await update(userRef, {
                 Password: newPassword

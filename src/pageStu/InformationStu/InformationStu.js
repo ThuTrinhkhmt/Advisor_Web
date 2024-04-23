@@ -8,7 +8,6 @@ import {role, username} from '../../loginPage/Login_page'
 import { PersonFactory } from '../../model/PersonFactory';
 import { Account } from '../../model/Account';
 function InformationStu() {
-    const [student, setStudent] = useState(null);
     const [account, setAccount] = useState(null);
     useEffect(() => {
         const loadAccount = async () => {
@@ -18,10 +17,6 @@ function InformationStu() {
         };
         loadAccount();
       }, []);
-
-    if (!student) {
-        return <div>Loading...</div>;
-    }
 
     return (
         <Fragment>

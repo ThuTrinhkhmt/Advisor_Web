@@ -1,14 +1,28 @@
 import { Person } from './Person.js';
+import { getTeaData } from '../firebase/firebasefunction';
 export class Teacher extends Person {
     #specialize;
     #degree;
     #position;
     #groups = [];
-    constructor(name, dateOfBirth, address, faculity, gender, id, specialize, degree, position) {
-        super(name, dateOfBirth, address, faculity, gender, id);
-        this.#specialize = specialize;
-        this.#degree = degree;
-        this.#position = position;
+    constructor(id) {
+        super(id);
+        this.loadFromDatabase();
+    }
+
+    async loadFromDatabase() {
+        const userData = await getTeaData(super.getID());
+        
+        if (userData) {
+            super.setName(userData.Name);
+            super.setDateOfBirth(userData.DateOfBirth);
+            super.setAddress(userData.Address);
+            super.setFaculity(userData.Faculity);
+            super.setGender(userData.Gender);
+            this.#degree=userData.Degree;
+            this.#position=userData.Position;
+            this.#specialize=userData.Specialize;
+        }
     }
 
     setSpecialize(specialize) {

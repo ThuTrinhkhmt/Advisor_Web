@@ -1,15 +1,28 @@
 import { Person } from './Person.js';
+import { getStuData } from '../firebase/firebasefunction';
 import { Course } from './Course.js';
 import { Group } from './Group.js';
-//Trong moi phuong thuc can them khoi tao doi tuong moi co the goi cac method cua class khac
 export class Student extends Person {
     #studentScores = new Map();
     #studentFeedback = new Map();
-    constructor(name, dateOfBirth, address, faculity, gender, id) {
-        super(name, dateOfBirth, address, faculity, gender, id);
+    constructor(id) {
+        super(id);
+        this.loadFromDatabase();
     }
+
+    async loadFromDatabase() {
+        const userData = await getStuData(super.getID());
+        
+        if (userData) {
+            super.setName(userData.Name);
+            super.setDateOfBirth(userData.DateOfBirth);
+            super.setAddress(userData.Address);
+            super.setFaculity(userData.Faculity);
+            super.setGender(userData.Gender);
+        }
+    }
+
     deleteGroup(groupName, courseName){
-        //Can khoi tao doi tuong group va course moi su dung duoc cac method
         for (let [group, score] of this.studentScore.entries()) {
             if (group.getCourse().getName() === courseName && group.getGroupName() === groupName) {
                 this.studentScore.delete(group);
