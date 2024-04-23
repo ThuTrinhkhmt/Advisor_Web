@@ -1,27 +1,82 @@
-#InformationPage{
+#CourseRegistationStu1{
     margin-top : 50px;
     margin-left: 20%;
     padding : 30px;
     min-height: 500px;
   
 }
-#InformationPage .head{
+#CourseRegistationStu1 h1{
+    margin-bottom: 20px;
+    text-align: center;
+}
+#CourseRegistationStu1 .Infor{
+    margin-bottom: 20px;
+    text-align: left;
+    line-height: 1.5;
+}
+#CourseRegistationStu1 .head{
     display: flex;
     flex-direction: row;
     gap: 10px;
+    width: 100%;
 }
-#InformationPage #Inputsubject{
+#CourseRegistationStu1 #Inputsubject{
     border-radius: 5px;
     height: 30px;
     flex: 2;
+    margin-bottom: 20px;
+
 }
-#InformationPage button{
+#CourseRegistationStu1 .button-registation-stu{
     border-radius: 5px;
     height: 30px;
     flex:1;
     border-color: rgb(63, 205, 221);
 }
-#InformationPage button:hover{
+#CourseRegistationStu1 .button-registation-stu:hover{
     background-color: rgba(62, 112, 231, 0.479);
 
+}
+#CourseRegistationStu1 .RegistSub td{
+    text-align: center;
+      
+}
+#CourseRegistationStu1 .RegistSub .confirm{
+    margin: auto;
+    display: block;
+    width: 200px;
+    
+}
+#CourseRegistationStu1 .RegistSub {
+    width: 100%;    
+    margin-bottom: 50px;
+}
+#CourseRegistationStu1  .RegistedTab td{
+    text-align: center;
+     
+}
+#CourseRegistationStu1  .RegistedTab {
+    width: 100%;
+    margin-bottom: 50px;
+   
+}
+#CourseRegistationStu1  .confirm {
+    margin: auto;
+   display: block;
+    width: 200px;
+   
+   
+}
+#CourseRegistationStu1 .RegistedTab .title1 {
+  background-color: rgba(62, 112, 231, 0.479);
+}
+#CourseRegistationStu1 .RegistedTab .title2 {
+    background-color: rgba(62, 113, 231, 0.212);
+  }
+#CourseRegistationStu1 .RegistSub .title1 {
+    background-color: rgba(62, 112, 231, 0.479);
+}
+#CourseRegistationStu1 .RegistSub .title2 {
+    background-color: rgba(62, 113, 231, 0.212);
+   
 }
