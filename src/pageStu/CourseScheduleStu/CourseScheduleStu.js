@@ -4,24 +4,27 @@ import Footer from '../../components/ComponentStu/FooterStu/FooterStu'
 import Nav from '../../components/ComponentStu/NavStu/NavStu'
 import { Fragment } from 'react'
 import {Link} from 'react-router-dom';
-
 function SubjectTab({ subjectArr }){
     return (
         <div>
-            <ul>
+          
             {subjectArr.map((course, index)=> (
-                <li className="Subject" key={index}>
-                    <Link className='NameSub' to="/StuCourse">{course.subject} ({course.CouseID})</Link>
-                    <p className='GroupSub'>{course.Group}</p>
-                </li>
+                <div className="Subject" key={index}>
+                    {/* làm sao truyền đến một môn học xác định */}
+                    <div className='NameSub'>
+                        <Link to="/StuCourse">{course.subject} ({course.CouseID})</Link>
+                    </div>
+                    <div className='GroupSub'>
+                        <p >Nhóm : {course.Group}</p>
+                    </div>
+                    
+                </div>
             )
             )}
-            </ul>
-        </div>
-        
+           
+        </div>    
     );
 };
-
 function CourseScheduleStu() {
     const subjects=[
         {subject:"Giải tích 1",
@@ -35,17 +38,25 @@ function CourseScheduleStu() {
         {subject:"Giải tích 2",
          CouseID: "MT1005",
          Group:"L09"
+        },
+        {subject:"Giải tích 2",
+         CouseID: "MT1009",
+         Group:"L10"
         }
         
     ];
-    subjects.sort((a, b) => a.subject.localeCompare(b.subject));
     return (
         <Fragment>
             <Header />
             <Nav />
-            <div id = "CListPage">
+            <div id = "CourseScheduleStu1">
                 <h1 className='header'>Danh sách khóa học</h1>
                 <div>
+                    <h2>Học kì 223</h2>
+                    <SubjectTab subjectArr={subjects}/>
+                    <h2>Học kì 222</h2>
+                    <SubjectTab subjectArr={subjects}/>
+                    <h2>Học kì 221</h2>
                     <SubjectTab subjectArr={subjects}/>
                 </div>
             </div>
