@@ -31,40 +31,40 @@ function Login() {
   
     <div className="login_page">       
       <div className="left_side">
-      <img width="300px" height="200px" src={login_img} alt="error"/>   
-          <h2>Welcome back!</h2>
+          <img width="300px" height="200px" src={login_img} alt="error"/>   
+          <h1>Welcome back!</h1>
           <div id="text">
           <p>Type your username and password <br></br>to join with us.</p>
           </div>
       </div>
       <div className="right_side">       
-          <h2>Loginnn!</h2>
+          <h1>Loginnn!</h1>
           <select id="role" onChange={handleRoleChange} >
             <option value="">Login as:</option>
             <option value="teacher">Teacher</option>
             <option value="student">Student</option>
           </select>
           <input type="text" id="username" onChange={handleUsernameChange} placeholder="Type your id or user name" />
-          <input type="text" id="password" onChange={handlePasswordChange} placeholder="Type your password" />
+          <input type="password" id="password" onChange={handlePasswordChange} placeholder="Type your password" />
           <div id="Buttons">
           {role === '' && (
             
-              <button onClick={login}>Login</button>
+              <button className = "btn-loginpage"  onClick={login}>Login</button>
            
           )}
           {role === 'teacher' && (
-            <Link to="/Tea">
-              <button onClick={login}>Login</button>
+            <Link id ="Goto" to="/Tea">
+              <button className = "btn-loginpage"  onClick={login}>Login</button>
             </Link>
           )}
           {role === 'student' && (
-            <Link to="/Stu">
-              <button onClick={login}>Login</button>
+            <Link id ="Goto" to="/Stu">
+              <button className = "btn-loginpage" onClick={login}>Login</button>
             </Link>
           )}
               
               <Link id ="Goto" to="/ChangePw">
-                <button>Change password</button>
+                <button className = "btn-loginpage" >Change password</button>
               </Link>
           </div>               
       </div>
