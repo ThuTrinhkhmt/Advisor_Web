@@ -1,3 +1,4 @@
+import { db, ref, set, get, child, update, remove } from '../firebase/firebase';
 import { getUserData } from '../firebase/firebasefunction';
 export class Account {
     #role;
@@ -17,23 +18,23 @@ export class Account {
             this.#id = userData.ID;
         }
     }
-    async getUsername() {
+    getUsername() {
         return this.#username;
     }
 
-    async getPassword() {
+    getPassword() {
         return this.#password;
     }
 
-    async getId(){
+    getId(){
         return this.#id;
     }
 
-    async getRole() {
+    getRole() {
         return this.#role;
     }
 
-    async setUsername(username) {
+    setUsername(username) {
         this.#username = username;
     }
 
@@ -45,16 +46,17 @@ export class Account {
                 Password: newPassword
             });
             this.#password = newPassword;
+            alert(this.#password);
             console.log("User data updated successfully");
         } catch (error) {
             console.error("Error updating user data:", error);
         }
     }
-    async setId(id){
+    setId(id){
        this.#id=id;
     }
 
-    async setRole(role) {
+    setRole(role) {
         this.#role=role;
     }
 }

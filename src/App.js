@@ -14,6 +14,7 @@ import StudentServer from './loginPage/StudentServer/StudentServer';
 import TeacherServer from './loginPage/TeacherServer/TeacherServer';
 import PageStu from './pageStu/HomeStu/HomeStu';
 import PageTea from './pageTea/HomeTea/HomeTea';
+import ChangePassword from './ChangePw/ChangePass'
 import CourseView from './pageTea/CourseView/CourseView';
 import BackgroundStu from './pageTea/BackgroundStu/BackgroundStu';
 import ClassGrade from './pageTea/ClassGrade/ClassGrade';
@@ -27,6 +28,7 @@ function App() {
     <div id="Platform">
         <Routes>
           <Route path="/" element={<StudentServer />} />
+          <Route path="/ChangePw" element ={<ChangePassword/>}/>
           <Route path="/Stu" element={<Home1 />} />
           <Route path="/informationStu" element={<Information1 />} />
           <Route path="/courseScheduleStu" element={<CourseSchedule1 />} />

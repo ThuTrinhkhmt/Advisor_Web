@@ -14,7 +14,7 @@ export class Course {
     async loadFromDatabase() {
         const CourseData = await getCourseData(this.#idCourse);
         
-        if (userData) {
+        if (CourseData) {
             this.#name = CourseData.NameOfCourse;
             this.#description = CourseData.Desciption;
             this.#numOfCredit = CourseData.NumOfCredits;

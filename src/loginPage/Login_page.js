@@ -1,37 +1,40 @@
 import './Login_page.css';
-import { Fragment } from 'react';
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { BrowserRouter as Router, Route, Link, Routes, useNavigate } from "react-router-dom";
+
+
 import { Account } from '../model/Account';
-import { PersonFactory } from '../model/PersonFactory';
 const login_img=process.env.PUBLIC_URL + 'img/login_page.png'; 
 
 // Declare username and role as global variables
 let username = '';
 let role = '';
 
-function Login() {
+function Login() { 
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
   const handleUsernameChange = (event) => {
-    setUsername(event.target.value);
+    username = event.target.value;
   };
   const handlePasswordChange = (event) => {
     setPassword(event.target.value);
   };
   const handleRoleChange = (event) => {
-    setRole(event.target.value);
+    role = event.target.value;
   };
+   
   const login = async() => {
-    const account=new Account(role, username);
+    const account= new Account(role, username);
     await account.loadFromDatabase();
-    localStorage.setItem('personID', JSON.stringify({ id: account.getID() }));
-    localStorage.setItem('personRole', JSON.stringify({role: account.getRole()}));
     if (username.length > 0 && password.length > 0 && role.length >0) {
       if (account.getPassword() === password) {
         alert(`Login successful! You are logged in as a ${role}.`);
         // Điều hướng đến trang chính sau khi đăng nhập thành công
-        if(role==="Teacher") navigate('/Tea'); else navigate('/Stu');
+        if(role==="Teacher") {
+          navigate('/Tea');
+        } else {
+          navigate('/Stu');
+        }
       } else {
         alert("Invalid username or password!");
       }
@@ -59,13 +62,18 @@ function Login() {
           <input type="text" id="username" onChange={handleUsernameChange} placeholder="Type your id or user name" />
           <input type="password" id="password" onChange={handlePasswordChange} placeholder="Type your password" />
           <div id="Buttons">
-            <button onClick={login}>Login</button>
-            <button>Change password</button>
+            <Link id = "Goto">
+              <button className = "btn-loginpage" onClick={login}>Login</button>
+            </Link>
+            
+            <Link id ="Goto" to="/ChangePw">
+              <button className = "btn-loginpage" >Change password</button>
+            </Link>
           </div>               
       </div>
     </div>
     
   );
 }
-
+export {role, username};
 export default Login;

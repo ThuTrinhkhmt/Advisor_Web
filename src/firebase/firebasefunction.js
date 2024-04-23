@@ -1,5 +1,4 @@
 import { db, ref, set, get, child, update, remove } from './firebase';
-//Tra ve Account theo role va username
 const getUserData = async (role, username) => {
     const userRef = ref(db, `Account/${role}/${username}`);
     try {
@@ -66,4 +65,4 @@ const deleteUserData = async (username) => {
     }
 };
 
-export { getUserData, getPersonData, getStuData, getCourseData, updateUserData, addUserData, deleteUserData };
+export { getUserData, getCourseData, updateUserData, addUserData, deleteUserData };

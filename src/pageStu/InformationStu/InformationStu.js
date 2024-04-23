@@ -6,6 +6,7 @@ import { Fragment } from 'react'
 import React, { useEffect, useState } from 'react';
 import {role, username} from '../../loginPage/Login_page'
 import { PersonFactory } from '../../model/PersonFactory';
+import { Account } from '../../model/Account';
 function InformationStu() {
     const [student, setStudent] = useState(null);
     const [account, setAccount] = useState(null);
