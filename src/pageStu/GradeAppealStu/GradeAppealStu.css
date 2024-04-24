@@ -1,32 +1,37 @@
 #GradeAppealStu1{
-    margin-top : 50px;
-    margin-left: 20%;
-    padding : 30px;
-    min-height: 500px;   
+    margin-top: 50px;
+    padding: 30px;
+    min-height: 500px;
+    margin-left: 24%;
+    margin-bottom: 36px;
+    margin-right: 18px; 
     display: flex;
     flex-direction: column;
     gap: 20px;
 }
 #GradeAppealStu1 h1{ 
     text-align: center;
+    margin-bottom: 36px;
+    line-height: 32px;
+    font-size: 36px;
 }
 #GradeAppealStu1 .Appeal{ 
     display: flex;
     flex-direction: column;
     gap: 20px;
 }
-#GradeAppealStu1 .Infor{ 
+#GradeAppealStu1 .Infor1{ 
     display: flex;
     flex-direction: row;
    
 }
-#GradeAppealStu1 .Infor .Student_infor{ 
+#GradeAppealStu1 .Infor1 .Student_infor{ 
     display: flex;
     flex-direction: column;
     gap: 5px;
    
 }
-#GradeAppealStu1 .Infor .Realtime_infor{ 
+#GradeAppealStu1 .Infor1 .Realtime_infor{ 
     display: flex;
     flex-direction: column;
     gap: 5px;
@@ -40,18 +45,27 @@
     flex-direction: column;
     gap: 5px;
 }
-#GradeAppealStu1 ul{ 
+#GradeAppealStu1 .Appeal .Infor2 { 
     display: flex;
     flex-direction: column;
     gap: 5px;
     color:rgb(82, 96, 202);
     font-style: italic;
 }
+#GradeAppealStu1 table{
+    margin-bottom: 50px;
+}
 #GradeAppealStu1 table td{ 
     text-align: center;
 }
 #GradeAppealStu1 .Appeal .shell{ 
     width: 150px;
+    
+}
+#GradeAppealStu1 .Appeal .title1{ 
+    width: 150px;
+   
+    background-color: rgba(62, 112, 231, 0.479);
     
 }
 #GradeAppealStu1 .Appeal .Confirm { 
@@ -64,6 +78,9 @@
  }
  
  #GradeAppealStu1 .Appeal .Confirm .btn-appeal-stu:hover{
-    background-color: rgba(62, 132, 231, 0.479);
+    background-color: rgba(62, 113, 231, 0.212);
+}
 
+#GradeAppealStu1 p{
+    margin: 4px;
 }

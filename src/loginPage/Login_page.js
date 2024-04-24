@@ -47,14 +47,14 @@ function Login() {
   
     <div className="login_page">       
       <div className="left_side">
-      <img width="300px" height="200px" src={login_img} alt="error"/>   
-          <h2>Welcome back!</h2>
+          <img width="300px" height="200px" src={login_img} alt="error"/>   
+          <h1>Welcome back!</h1>
           <div id="text">
           <p>Type your username and password <br></br>to join with us.</p>
           </div>
       </div>
       <div className="right_side">       
-          <h2>Loginnn!</h2>
+          <h1>Loginnn!</h1>
           <select id="role" onChange={handleRoleChange} >
             <option value="">Login as:</option>
             <option value="Teacher">Teacher</option>

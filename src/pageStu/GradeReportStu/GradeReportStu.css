@@ -1,16 +1,25 @@
-#GradeReportStu1{
-    margin-top : 50px;
-    margin-left: 20%;
-    padding : 30px;
-    min-height: 500px;   
+#GradeReportStu{
+    margin-top: 50px;
+    padding: 30px;
+    min-height: 500px;
+    margin-left: 24%;
+    margin-bottom: 36px;
+    margin-right: 18px;
     display: flex;
     flex-direction: column;
     gap: 20px;
 }
-#GradeReportStu1 h1{
-    text-align: center;
+#Grade_table {
+    width: 100%;
+    margin-bottom: 20px;
 }
-#GradeReportStu1 #Student_infor{
+#GradeReportStu h1{
+    text-align: center;
+    line-height: 32px;
+    font-size: 36px;
+    margin-bottom: 52px;
+}
+#GradeReportStu #Student_infor{
     display: flex;
     flex-direction: column;
     justify-content: left; 
@@ -18,21 +27,31 @@
     gap: 5px;
     color:rgb(83, 133, 243);
 }
-#GradeReportStu1 .Select_sem{
+#GradeReportStu .Select_sem{
     height: 30px;
 }
-#GradeReportStu1 #Grade_table td{
+#GradeReportStu #Grade_table td{
     text-align: center; 
 }
-#GradeReportStu1 .review{
+#GradeReportStu .review{
     display: flex;
     flex-direction: column;
     justify-content: left; 
     align-items: left; 
     gap:5px;
-   
+    border-radius: 10px;  
+    margin-bottom: 20px;
 }
-.title1
+#GradeReportStu .title1
 {
-    background-color: rgba(100, 130, 207, 0.421);
-};
+    background-color: rgba(62, 112, 231, 0.479);
+}
+
+#GradeReportStu p{
+    margin: 4px;
+}
+#GradeReportStu  .strong{
+    font-weight: bold;
+    font-size: 24px;
+    color : white;
+}
