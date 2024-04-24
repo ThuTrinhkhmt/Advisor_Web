@@ -1,6 +1,36 @@
-#CListPage{
+#CourseScheduleStu1{
     margin-top : 50px;
     margin-left: 20%;
     padding : 30px;
-    min-height: 500px;
+    min-height: 500px;   
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
 }
+#CourseScheduleStu1 .header{
+    text-align: center;  
+}
+#CourseScheduleStu1 h2{
+    margin-bottom: 20px;  
+    margin-top: 20px;  
+}
+#CourseScheduleStu1 .Subject{
+    padding: 8px;
+}
+
+#CourseScheduleStu1 .Subject{
+    border-bottom: solid 0.67px;
+    border-bottom-color: rgba(0, 0, 0, 0.125);
+    line-height: 1.5;
+}
+
+#CourseScheduleStu1 .Subject .NameSub {
+    padding-bottom: 4px;
+    font-size: 18px;
+}
+
+#CourseScheduleStu1 .Subject .GroupSub{
+    padding-bottom: 15px;
+    font-size: 18px;
+}
+
