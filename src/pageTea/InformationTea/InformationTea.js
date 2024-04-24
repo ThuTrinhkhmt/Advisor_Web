@@ -1,9 +1,12 @@
-import React, { Fragment, useState, useRef } from 'react';
+import React, { Fragment, useState, useEffect, useRef } from 'react';
 import Header from '../../components/ComponentTea/HeaderTea/HeaderTea';
 import Footer from '../../components/ComponentTea/FooterTea/FooterTea';
 import Nav from '../../components/ComponentTea/NavTea/NavTea';
 import './InformationTea.css';
 
+import { Account } from '../../model/Account';
+import { PersonFactory } from '../../model/PersonFactory';
+import { role, username } from '../../loginPage/Login_page';
 function InformationTea() {
     const preTeacher = useRef(null);
     const [editable, setEditable] = useState(false);
@@ -11,16 +14,35 @@ function InformationTea() {
 
     //Này là từ giáo viên cậu tự lấy thông tin giáo viên và lưu vô biến teacher cho tớ nha, ở chổ useState á
     const [teacher, setTeacher] = useState({
-        name: "Nguyễn Văn A",
-        dateOfBirth: "01/01/1990",
-        gender: "Nam",
-        faculty: "Khoa Học Máy Tính",
-        address: "123 Đường ABC, Quận XYZ, Thành phố ABC",
-        specialization: "Lập trình web",
-        degree: "Tiến sĩ",
-        position: "Giáo sư"
+        name: "",
+        dateOfBirth: "",
+        gender: "",
+        faculty: "",
+        address: "",
+        specialization: "",
+        degree: "",
+        position: ""
     });
-
+    useEffect(() => {
+        const loadTeacher = async () => {
+            const account = new Account(role, username);
+            await account.loadFromDatabase();
+            const teacherData = await PersonFactory.createPerson('Teacher', username);
+            await teacherData.loadFromDatabase();
+            teacherData.setAccount(account);
+            setTeacher({
+                name: teacherData.getName(),
+                dateOfBirth: teacherData.getDateOfBirth(),
+                gender: teacherData.getGender(),
+                faculty: teacherData.getFaculity(),
+                address: teacherData.getAddress(),
+                specialization: teacherData.getSpecialize(),
+                degree: teacherData.getDegree(),
+                position: teacherData.getPosition()
+            });
+        };
+        loadTeacher();
+    }, []);
     const handleEdit = () => {
         preTeacher.current = { ...teacher };
         setEditable(true);
@@ -79,7 +101,7 @@ function InformationTea() {
                         <strong>Bằng cấp: </strong> 
                         {editable ? 
                             <input type="text" name="degree" className="input-degree" value={teacher.degree} onChange={handleInputChange} /> 
-                            : teacher.degree}
+                            : teacher.specialization}
                     </div>
                 </div>
                 <div className="row">

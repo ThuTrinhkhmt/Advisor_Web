@@ -1,10 +1,18 @@
 import './ChangePass.css';
 import React, { useState } from 'react';
+import { Account } from '../model/Account';
+import { useNavigate } from 'react-router-dom';
 const login_img=process.env.PUBLIC_URL + 'img/login_page.png'; 
 function ChangePassword(){
+    const navigate = useNavigate();
+    const [role, setRole]=useState('');
     const [username, setUsername]=useState('');
     const [old_password, setold_password]=useState('');
     const [new_password, setnew_password]=useState('');
+    
+    const checkRole = (event)=>{
+        setRole(event.target.value);
+    }
     const checkValue = (event)=>{
         setUsername(event.target.value);
     }
@@ -14,9 +22,18 @@ function ChangePassword(){
     const updatePassword =(event)=>{
         setnew_password(event.target.value);
     }
-    const change =()=>{
+    const change = async ()=>{
         if(username.length >0 && new_password.length>0 && old_password.length>0){
-            alert("Change password sussessful!");
+            // Tạo một đối tượng User mới
+            const account = new Account(role, username);
+            await account.loadFromDatabase();
+            if(account.getPassword() === old_password){
+                await account.setPassword(new_password);
+                alert("Password changed successfully!");
+                navigate('/Login');
+            }else {
+                alert("Invalid username or password!");
+            }
         } else {
             alert("Invalid username or password!");
         }
@@ -34,6 +51,11 @@ function ChangePassword(){
             <div className="right_side">
                 <h2>Reset your password!</h2>
                 
+                <select type="text" id="role" onChange={checkRole} >
+                    <option value="">What's your role</option>
+                    <option value="Teacher">Teacher</option>
+                    <option value="Student">Student</option>
+                </select>
                 <input type="text" id="username" onChange={checkValue} placeholder='User name' />
                 <input type="text" id="old_password" onChange={checkOldPassword} placeholder='Old password' />
                 <input type="text" id="new_password" onChange={updatePassword} placeholder='New password' />

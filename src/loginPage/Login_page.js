@@ -1,28 +1,44 @@
 import './Login_page.css';
 import { Fragment } from 'react';
 import React, { useState } from 'react';
-import { BrowserRouter as Router, Redirect, Route, Link, Routes } from "react-router-dom";
+import { BrowserRouter as Router, Route, Link, Routes } from "react-router-dom";
+import { useNavigate } from 'react-router-dom';
 
+import { Account } from '../model/Account';
 const login_img=process.env.PUBLIC_URL + 'img/login_page.png'; 
 
-function Login() {
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
-  const [role, setRole] = useState('');
+// Declare username and role as global variables
+let username = '';
+let role = '';
 
+function Login() { 
+  const [password, setPassword] = useState('');
+  const navigate = useNavigate();
   const handleUsernameChange = (event) => {
-    setUsername(event.target.value);
+    username = event.target.value;
   };
   const handlePasswordChange = (event) => {
     setPassword(event.target.value);
   };
   const handleRoleChange = (event) => {
-    setRole(event.target.value);
+    role = event.target.value;
   };
-  const login = () => {
+   
+  const login = async() => {
+    const account= new Account(role, username);
+    await account.loadFromDatabase();
     if (username.length > 0 && password.length > 0 && role.length >0) {
-      alert(`Login successful! You are logged in as a ${role}.`);
-     
+      if (account.getPassword() === password) {
+        alert(`Login successful! You are logged in as a ${role}.`);
+        // Điều hướng đến trang chính sau khi đăng nhập thành công
+        if(role==="Teacher") {
+          navigate('/Tea');
+        } else {
+          navigate('/Stu');
+        }
+      } else {
+        alert("Invalid username or password!");
+      }
     } else {
       alert("Invalid username or password!");
     }
@@ -41,36 +57,24 @@ function Login() {
           <h2>Loginnn!</h2>
           <select id="role" onChange={handleRoleChange} >
             <option value="">Login as:</option>
-            <option value="teacher">Teacher</option>
-            <option value="student">Student</option>
+            <option value="Teacher">Teacher</option>
+            <option value="Student">Student</option>
           </select>
           <input type="text" id="username" onChange={handleUsernameChange} placeholder="Type your id or user name" />
-          <input type="text" id="password" onChange={handlePasswordChange} placeholder="Type your password" />
+          <input type="password" id="password" onChange={handlePasswordChange} placeholder="Type your password" />
           <div id="Buttons">
-          {role === '' && (
-            
-              <button className = "btn-loginpage"  onClick={login}>Login</button>
-           
-          )}
-          {role === 'teacher' && (
-            <Link to="/Tea">
-              <button className = "btn-loginpage"  onClick={login}>Login</button>
-            </Link>
-          )}
-          {role === 'student' && (
-            <Link to="/Stu">
+            <Link id = "Goto">
               <button className = "btn-loginpage" onClick={login}>Login</button>
             </Link>
-          )}
-              
-              <Link id ="Goto" to="/ChangePw">
-                <button className = "btn-loginpage" >Change password</button>
-              </Link>
+            
+            <Link id ="Goto" to="/ChangePw">
+              <button className = "btn-loginpage" >Change password</button>
+            </Link>
           </div>               
       </div>
     </div>
     
   );
 }
-
+export {role, username};
 export default Login;

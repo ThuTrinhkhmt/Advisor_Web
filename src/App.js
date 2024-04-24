@@ -11,12 +11,12 @@ import ClassList2 from './pageTea/ClassListTea/ClassListTea';
 import Information2 from './pageTea/InformationTea/InformationTea';
 import PageStu from './pageStu/HomeStu/HomeStu';
 import PageTea from './pageTea/HomeTea/HomeTea';
+import ChangePassword from './ChangePw/ChangePass'
 import CourseView from './pageTea/CourseView/CourseView';
 import BackgroundStu from './pageTea/BackgroundStu/BackgroundStu';
 import ClassGrade from './pageTea/ClassGrade/ClassGrade';
 import { useParams } from 'react-router-dom';
 import Login from './loginPage/Login_page'
-import ChangePassword from './ChangePw/ChangePass'
 import Course from './pageStu/AboutCourse/Course'
 import AppealAnnounce from './pageTea/AppealAnnounce/AppealAnnounce';
 import './App.css';
@@ -26,7 +26,7 @@ function App() {
   return (
     <div id="Platform">
         <Routes>
-          <Route path="/" element={<Login />}/>
+          <Route path="/" element={< Login/>} />
           <Route path="/ChangePw" element ={<ChangePassword/>}/>
           <Route path="/Stu" element={<Home1 />} />
           <Route path="/StuCourse" element={<Course />} />
@@ -44,6 +44,7 @@ function App() {
           <Route path="/course/:courseID/:group" element={<ClassGrade />} />
           <Route path="/course/:courseID/:group/:studentID" element={<BackgroundStu />} />
           <Route path="/pageTea" element={<PageTea />} />
+          <Route path="/Login" element={<Login />} />
         </Routes>
         
     </div>

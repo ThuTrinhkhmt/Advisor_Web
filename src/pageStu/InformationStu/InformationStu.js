@@ -3,15 +3,20 @@ import Header from '../../components/ComponentStu/HeaderStu/HeaderStu'
 import Footer from '../../components/ComponentStu/FooterStu/FooterStu'
 import Nav from '../../components/ComponentStu/NavStu/NavStu'
 import { Fragment } from 'react'
+import React, { useEffect, useState } from 'react';
+import {role, username} from '../../loginPage/Login_page'
+import { PersonFactory } from '../../model/PersonFactory';
+import { Account } from '../../model/Account';
 function InformationStu() {
-    const student = {
-        name: "Nguyễn Văn A",
-        studentID: "SV001",
-        dateOfBirth: "01/01/1990",
-        gender: "Nam",
-        faculty: "Khoa Học Máy Tính",
-        address: "123 Đường ABC, Quận XYZ, Thành phố ABC"
-    };
+    const [account, setAccount] = useState(null);
+    useEffect(() => {
+        const loadAccount = async () => {
+          const acc = new Account(role, username);
+          await acc.loadFromDatabase();
+          setAccount(acc);
+        };
+        loadAccount();
+      }, []);
 
     return (
         <Fragment>
@@ -21,27 +26,27 @@ function InformationStu() {
             <h1>Thông Tin Sinh Viên</h1>
                 <div className = "img-contain">
                     <img src="../../../img/avt.jpg" alt="Avatar" />
-                    <p>{student.name}</p>
+                    <p>{}</p>
                 </div>
                 <div className="row-2">
                     <div className="col">
-                        <strong>Ngày sinh:</strong> {student.dateOfBirth}
+                        <strong>Ngày sinh:</strong> {}
                     </div>
                     <div className="col">
-                    <strong>Giới tính:</strong> {student.gender}
-                    </div>
-                </div>
-                <div className="row-2">
-                    <div className="col">
-                        <strong>MSSV:</strong> {student.studentID}
-                    </div>
-                    <div className="col">
-                        <strong>Khoa:</strong> {student.faculty}
+                    <strong>Giới tính:</strong> {}
                     </div>
                 </div>
                 <div className="row-2">
                     <div className="col">
-                        <strong>Địa chỉ:</strong> {student.address}
+                        <strong>MSSV:</strong> {}
+                    </div>
+                    <div className="col">
+                        <strong>Khoa:</strong> {}
+                    </div>
+                </div>
+                <div className="row-2">
+                    <div className="col">
+                        <strong>Địa chỉ:</strong> {}
                     </div>
                 </div>
             </div>
