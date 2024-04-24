@@ -6,13 +6,15 @@ import './InformationTea.css';
 
 import { Account } from '../../model/Account';
 import { PersonFactory } from '../../model/PersonFactory';
-import { role, username } from '../../loginPage/Login_page';
 function InformationTea() {
     const preTeacher = useRef(null);
     const [editable, setEditable] = useState(false);
     //Hai biến này của tớ
 
     //Này là từ giáo viên cậu tự lấy thông tin giáo viên và lưu vô biến teacher cho tớ nha, ở chổ useState á
+    const role = localStorage.getItem('role');
+    const username = localStorage.getItem('username');
+    //const storedTeacherData = JSON.parse(localStorage.getItem('teacher'));
     const [teacher, setTeacher] = useState({
         name: "",
         dateOfBirth: "",
@@ -42,7 +44,7 @@ function InformationTea() {
             });
         };
         loadTeacher();
-    }, []);
+    }, [role, username]);
     const handleEdit = () => {
         preTeacher.current = { ...teacher };
         setEditable(true);

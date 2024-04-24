@@ -4,28 +4,32 @@ import React, { useState } from 'react';
 import { BrowserRouter as Router, Route, Link, Routes } from "react-router-dom";
 import { useNavigate } from 'react-router-dom';
 
+import { PersonFactory } from '../model/PersonFactory';
 import { Account } from '../model/Account';
 const login_img=process.env.PUBLIC_URL + 'img/login_page.png'; 
 
-// Declare username and role as global variables
-let username = '';
-let role = '';
-
 function Login() { 
+  const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [role, setRole] = useState('');
   const navigate = useNavigate();
   const handleUsernameChange = (event) => {
-    username = event.target.value;
+    setUsername(event.target.value);
   };
   const handlePasswordChange = (event) => {
     setPassword(event.target.value);
   };
   const handleRoleChange = (event) => {
-    role = event.target.value;
+    setRole(event.target.value);
   };
    
   const login = async() => {
     const account= new Account(role, username);
+    const teacherData = await PersonFactory.createPerson('Teacher', username);
+    await teacherData.loadFromDatabase();
+    localStorage.setItem('role', role);
+    localStorage.setItem('username', username);
+    localStorage.setItem('teacher1', JSON.stringify(teacherData));
     await account.loadFromDatabase();
     if (username.length > 0 && password.length > 0 && role.length >0) {
       if (account.getPassword() === password) {
@@ -76,5 +80,4 @@ function Login() {
     
   );
 }
-export {role, username};
 export default Login;

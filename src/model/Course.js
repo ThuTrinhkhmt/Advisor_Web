@@ -2,9 +2,10 @@ import { getCourseData } from '../firebase/firebasefunction';
 export class Course {
     #idCourse;
     #name;
-    #description;
+    #title;
+    #content;
+    #documents = new Map();
     #numOfCredit;
-    #documents = [];
     #groups = [];
     constructor(idCourse) {
         this.#idCourse=idCourse;
@@ -16,54 +17,62 @@ export class Course {
         
         if (CourseData) {
             this.#name = CourseData.NameOfCourse;
-            this.#description = CourseData.Desciption;
+            this.#title = CourseData.Desciption;
             this.#numOfCredit = CourseData.NumOfCredits;
         }
     }
 
-    async setName(name) {
+    setName(name) {
         this.#name = name;
     }
 
-    async getName() {
+    getName() {
         return this.#name;
     }
 
-    async setCourseCode(idCourse) {
+    setCourseCode(idCourse) {
         this.#idCourse = idCourse;
     }
 
-    async getCourseCode() {
+    getCourseCode() {
         return this.#idCourse;
     }
 
-    async setDescription(description) {
-        this.#description = description;
+    setTitle(title) {
+        this.#title = title;
     }
 
-    async getDescription() {
-        return this.#description;
+    setContent(content) {
+        this.#content = content;
     }
 
-    async setNumOfCredit(numOfCredit) {
+    getContent() {
+        return this.#content;
+    }
+
+    getTitle() {
+        return this.#title;
+    }
+
+    setNumOfCredit(numOfCredit) {
         this.#numOfCredit = numOfCredit;
     }
 
-    async getNumOfCredit() {
+    getNumOfCredit() {
         return this.#numOfCredit;
     }
 
-    async addDocument(document) {
+    addDocument(document) {
         this.#documents.push(document);
     }
 
-    async getDocuments() {
+    getDocuments() {
         return this.#documents;
     }
-    async getGroup(){
+    getGroup(){
         return this.#groups;
     }
-    async getAGroup(groupName){
+    getAGroup(groupName){
         for (let group of this.groups) {
             if (group.getGroupName() === groupName) {
                 return group;

@@ -10,6 +10,7 @@ export class Account {
         this.#username = username;
         this.loadFromDatabase();
     }
+    //Ham lay du lieu tu firebase de khoi tao doi tuong
     async loadFromDatabase() {
         const userData = await getUserData(this.#role, this.#username);
         
@@ -18,6 +19,7 @@ export class Account {
             this.#id = userData.ID;
         }
     }
+    //Cac getter lay du lieu
     getUsername() {
         return this.#username;
     }
@@ -33,11 +35,7 @@ export class Account {
     getRole() {
         return this.#role;
     }
-
-    setUsername(username) {
-        this.#username = username;
-    }
-
+    //Ham de thay doi mat khau
     async setPassword(newPassword) {
         const userRef = ref(db, `Account/${this.#role}/${this.#username}`);
         try {
@@ -45,12 +43,16 @@ export class Account {
                 Password: newPassword
             });
             this.#password = newPassword;
-            alert(this.#password);
             console.log("User data updated successfully");
         } catch (error) {
             console.error("Error updating user data:", error);
         }
     }
+    //Cac ham setter o duoi tam thoi khong can, khong co dac quyen
+    setUsername(username) {
+        this.#username = username;
+    }
+
     setId(id){
        this.#id=id;
     }

@@ -4,10 +4,11 @@ import Footer from '../../components/ComponentStu/FooterStu/FooterStu'
 import Nav from '../../components/ComponentStu/NavStu/NavStu'
 import { Fragment } from 'react'
 import React, { useEffect, useState, useRef } from 'react';
-import {role, username} from '../../loginPage/Login_page'
 import { PersonFactory } from '../../model/PersonFactory';
 import { Account } from '../../model/Account';
 function InformationStu() {
+    const role = localStorage.getItem('role');
+    const username = localStorage.getItem('username');
     const [account, setAccount] = useState(null);
     useEffect(() => {
         const loadAccount = async () => {
@@ -16,7 +17,7 @@ function InformationStu() {
           setAccount(acc);
         };
         loadAccount();
-      }, []);
+      }, [role, username]);
 
     const preStudent = useRef(null);
     const [editable, setEditable] = useState(false);
