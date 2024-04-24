@@ -1,30 +1,35 @@
 import './Login_page.css';
-import React, { useState, useContext } from 'react';
-import { BrowserRouter as Router, Route, Link, Routes, useNavigate } from "react-router-dom";
+import { Fragment } from 'react';
+import React, { useState } from 'react';
+import { BrowserRouter as Router, Route, Link, Routes } from "react-router-dom";
+import { useNavigate } from 'react-router-dom';
 
-
+import { PersonFactory } from '../model/PersonFactory';
 import { Account } from '../model/Account';
 const login_img=process.env.PUBLIC_URL + 'img/login_page.png'; 
 
-// Declare username and role as global variables
-let username = '';
-let role = '';
-
 function Login() { 
+  const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [role, setRole] = useState('');
   const navigate = useNavigate();
   const handleUsernameChange = (event) => {
-    username = event.target.value;
+    setUsername(event.target.value);
   };
   const handlePasswordChange = (event) => {
     setPassword(event.target.value);
   };
   const handleRoleChange = (event) => {
-    role = event.target.value;
+    setRole(event.target.value);
   };
    
   const login = async() => {
     const account= new Account(role, username);
+    const teacherData = await PersonFactory.createPerson('Teacher', username);
+    await teacherData.loadFromDatabase();
+    localStorage.setItem('role', role);
+    localStorage.setItem('username', username);
+    localStorage.setItem('teacher1', JSON.stringify(teacherData));
     await account.loadFromDatabase();
     if (username.length > 0 && password.length > 0 && role.length >0) {
       if (account.getPassword() === password) {
@@ -46,14 +51,14 @@ function Login() {
   
     <div className="login_page">       
       <div className="left_side">
-      <img width="300px" height="200px" src={login_img} alt="error"/>   
-          <h2>Welcome back!</h2>
+          <img width="300px" height="200px" src={login_img} alt="error"/>   
+          <h1>Welcome back!</h1>
           <div id="text">
           <p>Type your username and password <br></br>to join with us.</p>
           </div>
       </div>
       <div className="right_side">       
-          <h2>Loginnn!</h2>
+          <h1>Loginnn!</h1>
           <select id="role" onChange={handleRoleChange} >
             <option value="">Login as:</option>
             <option value="Teacher">Teacher</option>
@@ -75,5 +80,4 @@ function Login() {
     
   );
 }
-export {role, username};
 export default Login;

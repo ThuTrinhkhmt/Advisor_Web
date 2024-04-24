@@ -1,7 +1,8 @@
-
+import { db, ref, set, get, child, update, remove } from '../firebase/firebase';
 import {Account} from './Account';
+import { role } from '../loginPage/Login_page';
 export class Person {
-    #name
+    #name;
     #dateOfBirth;
     #address;
     #faculity; 
@@ -18,24 +19,69 @@ export class Person {
         this.#id=id;
         this.#ListClass = [];
     }
-    setName(name) {
-        this.#name = name;
+    async setName(newName) {
+        const userRef = ref(db, `role/${this.#id}`);
+        try {
+            await update(userRef, {
+                Name: newName
+            });
+            this.#name = newName;
+            console.log("User data updated successfully");
+        } catch (error) {
+            console.error("Error updating user data:", error);
+        }
+    }
+    async setDateOfBirth(dateOfBirth) {
+        const userRef = ref(db, `role/${this.#id}`);
+        try {
+            await update(userRef, {
+                DateOfBirth: dateOfBirth
+            });
+            this.#dateOfBirth = dateOfBirth;
+            console.log("User data updated successfully");
+        } catch (error) {
+            console.error("Error updating user data:", error);
+        }
     }
 
-    setDateOfBirth(dateOfBirth) {
-        this.#dateOfBirth = dateOfBirth;
+    async setAddress(address) {
+        const userRef = ref(db, `role/${this.#id}`);
+        try {
+            await update(userRef, {
+                Address: address
+            });
+            this.#address = address;
+            console.log("User data updated successfully");
+        } catch (error) {
+            console.error("Error updating user data:", error);
+        }
     }
 
-    setAddress(address) {
-        this.#address = address;
+    async setFaculity(faculity) {
+        const userRef = ref(db, `role/${this.#id}`);
+        try {
+            await update(userRef, {
+                Faculity: faculity
+            });
+            this.#faculity = faculity;
+            console.log("User data updated successfully");
+        } catch (error) {
+            console.error("Error updating user data:", error);
+        }
     }
 
-    setFaculity(faculity) {
-        this.#faculity = faculity;
-    }
+    async setGender(gender) {
 
-    setGender(gender) {
-        this.#gender = gender;
+        const userRef = ref(db, `role/${this.#id}`);
+        try {
+            await update(userRef, {
+                Gender: gender
+            });
+            this.#gender = gender;
+            console.log("User data updated successfully");
+        } catch (error) {
+            console.error("Error updating user data:", error);
+        }
     }
 
     setAccount(account){
@@ -80,8 +126,5 @@ export class Person {
 
     getID() {
         return this.#id;
-    }
-    display() {
-        throw new Error("Method 'display' must be implemented by subclass");
     }
 }

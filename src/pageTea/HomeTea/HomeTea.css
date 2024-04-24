@@ -1,4 +1,4 @@
-#HomePage{
+#HomePage2{
     margin-top : 50px;
     margin-left: 20%;
     padding : 30px;
@@ -6,32 +6,32 @@
     margin-bottom: 32px;
 }
 
-#HomePage .swiper-container {
+#HomePage2 .swiper-container {
     position: relative;
     width: 100%;
     height: 400px; 
     z-index: 0;
 }
 
-#HomePage .swiper-slide img {
+#HomePage2 .swiper-slide img {
     width: 100%;
     height: 100%;
     object-fit: cover;
     position: relative;
 }
 
-#HomePage .swiper-slide {
+#HomePage2 .swiper-slide {
     transition: transform 0.5s ease;
 }
 
-#HomePage .content-section {
+#HomePage2 .content-section {
     padding: 64px 16px;
     margin: 0 auto 0 auto;
     width: 800px;
     overflow: hidden;
 }
 
-#HomePage .section-heading {
+#HomePage2 .section-heading {
     text-transform: uppercase;
     font-size: 30px;
     letter-spacing: 4px;
@@ -43,7 +43,7 @@
 }
 
 
-#HomePage .section-sub-heading{
+#HomePage2 .section-sub-heading{
     font-style : italic;
     opacity : 0.6;
     margin : 10px 0;
@@ -51,14 +51,14 @@
     font-size : 15px;
 }
 
-#HomePage .about-text{
+#HomePage2 .about-text{
     text-align: justify;
     font-size : 18px;
     margin : 16px 0;
     line-height: 1.4;
 }
 
-#HomePage .hcmut {
+#HomePage2 .hcmut {
     width: 80%;
     height: auto;
     margin-top: 36px;

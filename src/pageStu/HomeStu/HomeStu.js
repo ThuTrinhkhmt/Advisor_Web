@@ -40,7 +40,7 @@ function HomeStu() {
         <Fragment>
             <Header />
             <Nav />
-            <div id="HomePage">
+            <div id="HomePage1">
             <div className="swiper-container">
                 <div className="swiper-wrapper">
                     <div className="swiper-slide"><img src={imagePath1} alt="Image 1" /></div>
