@@ -8,11 +8,13 @@ export class PersonFactory {
             //Tao Student
             case 'Student':
                 const userData = await getUserData('Student', username);
-                return new Student(userData.ID);
+                if(userData) return new Student(userData.ID);
+                break;
                 //Tao Teacher
             case 'Teacher':
                 const TeacherData = await getUserData('Teacher', username);
-                return new Teacher(TeacherData.ID);
+                if(TeacherData) return new Teacher(TeacherData.ID);
+                break;
             default:
                 throw new Error(`Invalid person type: ${type}`);
         }

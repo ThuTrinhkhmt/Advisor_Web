@@ -25,12 +25,10 @@ function Login() {
    
   const login = async() => {
     const account= new Account(role, username);
-    const teacherData = await PersonFactory.createPerson('Teacher', username);
-    await teacherData.loadFromDatabase();
+    await account.loadFromDatabase();
     localStorage.setItem('role', role);
     localStorage.setItem('username', username);
-    localStorage.setItem('teacher1', JSON.stringify(teacherData));
-    await account.loadFromDatabase();
+    //localStorage.setItem('teacher1', JSON.stringify(teacherData));
     if (username.length > 0 && password.length > 0 && role.length >0) {
       if (account.getPassword() === password) {
         alert(`Login successful! You are logged in as a ${role}.`);

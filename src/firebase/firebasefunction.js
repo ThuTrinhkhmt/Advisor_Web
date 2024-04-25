@@ -5,7 +5,6 @@ const getUserData = async (role, username) => {
         const snapshot = await get(userRef);
         
         if (snapshot.exists()) {
-
             return snapshot.val();
         } else {
             return null;

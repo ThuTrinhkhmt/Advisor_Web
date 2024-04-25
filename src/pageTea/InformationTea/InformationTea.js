@@ -11,7 +11,6 @@ const username = localStorage.getItem('username');
 const account = new Account(role, username);
 await account.loadFromDatabase();
 const teacherData = await PersonFactory.createPerson('Teacher', username);
-await teacherData.loadFromDatabase();
 teacherData.setAccount(account);
 function InformationTea() {
     const preTeacher = useRef(null);
@@ -19,8 +18,6 @@ function InformationTea() {
     //Hai biến này của tớ
 
     //Này là từ giáo viên cậu tự lấy thông tin giáo viên và lưu vô biến teacher cho tớ nha, ở chổ useState á
-    
-    //const storedTeacherData = JSON.parse(localStorage.getItem('teacher'));
     const [teacher, setTeacher] = useState({
         name: "",
         dateOfBirth: "",
