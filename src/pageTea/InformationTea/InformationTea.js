@@ -11,7 +11,7 @@ const username = localStorage.getItem('username');
 const account = new Account(role, username);
 await account.loadFromDatabase();
 const teacherData = await PersonFactory.createPerson('Teacher', username);
-teacherData.setAccount(account);
+//teacherData.setAccount(account);
 function InformationTea() {
     const preTeacher = useRef(null);
     const [editable, setEditable] = useState(false);
