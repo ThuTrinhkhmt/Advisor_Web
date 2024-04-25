@@ -12,7 +12,7 @@ function SubjectTab({ subjectArr }){
                 <div className="Subject" key={index}>
                     {/* làm sao truyền đến một môn học xác định */}
                     <div className='NameSub'>
-                       <Link to={`/StuCourse/${course.CourseID}/${course.Group}`}>{course.subject} ({course.CourseID})</Link>
+                    <Link to={`/StuCourse/${course.CourseID}/${course.Group}`}>{course.subject} ({course.CourseID})</Link>
                     </div>
                     <div className='GroupSub'>
                         <p >Nhóm : {course.Group}</p>
