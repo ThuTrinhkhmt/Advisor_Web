@@ -6,11 +6,6 @@ import './InformationTea.css';
 
 import { Account } from '../../model/Account';
 import { PersonFactory } from '../../model/PersonFactory';
-const role = localStorage.getItem('role');
-const username = localStorage.getItem('username');
-const account = new Account(role, username);
-await account.loadFromDatabase();
-const teacherData = await PersonFactory.createPerson('Teacher', username);
 //teacherData.setAccount(account);
 function InformationTea() {
     const preTeacher = useRef(null);
@@ -28,17 +23,25 @@ function InformationTea() {
         degree: "",
         position: ""
     });
+    const [teacherData, setTeacherData] = useState(null);
     useEffect(() => {
         const loadTeacher = async () => {
+            const role = localStorage.getItem('role');
+            const username = localStorage.getItem('username');
+            const account = new Account(role, username);
+            await account.loadFromDatabase();
+            const data = await PersonFactory.createPerson('Teacher', username);
+            await data.loadFromDatabase();
+            setTeacherData(data);
             setTeacher({
-                name: teacherData.getName(),
-                dateOfBirth: teacherData.getDateOfBirth(),
-                gender: teacherData.getGender(),
-                faculity: teacherData.getFaculity(),
-                address: teacherData.getAddress(),
-                specialize: teacherData.getSpecialize(),
-                degree: teacherData.getDegree(),
-                position: teacherData.getPosition()
+                name: data.getName(),
+                dateOfBirth: data.getDateOfBirth(),
+                gender: data.getGender(),
+                faculity: data.getFaculity(),
+                address: data.getAddress(),
+                specialize: data.getSpecialize(),
+                degree: data.getDegree(),
+                position: data.getPosition()
             });
         };
         loadTeacher();

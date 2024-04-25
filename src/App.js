@@ -44,7 +44,6 @@ function App() {
           <Route path="/course/:courseID/:group" element={<ClassGrade />} />
           <Route path="/course/:courseID/:group/:studentID" element={<BackgroundStu />} />
           <Route path="/pageTea" element={<PageTea />} />
-          <Route path="/Login" element={<Login />} />
         </Routes>
         
     </div>
