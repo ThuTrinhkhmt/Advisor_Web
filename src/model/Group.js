@@ -40,13 +40,22 @@ export class Group {
         return this.#teacher;
     }
 
-    async setTeacher(teacher) {
+    async setTeacher(teacherID) {
         const userRef = ref(db, `Course/${this.#course}/Group/${this.#name}`);
+        const TeaData = await getTeaData(teacherID);
         try {
-            await update(userRef, {
-                Teacher: teacher
+            await set(userRef, {
+                Teacher: teacherID
             });
-            this.#teacher = teacher;
+            await update(userRef, {
+                Teacher: teacherID
+            });
+            if(TeaData) {
+                const username= TeaData.Account.Username;
+                const teacher = await PersonFactory.createPerson('Teacher', username);
+                await teacher.loadFromDatabase();
+                this.#teacher=teacher;
+            }
         } catch (error) {
             console.error("Error updating user data:", error);
         }
@@ -77,6 +86,7 @@ export class Group {
     }
     async addStudent(studentID) {
         const userRef = ref(db, `Course/${this.#course}/Group/${this.#name}/Student`);
+        
         try {
             const StuData = await getStuData(studentID);
             if(StuData) {
