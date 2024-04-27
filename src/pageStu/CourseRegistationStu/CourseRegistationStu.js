@@ -106,7 +106,7 @@ function CourseRegistationStu() {
                 }
                 alert('Đăng kí thành công.');
         } else {
-            alert('Không thể đăng ký môn học do đã đăng kí hoặc trùng tiết!');
+            alert('Không thể đăng ký môn học do đã đăng kí, trùng tiết hoặc nằm ngoài thời gian đăng kí!');
         }
     };
     return (
