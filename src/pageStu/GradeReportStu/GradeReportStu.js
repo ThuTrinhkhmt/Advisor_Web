@@ -57,7 +57,6 @@ function DisplayGrade({Grade, Semester}){
         <div className="review">
             <p>Số tín chỉ học kỳ: {totalCredits}</p>
             <p>Trung bình học kỳ: {semesterAverage.toFixed(2)}</p>
-            <p>Số tín chỉ tích lũy: {totalAccumulatedCredits}</p>
             <p>Trung bình tích lũy: {accumulatedAverage.toFixed(2)}</p>
         </div>
         </div>
