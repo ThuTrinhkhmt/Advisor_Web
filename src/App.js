@@ -29,7 +29,7 @@ function App() {
           <Route path="/" element={< Login/>} />
           <Route path="/ChangePw" element ={<ChangePassword/>}/>
           <Route path="/Stu" element={<Home1 />} />
-          <Route path="/StuCourse" element={<Course />} />
+          <Route path="/StuCourse/:courseID/:group/:teacher" element={<Course />} />
           <Route path="/informationStu" element={<Information1 />} />
           <Route path="/courseScheduleStu" element={<CourseSchedule1 />} />
           <Route path="/gradeReportStu" element={<GradeReport1 />} />
@@ -44,7 +44,6 @@ function App() {
           <Route path="/course/:courseID/:group" element={<ClassGrade />} />
           <Route path="/course/:courseID/:group/:studentID" element={<BackgroundStu />} />
           <Route path="/pageTea" element={<PageTea />} />
-          <Route path="/Login" element={<Login />} />
         </Routes>
         
     </div>

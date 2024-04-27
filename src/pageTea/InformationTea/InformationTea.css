@@ -72,10 +72,10 @@
 
 #InformationPage2 .input-date,
 #InformationPage2 .input-gender,
-#InformationPage2 .input-specialization,
+#InformationPage2 .input-specialize,
 #InformationPage2 .input-degree,
 #InformationPage2 .input-position,
-#InformationPage2 .input-faculty {
+#InformationPage2 .input-faculity {
     width: 100%;
     margin-top: 8px;
     display: inline-block;

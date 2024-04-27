@@ -1,3 +1,4 @@
+import { db, ref, set, get, child, update, remove } from '../firebase/firebase';
 import { getCourseData } from '../firebase/firebasefunction';
 export class Course {
     #idCourse;
@@ -22,15 +23,24 @@ export class Course {
         }
     }
 
-    setName(name) {
-        this.#name = name;
+    async setName(name) {
+        const userRef = ref(db, `Course/${this.#idCourse}`);
+        try {
+            await update(userRef, {
+                NameOfCourse: name
+            });
+            this.#name = name;
+            console.log("User data updated successfully");
+        } catch (error) {
+            console.error("Error updating user data:", error);
+        }
     }
 
     getName() {
         return this.#name;
     }
 
-    setCourseCode(idCourse) {
+    async setCourseCode(idCourse) {
         this.#idCourse = idCourse;
     }
 

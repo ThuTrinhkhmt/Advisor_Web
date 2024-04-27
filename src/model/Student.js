@@ -14,11 +14,11 @@ export class Student extends Person {
         const userData = await getStuData(super.getID());
         
         if (userData) {
-            super.setName(userData.Name);
-            super.setDateOfBirth(userData.DateOfBirth);
-            super.setAddress(userData.Address);
-            super.setFaculity(userData.Faculity);
-            super.setGender(userData.Gender);
+            await super.setName(userData.Name);
+            await super.setDateOfBirth(userData.DateOfBirth);
+            await super.setAddress(userData.Address);
+            await super.setFaculity(userData.Faculity);
+            await super.setGender(userData.Gender);
         }
     }
 

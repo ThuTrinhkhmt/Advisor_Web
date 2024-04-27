@@ -12,7 +12,8 @@ function SubjectTab({ subjectArr }){
                 <div className="Subject" key={index}>
                     {/* làm sao truyền đến một môn học xác định */}
                     <div className='NameSub'>
-                        <Link to="/StuCourse">{course.subject} ({course.CouseID})_{course.teacher}</Link>
+                    {/* /${course.CourseID}/${course.Group} */}
+                    <Link to={`/StuCourse/${course.courseID}/${course.Group}/${course.teacher}`}>{course.subject}({course.CourseID})</Link>
                     </div>
                     <div className='GroupSub'>
                         <p >Nhóm : {course.Group}</p>
@@ -28,22 +29,22 @@ function SubjectTab({ subjectArr }){
 function CourseScheduleStu() {
     const subjects=[
         {subject:"Giải tích 1",
-         CouseID: "MT1003",
+         CourseID: "MT1003",
          Group:"L04",
          teacher : "Nguyễn Phương Hà Lan"
         },
         {subject:"Mô hình hóa",
-         CouseID: "CO2011",
+         CourseID: "CO2011",
          Group:"L17",
          teacher : "Nguyễn Thùy Lâm"
         },
         {subject:"Giải tích 2",
-         CouseID: "MT1005",
+         CourseID: "MT1005",
          Group:"L09",
          teacher : "Ngô gia"
         },
         {subject:"Giải tích 2",
-         CouseID: "MT1009",
+         CourseID: "MT1009",
          Group:"L10",
          teacher : "Hà Lan"
         }

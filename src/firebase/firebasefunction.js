@@ -5,7 +5,6 @@ const getUserData = async (role, username) => {
         const snapshot = await get(userRef);
         
         if (snapshot.exists()) {
-
             return snapshot.val();
         } else {
             return null;
@@ -33,6 +32,22 @@ const getStuData = async (id) => {
 };
 const getTeaData = async (id) => {
     const userRef = ref(db, `Teacher/${id}`);
+    try {
+        const snapshot = await get(userRef);
+        
+        if (snapshot.exists()) {
+            
+            return snapshot.val();
+        } else {
+            return null;
+        }
+    } catch (error) {
+        alert("Error loading user data:");
+        return null;
+    }
+};
+const getGroupData = async (course, name) => {
+    const userRef = ref(db, `Course/${course}/Group/${name}`);
     try {
         const snapshot = await get(userRef);
         
@@ -98,4 +113,4 @@ const deleteUserData = async (username) => {
     }
 };
 
-export { getUserData, getCourseData, getStuData, getTeaData, updateUserData, addUserData, deleteUserData };
+export { getUserData, getCourseData, getGroupData, getStuData, getTeaData, updateUserData, addUserData, deleteUserData };

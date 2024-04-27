@@ -40,6 +40,16 @@ function Course() {
         ]
 
     }
+    const CourseDescription=useState('Môn học giúp sinh viên phát triển tư duy logic, phương pháp suy luận đồng thời trang bị lượng kiến thức cơ sở quan trọng giúp sinh viên các ngành kỹ thuật và công nghệ học tốt các môn toán chuyên đề và các môn học chuyên ngành sau này.')
+    const detail=
+        [
+            {link: 'https://www.facebook.com',
+            descript:'Ôn cuối kì'}, 
+            {link: 'https://www.youtube.com',
+            descript:'Slide'}
+        ]
+    ;
+    
     const [showCourses, setShowCourses] = useState(true);
     
     const toggleDisplay1 = () => {
@@ -60,11 +70,27 @@ function Course() {
                 </div> 
                 {
                     showCourses ? (
-                    <div className='CourseView'>
-                        <h2>Tài liệu học tập</h2>
-                    </div > ) : (
+                        <div className='CourseView'>
+                            <div className='Descript'>
+                                <h2>Mô tả môn học</h2>
+                                <p>{CourseDescription}</p>
+                            </div>
+                            <div className='Detail'>
+                                <h2>Tài liệu học tập</h2>
+                                {
+                                    detail.map((obj, index) => (
+                                        <ul key={index}>
+                                            <p>Sử dụng đường link sau đây để mở tài nguyên: <Link to={obj.link}>{obj.descript}</Link></p>
+
+
+                                        </ul>
+                                    ))
+                                }
+                            </div>
+
+                        </div >) : (
                         <div className='Process'>
-                         <Process weeklyFeedback={object.weeklyFeedback}/>
+                            <Process weeklyFeedback={object.weeklyFeedback} />
                         </div>
                     )
                 }                    

@@ -1,9 +1,13 @@
+import { db, ref, set, get, child, update, remove } from '../firebase/firebase';
 import { Person } from './Person.js';
 import { getTeaData } from '../firebase/firebasefunction';
+import { Course } from './Course.js';
+import { Group } from './Group.js';
 export class Teacher extends Person {
     #specialize;
     #degree;
     #position;
+    #course = [];
     #groups = [];
     constructor(id) {
         super(id);
@@ -14,27 +18,68 @@ export class Teacher extends Person {
         const userData = await getTeaData(super.getID());
         
         if (userData) {
-            super.setName(userData.Name);
-            super.setDateOfBirth(userData.DateOfBirth);
-            super.setAddress(userData.Address);
-            super.setFaculity(userData.Faculity);
-            super.setGender(userData.Gender);
+            await super.setName(userData.Name);
+            await super.setDateOfBirth(userData.DateOfBirth);
+            await super.setAddress(userData.Address);
+            await super.setFaculity(userData.Faculity);
+            await super.setGender(userData.Gender);
             this.#degree=userData.Degree;
             this.#position=userData.Position;
             this.#specialize=userData.Specialize;
+            const arrayCourse = Object.keys(userData.Course || {});
+            for (const courseID of arrayCourse) {
+                const course = new Course(courseID);
+                await course.loadFromDatabase();
+                this.#course.push(course);
+                //Them group
+                const Ref = ref(db, `Teacher/${super.getID()}/${courseID}`);
+                const arrayGroup = Object.keys(Ref.Class || {});
+                for (const groupID of arrayGroup) {
+                    const groupData = new Group(courseID, groupID);
+                    await groupData.loadFromDatabase();
+                    this.#groups.push(groupData);
+                }
+            }
         }
     }
 
-    setSpecialize(specialize) {
-        this.#specialize = specialize;
+    async setSpecialize(specialize) {
+        const userRef = ref(db, `Teacher/${super.getID()}`);
+        try {
+            await update(userRef, {
+                Specialize: specialize
+            });
+            this.#specialize = specialize;
+            console.log("User data updated successfully");
+        } catch (error) {
+            console.error("Error updating user data:", error);
+        }
     }
 
-    setDegree(degree) {
-        this.#degree = degree;
+    async setDegree(degree) {
+        const userRef = ref(db, `Teacher/${super.getID()}`);
+        try {
+            await update(userRef, {
+                Degree: degree
+            });
+            this.#degree = degree;
+            console.log("User data updated successfully");
+        } catch (error) {
+            console.error("Error updating user data:", error);
+        }
     }
 
-    setPosition(position) {
-        this.#position = position;
+    async setPosition(position) {
+        const userRef = ref(db, `Teacher/${super.getID()}`);
+        try {
+            await update(userRef, {
+                Position: position
+            });
+            this.#position = position;
+            console.log("User data updated successfully");
+        } catch (error) {
+            console.error("Error updating user data:", error);
+        }
     }
 
     getSpecialize() {
@@ -51,6 +96,10 @@ export class Teacher extends Person {
 
     getGroup(){
         return this.#groups;
+    }
+
+    getCourse(){
+        return this.#course;
     }
 
     addGroup(course, groupName){
