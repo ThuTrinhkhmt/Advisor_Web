@@ -4,36 +4,83 @@ import Footer from '../../components/ComponentStu/FooterStu/FooterStu'
 import Nav from '../../components/ComponentStu/NavStu/NavStu'
 import { Fragment, useState } from 'react'
 //Sửa thành có một danh sách phúc khảo trước
-function Subject_Can_Appealed({ Subject }) {
-    const [isAppeal, setIsAppeal] = useState(new Array(Subject.length).fill(false));
-    const [selectedSub, setSelectedSub] = useState(new Array(Subject.length).fill(null));
+function GradeAppealStu() {
+    const Groups={starttime:'01/01/2022', endtime:'15/05/2022'}
+    const Student={Name: 'Trần Văn A', ID: '112233', faculty:'Khoa học máy tính' }
     const [haveAtleastOne, setHaveAtleastOne] = useState(false);
+    const [Subject_can_appeal, setSubject_can_appeal]= useState([{
+        CourseID: "CH1005",
+        Subject: "Giải tích 1",
+        Group: 'L04',
+        Grade: '3',
+        IsAppeal: false,
+        IsDone: false,
+        Code: '',
+        Date:''
+    },
+    {
+        CourseID: "CH1006",
+        Subject: "Giải tích 2",
+        Group: 'L04',
+        Grade: '5',
+        IsAppeal: false,
+        IsDone: false,
+        Code: '',
+        Date:''
+    },
+    {
+        CourseID: "CH1007",
+        Subject: "Giải tích 3",
+        Group: 'L04',
+        Grade: '4',
+        IsAppeal: false,
+        IsDone: false,
+        Code: '',
+        Date:''
+    }]);
+    const hasAppealSubjects = Subject_can_appeal.some(subject => subject.IsAppeal);
     const confirmAppeal = (subject, index) => {
-        if (isAppeal[index]) {
+        if (Subject_can_appeal[index].IsAppeal) {
             alert('Môn học đã được chọn phúc tra!');
         } else {
             const confirmation = window.confirm('Bạn xác nhận phúc tra?');
             if (confirmation) {
-                const infor = {
-                    code: '#CM123',
-                    courseID: subject.CourseID,
-                    nameSub: subject.Subject,
-                    state: 'Chưa xử lí'
-                };
-                const updatedIsAppeal = [...isAppeal];
-                updatedIsAppeal[index] = true;
-                setIsAppeal(updatedIsAppeal);
+                //Bật true lên
+            const updatedSubjects = [...Subject_can_appeal];
+            const currentDate = new Date().toLocaleDateString(); // Lấy ngày tháng hiện tại
+            updatedSubjects[index].IsAppeal = true;
+            updatedSubjects[index].Code = '#CM14';
+            updatedSubjects[index].Date = currentDate;
+            setSubject_can_appeal(updatedSubjects); // Cập nhật state
 
-                const updatedSelectedSub = [...selectedSub];
-                updatedSelectedSub[index] = infor;
-                setSelectedSub(updatedSelectedSub);
-                setHaveAtleastOne(true);
+            alert('Xác nhận phúc tra thành công!');
             }
         }
-    };
+    }
     return (
-        <div>
-            <table>
+        <Fragment>
+            <Header />
+            <Nav />
+            <div id="GradeAppealStu1">
+                <h1>Phúc tra điểm</h1>
+                <div className='Infor1'>
+                    <div className="Student_infor">
+                        <p>Họ tên: {Student.Name}</p>
+                        <p>Mssv: {Student.ID}</p>
+                        <p>Ngành: {Student.faculty}</p>
+                    </div>
+                    <div className="Realtime_infor">
+                        <p>Học kì: 223.</p>
+                        <p>Thời gian phúc tra: {Groups.starttime} - {Groups.endtime}.</p>
+                    </div>
+                </div>
+                <div className="Appeal">
+                    <div className='Infor2'>
+                        <p>- Chỉ chấp nhận phúc tra bài tự luận.</p>
+                        <p>- Phúc tra được thực hiện tại Khoa/ Bộ môn và giảng viên môn học.</p>
+                        <p>- Kết quả phúc tra được cập nhật tại đây và bảng điểm(nếu có).</p>
+                    </div>
+                    <table>
                 <thead>
                     <tr className='title1'>
                         <td className='shell'>Mã môn học</td>
@@ -44,7 +91,7 @@ function Subject_Can_Appealed({ Subject }) {
                     </tr>
                 </thead>
                 <tbody>
-                    {Subject.map((subject, index) => (
+                    {Subject_can_appeal.map((subject, index) => (
                         <tr key={index}>
                             <td>{subject.CourseID}</td>
                             <td>{subject.Subject}</td>
@@ -57,9 +104,7 @@ function Subject_Can_Appealed({ Subject }) {
                     ))}
                 </tbody>
             </table>
-            {haveAtleastOne && (
-                <div>
-                    <table>
+            <table>
                         <thead>
                             <tr className='title1'>
                                 <td width='300px'>Mã phiếu phúc tra</td>
@@ -70,71 +115,30 @@ function Subject_Can_Appealed({ Subject }) {
                             </tr>
                         </thead>
                         <tbody>
-                            {selectedSub.map((subject, index) => (
-                                isAppeal[index] && (
-                                    <tr key={index}>
-                                        <td>{subject.code}</td>
-                                        <td>15/07/2022</td>
-                                        <td>{subject.courseID}</td>
-                                        <td>{subject.nameSub}</td>
-                                        <td>{subject.state}</td>
-                                    </tr>
-                                )
-                            ))}
+                        {hasAppealSubjects ? (
+                        Subject_can_appeal.map((subject, index) => (
+                        subject.IsAppeal && (
+                            <tr key={index}>
+                                <td>{subject.Code}</td>
+                                <td>{subject.Date}</td>
+                                <td>{subject.CourseID}</td>
+                                <td>{subject.Subject}</td>
+                                {subject.IsDone ? (
+                                    <td>Đã xử lý</td>
+                                ) : (
+                                    <td>Chưa xử lý</td>
+                                )}
+                            </tr>
+                        )
+                    ))
+                ) : (
+                    <tr>
+                        <td colSpan="5">Chưa có môn học đăng kí phúc tra</td>
+                    </tr>
+                )}
                         </tbody>
-                    </table>
-                </div>
-            )}
-        </div>
-    );
-}
-
-
-function GradeAppealStu() {
-    const Subject_can_appeal = [{
-        CourseID: "CH1005",
-        Subject: "Giải tích 1",
-        Group: 'L04',
-        Grade: '3',
-    },
-    {
-        CourseID: "CH1006",
-        Subject: "Giải tích 2",
-        Group: 'L04',
-        Grade: '5',
-    },
-    {
-        CourseID: "CH1007",
-        Subject: "Giải tích 3",
-        Group: 'L04',
-        Grade: '4',
-    },
-    ]
-    return (
-        <Fragment>
-            <Header />
-            <Nav />
-            <div id="GradeAppealStu1">
-                <h1>Phúc tra điểm</h1>
-                <div className='Infor1'>
-                    <div className="Student_infor">
-                        <p>Họ tên: Trần Văn A</p>
-                        <p>Mssv: 112233</p>
-                        <p>Ngành: KHMT</p>
-                    </div>
-                    <div className="Realtime_infor">
-                        <p>Học kì: 223.</p>
-                        <p>Thời gian phúc tra: 10/7/2022-20/7/2022.</p>
-                    </div>
-                </div>
-                <div className="Appeal">
-                    <div className='Infor2'>
-                        <p>- Chỉ chấp nhận phúc tra bài tự luận.</p>
-                        <p>- Phúc tra được thực hiện tại Khoa/ Bộ môn và giảng viên môn học.</p>
-                        <p>- Kết quả phúc tra được cập nhật tại đây và bảng điểm(nếu có).</p>
-                    </div>
-                    <Subject_Can_Appealed Subject={Subject_can_appeal} />
-                </div>
+            </table>
+            </div>
 
             </div>
             <Footer />

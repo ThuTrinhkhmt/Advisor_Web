@@ -1,73 +1,71 @@
-import './CourseScheduleStu.css'
-import Header from '../../components/ComponentStu/HeaderStu/HeaderStu'
-import Footer from '../../components/ComponentStu/FooterStu/FooterStu'
-import Nav from '../../components/ComponentStu/NavStu/NavStu'
-import { Fragment } from 'react'
-import {Link} from 'react-router-dom';
-function SubjectTab({ subjectArr }){
+import './CourseScheduleStu.css';
+import Header from '../../components/ComponentStu/HeaderStu/HeaderStu';
+import Footer from '../../components/ComponentStu/FooterStu/FooterStu';
+import Nav from '../../components/ComponentStu/NavStu/NavStu';
+import { Link } from 'react-router-dom';
+import { Fragment, useState, useEffect } from 'react';
+import { getDatabase, ref, get } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-database.js";
+import { data } from '../../loginPage/Login_page';
+
+function SubjectTab({ subjectArr }) {
     return (
         <div>
-          
-            {subjectArr.map((course, index)=> (
+            {subjectArr.map((course, index) => (
                 <div className="Subject" key={index}>
-                    {/* làm sao truyền đến một môn học xác định */}
                     <div className='NameSub'>
-                    {/* /${course.CourseID}/${course.Group} */}
-                    <Link to={`/StuCourse/${course.courseID}/${course.Group}/${course.teacher}`}>{course.subject}({course.CourseID})</Link>
+                        <Link to={`/StuCourse/${course.CodeCourse}/${course.Class}/${course.Teacher}`}>{course.Name}({course.CodeCourse})</Link>
                     </div>
                     <div className='GroupSub'>
-                        <p >Nhóm : {course.Group}</p>
+                        <p>Nhóm: {course.Class}</p>
                     </div>
-                    
                 </div>
-            )
-            )}
-           
-        </div>    
+            ))}
+        </div>
     );
 };
+
 function CourseScheduleStu() {
-    const subjects=[
-        {subject:"Giải tích 1",
-         CourseID: "MT1003",
-         Group:"L04",
-         teacher : "Nguyễn Phương Hà Lan"
-        },
-        {subject:"Mô hình hóa",
-         CourseID: "CO2011",
-         Group:"L17",
-         teacher : "Nguyễn Thùy Lâm"
-        },
-        {subject:"Giải tích 2",
-         CourseID: "MT1005",
-         Group:"L09",
-         teacher : "Ngô gia"
-        },
-        {subject:"Giải tích 2",
-         CourseID: "MT1009",
-         Group:"L10",
-         teacher : "Hà Lan"
-        }
-        
-    ];
+    const [subjects, setSubjects] = useState([]);
+    const id = data.getID(); // Lấy ID của sinh viên
+
+    useEffect(() => {
+        const db = getDatabase();
+        const studentRef = ref(db, 'Student/' + id + '/Course'); 
+
+        get(studentRef).then((snapshot) => {
+            if (snapshot.exists()) {
+                const data = snapshot.val();
+                const semesters = Object.keys(data).map((semesterKey) => {
+                    const courses = Object.values(data[semesterKey]);
+                    return { semester: semesterKey, courses };
+                });
+                setSubjects(semesters);
+            } else {
+                console.log("No data available");
+            }
+        }).catch((error) => {
+            console.error(error);
+        });
+    }, [id]); 
+
     return (
         <Fragment>
             <Header />
             <Nav />
-            <div id = "CourseScheduleStu1">
+            <div id="CourseScheduleStu1">
                 <h1 className='header'>Danh sách khóa học</h1>
                 <div>
-                    <h2>Học kì 223</h2>
-                    <SubjectTab subjectArr={subjects}/>
-                    <h2>Học kì 222</h2>
-                    <SubjectTab subjectArr={subjects}/>
-                    <h2>Học kì 221</h2>
-                    <SubjectTab subjectArr={subjects}/>
+                    {subjects.map((semesterInfo) => (
+                        <div key={semesterInfo.semester}>
+                            <h2>Học kì {semesterInfo.semester}</h2>
+                            <SubjectTab subjectArr={semesterInfo.courses} />
+                        </div>
+                    ))}
                 </div>
             </div>
-        <Footer />
+            <Footer />
         </Fragment>
-    )
+    );
 }
 
-export default CourseScheduleStu
+export default CourseScheduleStu;

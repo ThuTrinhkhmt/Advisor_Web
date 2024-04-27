@@ -3,7 +3,9 @@ import Header from '../../components/ComponentStu/HeaderStu/HeaderStu'
 import Footer from '../../components/ComponentStu/FooterStu/FooterStu'
 import Nav from '../../components/ComponentStu/NavStu/NavStu'
 import { Fragment, useState } from 'react'
-import {Link} from 'react-router-dom';
+import {Link, useParams} from 'react-router-dom';
+
+
 function Process({weeklyFeedback}){
     return (
         <table className="Process">
@@ -22,10 +24,11 @@ function Process({weeklyFeedback}){
     );
 }
 function Course() {
+    const { CodeCourse, Class, Teacher } = useParams();
     const object={
-        teacher: 'Trần Văn B',
-        nameSub: 'Giải tích 1',
-        group: 'L04',
+        teacher: Teacher,
+        nameSub: CodeCourse,
+        group: Class,
         weeklyFeedback: [
             { week: 1, comment: "Tuần đầu tiên, mọi thứ vẫn diễn ra suôn sẻ.", rating: 4 },
             { week: 2, comment: "Tuần này có một số khó khăn nhưng vẫn hoàn thành được nhiệm vụ.", rating: 5 },

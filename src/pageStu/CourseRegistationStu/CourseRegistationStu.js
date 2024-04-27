@@ -3,20 +3,12 @@ import Header from '../../components/ComponentStu/HeaderStu/HeaderStu'
 import Footer from '../../components/ComponentStu/FooterStu/FooterStu'
 import Nav from '../../components/ComponentStu/NavStu/NavStu'
 import { Fragment, useState, useRef } from 'react'
-// function RegistSub({ registSub }) {
 
-// }
-function RegistedTab({ registedSub }) {
-    const confirm = (course) => {
-        const confirmation = window.confirm('Bạn xác nhận hủy môn?');
-        if(confirmation){
-            //Gọi hàm xóa môn học ra khỏi danh sách môn học hiện tại
-        }
-    }
-}
 
 //Nhận vào môn học đã đăng ký và những môn học tìm kiếm
 function CourseRegistationStu() {
+    const Groups={starttime:'01/01/2022', endtime:'15/05/2022'}
+    const semester = '223';
     const [registedSub, setRegistedSub]= useState([{
         CourseID: "MT1003",
         Subject: "Giải tích 1",
@@ -124,8 +116,8 @@ function CourseRegistationStu() {
             <div id="CourseRegistationStu1">
                 <h1>Đăng kí khóa học</h1>
                 <div className='Infor'>
-                    <p>Học kì: 223.</p>
-                    <p style={{ fontStyle: 'italic' }}>Thời gian đăng kí: 10/07/2022 - 20/7/2022.</p>
+                    <p>Học kì: {semester}.</p>
+                    <p style={{ fontStyle: 'italic' }}>Thời gian đăng kí: {Groups.starttime} - {Groups.endtime}.</p>
                     <p className = "red">Sinh viên cần nhập đúng tên môn học hoặc mã môn.</p>
                     <p className = "red">Các thao tác ngoài thời gian đăng kí môn sẽ không được chấp nhận.</p>
                 </div>

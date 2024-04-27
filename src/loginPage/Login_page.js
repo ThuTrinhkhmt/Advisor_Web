@@ -28,7 +28,7 @@ function Login() {
     await account.loadFromDatabase();
     if (username.length > 0 && password.length > 0 && role.length >0) {
       if (account.getPassword() === password) {
-        data = await PersonFactory.createPerson('Teacher', username);
+        data = await PersonFactory.createPerson(role, username);
         await data.loadFromDatabase();
         alert(`Login successful! You are logged in as a ${role}.`);
         // Điều hướng đến trang chính sau khi đăng nhập thành công
