@@ -10,9 +10,6 @@ import { data } from '../../loginPage/Login_page';
 function InformationStu() {
     const preStudent = useRef(null);
     const [editable, setEditable] = useState(false);
-    //Hai biến này của tớ
-
-    //Này là từ giáo viên cậu tự lấy thông tin giáo viên và lưu vô biến teacher cho tớ nha, ở chổ useState á
     const [student, setStudent] = useState({
         id: "",
         name: "",
