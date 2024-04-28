@@ -1,5 +1,6 @@
 import { db, ref, set, get, child, update, remove } from '../firebase/firebase';
 import { getCourseData } from '../firebase/firebasefunction';
+import { Group } from './Group.js';
 export class Course {
     #idCourse;
     #name;
@@ -15,11 +16,16 @@ export class Course {
 
     async loadFromDatabase() {
         const CourseData = await getCourseData(this.#idCourse);
-        
         if (CourseData) {
             this.#name = CourseData.NameOfCourse;
-            this.#title = CourseData.Desciption;
+            this.#content = CourseData.Desciption;
             this.#numOfCredit = CourseData.NumOfCredits;
+            const arrayGroup = Object.keys(CourseData.Group || {});
+            for (const groupID of arrayGroup) {
+                //const groupData = new Group(this.#idCourse, groupID);
+                //await groupData.loadFromDatabase();
+                //this.#groups.push(groupData);
+            }
         }
     }
 
@@ -41,7 +47,16 @@ export class Course {
     }
 
     async setCourseCode(idCourse) {
-        this.#idCourse = idCourse;
+        const userRef = ref(db, `Course/${this.#idCourse}`);
+        try {
+            await update(userRef, {
+                CodeCourse: idCourse
+            });
+            this.#idCourse = idCourse;
+            console.log("User data updated successfully");
+        } catch (error) {
+            console.error("Error updating user data:", error);
+        }
     }
 
     getCourseCode() {

@@ -2,44 +2,75 @@ import './GradeAppealStu.css'
 import Header from '../../components/ComponentStu/HeaderStu/HeaderStu'
 import Footer from '../../components/ComponentStu/FooterStu/FooterStu'
 import Nav from '../../components/ComponentStu/NavStu/NavStu'
-import { Fragment, useState } from 'react'
-import { data } from '../../loginPage/Login_page'
-//Sửa thành có một danh sách phúc khảo trước
+import { Fragment, useState, useEffect } from 'react'
+import { data } from '../../loginPage/Login_page' //Sửa thành có một danh sách phúc khảo trước
+import { getDatabase, ref, set, get, child, update, remove } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-database.js";
+function generateRandomCode(length) {
+    let result = '';
+    const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+    for (let i = 0; i < length; i++) {
+        result += characters.charAt(Math.floor(Math.random() * characters.length));
+    }
+    return result;
+}
+
 function GradeAppealStu() {
+    const id = data.getID();
     const Groups={starttime:'01/01/2022', endtime:'15/05/2022'}
     const Student= data;
     const [haveAtleastOne, setHaveAtleastOne] = useState(false);
-    const [Subject_can_appeal, setSubject_can_appeal]= useState([{
-        CourseID: "CH1005",
-        Subject: "Giải tích 1",
-        Group: 'L04',
-        Grade: '3',
-        IsAppeal: false,
-        IsDone: false,
-        Code: '',
-        Date:''
-    },
-    {
-        CourseID: "CH1006",
-        Subject: "Giải tích 2",
-        Group: 'L04',
-        Grade: '5',
-        IsAppeal: false,
-        IsDone: false,
-        Code: '',
-        Date:''
-    },
-    {
-        CourseID: "CH1007",
-        Subject: "Giải tích 3",
-        Group: 'L04',
-        Grade: '4',
-        IsAppeal: false,
-        IsDone: false,
-        Code: '',
-        Date:''
-    }]);
+    const [Subject_can_appeal, setSubject_can_appeal] = useState([]);
+
+    const saveAppealToFirebase = (subject) => {
+        const db = getDatabase();
+        const appealRef = ref(db, 'Appeal/' + id + '/' + subject.CourseID);
+    
+        set(appealRef, {
+            CodeCourse: subject.CourseID,
+            Grade: subject.Grade,
+            Class: subject.Group, 
+            Code: subject.Code, 
+            isAppeal: true
+        }).then(() => {
+            console.log('Data saved successfully.');
+        }).catch((error) => {
+            console.error('Data could not be saved.' + error);
+        });
+    }
+
+    useEffect(() => {
+        const db = getDatabase();
+        const studentId = id; // Thay đổi ID sinh viên tại đây
+      
+        const studentRef = ref(db, 'Student/' + studentId + '/Course/HK222');
+      
+        get(studentRef).then((snapshot) => {
+          if (snapshot.exists()) {
+            const check = snapshot.val();
+            const courses = Object.keys(check).map((courseId) => {
+              const course = check[courseId];
+              return {
+                CourseID: course.CodeCourse,
+                Subject: course.Name,
+                Group: course.Class,
+                Grade: course.Final,
+                IsAppeal: course.isAppeal,
+                IsDone: false,
+                Code: '',
+                Date:''
+              };
+            });
+            setSubject_can_appeal(courses);
+          } else {
+            console.log("No data available");
+          }
+        }).catch((error) => {
+          console.error(error);
+        });
+    }, []);
+
     const hasAppealSubjects = Subject_can_appeal.some(subject => subject.IsAppeal);
+
     const confirmAppeal = (subject, index) => {
         if (Subject_can_appeal[index].IsAppeal) {
             alert('Môn học đã được chọn phúc tra!');
@@ -50,10 +81,10 @@ function GradeAppealStu() {
             const updatedSubjects = [...Subject_can_appeal];
             const currentDate = new Date().toLocaleDateString(); // Lấy ngày tháng hiện tại
             updatedSubjects[index].IsAppeal = true;
-            updatedSubjects[index].Code = '#CM14';
+            updatedSubjects[index].Code = '#' + generateRandomCode(4);
             updatedSubjects[index].Date = currentDate;
             setSubject_can_appeal(updatedSubjects); // Cập nhật state
-
+            saveAppealToFirebase(updatedSubjects[index]);
             alert('Xác nhận phúc tra thành công!');
             }
         }
@@ -71,7 +102,7 @@ function GradeAppealStu() {
                         <p>Ngành: {Student.getFaculity()}</p>
                     </div>
                     <div className="Realtime_infor">
-                        <p>Học kì: 223.</p>
+                        <p>Học kì: 222.</p>
                         <p>Thời gian phúc tra: {Groups.starttime} - {Groups.endtime}.</p>
                     </div>
                 </div>

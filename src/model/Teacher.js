@@ -7,7 +7,6 @@ export class Teacher extends Person {
     #specialize;
     #degree;
     #position;
-    #course = [];
     #groups = [];
     constructor(id) {
         super(id);
@@ -28,12 +27,10 @@ export class Teacher extends Person {
             this.#specialize=userData.Specialize;
             const arrayCourse = Object.keys(userData.Course || {});
             for (const courseID of arrayCourse) {
-                const course = new Course(courseID);
-                await course.loadFromDatabase();
-                this.#course.push(course);
                 //Them group
-                const Ref = ref(db, `Teacher/${super.getID()}/${courseID}`);
-                const arrayGroup = Object.keys(Ref.Class || {});
+                const Ref = ref(db, `Teacher/${super.getID()}/Course/${courseID}/Class`);
+                const snapshot = await get(Ref);
+                const arrayGroup = Object.keys(snapshot.val() || {});
                 for (const groupID of arrayGroup) {
                     const groupData = new Group(courseID, groupID);
                     await groupData.loadFromDatabase();
@@ -98,21 +95,39 @@ export class Teacher extends Person {
         return this.#groups;
     }
 
-    getCourse(){
-        return this.#course;
-    }
-
-    addGroup(course, groupName){
+    async addGroup(course, groupName){
+        const HasCourse = false;
+        const nameCourse = course.getName();
         const courseGroups = course.getGroup();
+        const userRef = ref(db, `Teacher/${super.getID()}/Course`);
+        const arrayCourse = Object.keys(userRef || {});
+        for (let courseData of arrayCourse) {
+            if(courseData === nameCourse) {
+                HasCourse = true;
+                break;
+            }
+        }
         for (let group of courseGroups) {
             if (group.getName() === groupName) {
-                this.groups.push(group);
+                const groupData = new Group(course.getName(), groupName);
+                await groupData.loadFromDatabase();
+                this.groups.push(groupData);
+            }
+        }
+        if(HasCourse){
+            try {
+                await set(userRef, {
+                    nameCourse: groupName
+                });
+                console.log("User data updated successfully");
+            } catch (error) {
+                console.error("Error updating user data:", error);
             }
         }
     }
     getAGroup(groupName){
         for (let group of this.groups) {
-            if (group.getGroupName() === groupName) {
+            if (group.getName() === groupName) {
                 return group;
             }
         }

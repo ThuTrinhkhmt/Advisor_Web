@@ -8,6 +8,7 @@ import { PersonFactory } from '../model/PersonFactory';
 import { Account } from '../model/Account';
 const login_img=process.env.PUBLIC_URL + 'img/login_page.png'; 
 export let data;
+export let roleID;
 function Login() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
@@ -23,27 +24,32 @@ function Login() {
     setRole(event.target.value);
   };
    
-  const login = async() => {
-    const account= new Account(role, username);
+  const login = async () => {
+    const account = new Account(role, username);
     await account.loadFromDatabase();
-    if (username.length > 0 && password.length > 0 && role.length >0) {
-      if (account.getPassword() === password) {
-        data = await PersonFactory.createPerson(role, username);
-        await data.loadFromDatabase();
-        alert(`Login successful! You are logged in as a ${role}.`);
-        // Điều hướng đến trang chính sau khi đăng nhập thành công
-        if(role==="Teacher") {
-          navigate('/Tea');
+  
+    if (username.length > 0 && password.length > 0 && role.length > 0) {
+        if (account.getPassword() === password) {
+            roleID=role;
+            localStorage.setItem('role', role); // Lưu role vào localStorage
+            data = await PersonFactory.createPerson(role, username);
+            await data.loadFromDatabase();
+            
+            alert(`Login successful! You are logged in as a ${role}.`);
+            
+            // Điều hướng đến trang chính sau khi đăng nhập thành công
+            if (role === "Teacher") {
+                navigate('/Tea');
+            } else {
+                navigate('/Stu');
+            }
         } else {
-          navigate('/Stu');
+            alert("Invalid username or password!");
         }
-      } else {
-        alert("Invalid username or password!");
-      }
     } else {
-      alert("Invalid username or password!");
+        alert("Please fill in all fields.");
     }
-  };
+};
   return (
   
     <div className="login_page">       
