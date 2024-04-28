@@ -57,8 +57,8 @@ function ChangePassword(){
                     <option value="Student">Student</option>
                 </select>
                 <input type="text" id="username" onChange={checkValue} placeholder='User name' />
-                <input type="password" id="old_password" onChange={checkOldPassword} placeholder='Old password' />
-                <input type="password" id="new_password" onChange={updatePassword} placeholder='New password' />
+                <input type="text" id="old_password" onChange={checkOldPassword} placeholder='Old password' />
+                <input type="text" id="new_password" onChange={updatePassword} placeholder='New password' />
                 <button onClick={change}> Change password</button>
             </div>
             

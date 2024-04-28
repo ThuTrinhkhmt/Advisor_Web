@@ -6,12 +6,12 @@ import './HeaderStu.css';
 function HeaderStu() {
     const handleLogout = () => {
         localStorage.removeItem('role');
-        localStorage.removeItem('username');
-    };
+        //localStorage.removeItem('username');
+      };
     return (
         <div id="Header">
             <div className="WebName">Student Advisor Web</div>
-            <Link to="/" className = "close">
+            <Link to="/" className = "close" onClick={handleLogout}>
                 <div className="Close">
                 Đăng xuất
                 </div>

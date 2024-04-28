@@ -5,7 +5,7 @@ import Nav from '../../components/ComponentTea/NavTea/NavTea';
 import './InformationTea.css';
 
 import { data } from '../../loginPage/Login_page';
-import { PersonFactory } from '../../model/PersonFactory';
+//import { PersonFactory } from '../../model/PersonFactory';
 function InformationTea() {
     const preTeacher = useRef(null);
     const [editable, setEditable] = useState(false);

@@ -1,33 +1,33 @@
 import { db, ref, set, get, child, update, remove } from '../firebase/firebase';
-import { getGroupData, getStuData, getTeaData } from '../firebase/firebasefunction';
+import { getGroupData, getStuData, getTeaData, getCourseData } from '../firebase/firebasefunction';
 import { PersonFactory } from './PersonFactory';
+import { Student } from './Student';
 export class Group {
+    #coursename;
     #course;
     #teacher = null;
-    #students = []; 
+    #students = [];
     #name;
     constructor(course, name) {
         this.#course = course;
         this.#name = name;
-        this.loadFromDatabase();
     }
 
     async loadFromDatabase() {
+        console.log("Load Load");
         const groupData = await getGroupData(this.#course, this.#name);
+        const courseData = await getCourseData(this.#course);
+        this.#coursename = courseData.NameOfCourse;
         if (groupData) {
             const TeacherID= groupData.Teacher;
-            const TeaData = await getTeaData(TeacherID);;
-            const arrayStu = groupData.Student || [];
-            if(TeaData) {
-                const username= TeaData.Account.Username;
-                const teacher = await PersonFactory.createPerson('Teacher', username);
-                await teacher.loadFromDatabase();
-                this.#teacher=teacher;
-            }
+            const arrayStu = Object.keys(groupData.Student || {});
+            this.#teacher=TeacherID;
             for (const studentID of arrayStu) {
                 const StuData = await getStuData(studentID);
                 if(StuData) {
-                    const username= StuData.Account.Username;
+                    const Ref = ref(db, `Student/${studentID}/Account/Username`);
+                    const snapshot = await get(Ref);
+                    const username = snapshot.val();
                     const student = await PersonFactory.createPerson('Student', username);
                     await student.loadFromDatabase();
                     this.#students.push(student);
@@ -40,13 +40,22 @@ export class Group {
         return this.#teacher;
     }
 
-    async setTeacher(teacher) {
+    async setTeacher(teacherID) {
         const userRef = ref(db, `Course/${this.#course}/Group/${this.#name}`);
+        const TeaData = await getTeaData(teacherID);
         try {
-            await update(userRef, {
-                Teacher: teacher
+            await set(userRef, {
+                Teacher: teacherID
             });
-            this.#teacher = teacher;
+            await update(userRef, {
+                Teacher: teacherID
+            });
+            if(TeaData) {
+                const username= TeaData.Account.Username;
+                const teacher = await PersonFactory.createPerson('Teacher', username);
+                await teacher.loadFromDatabase();
+                this.#teacher=teacher;
+            }
         } catch (error) {
             console.error("Error updating user data:", error);
         }
@@ -64,11 +73,15 @@ export class Group {
         return this.#name;
     }
 
+    getCourseName() {
+        return this.#coursename;
+    }
+    
     setName(name) {
         this.#name = name;
     }
 
-    getCourse() {
+    getCourseID() {
         return this.#course;
     }
 
@@ -126,7 +139,7 @@ export class Group {
 		else return false;
 	}
     getAStudent(id) {
-        for (let student of this.students) {
+        for (let student of this.#students) {
             if (student.getAccount().getId() === id) {
                 return student;
             }

@@ -1,106 +1,43 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import Header from '../../components/ComponentTea/HeaderTea/HeaderTea';
 import Footer from '../../components/ComponentTea/FooterTea/FooterTea';
 import Nav from '../../components/ComponentTea/NavTea/NavTea';
 import './ClassGrade.css';
-
+import { data } from '../../loginPage/Login_page';
 function ClassGrade() {
     let { courseID, group } = useParams();
+    const groupData=data.getAGroup(courseID, group);
     //Từ courseID và group (này là mã môn và nhóm lớp), cậu tìm danh sách sinh viên trong lớp đó cho tớ
     //Cậu lấy class students rồi quăng vô chổ students cho tớ á, quăng ở chổ useState(trong này nè), tớ nghĩ thế
     const [students, setStudents] = useState([
         {
             name: "John Doe",
-            studentID: "1235456",
+            studentID: "001",
             componentScore: "KT:8 BTL:7 TN:8.5",
             examScore: 7.5,
             totalScore: 9.0,
             isEditing: false,
             isEdited: 0
-        },
-        {
-            name: "Peter Scale",
-            studentID: "2213412",
-            componentScore: "KT:8.5 BTL:4 TN:8.8",
-            examScore: 9.0,
-            totalScore: 8.5,
-            isEditing: false,
-            isEdited: 0
-        },
-        {
-            name: "Jane Smith",
-            studentID: "3456789",
-            componentScore: "KT:7 BTL:6.5 TN:8",
-            examScore: 8.5,
-            totalScore: 8.0,
-            isEditing: false,
-            isEdited: 0
-        },
-        {
-            name: "Emily Johnson",
-            studentID: "4567890",
-            componentScore: "KT:8 BTL:7 TN:6.5",
-            examScore: 7.0,
-            totalScore: 7.5,
-            isEditing: false,
-            isEdited: 0
-        },
-        {
-            name: "Michael Williams",
-            studentID: "5678901",
-            componentScore: "KT:7.5 BTL:8 TN:7.5",
-            examScore: 8.0,
-            totalScore: 8.0,
-            isEditing: false,
-            isEdited: 0
-        },
-        {
-            name: "Jessica Brown",
-            studentID: "6789012",
-            componentScore: "KT:8.5 BTL:7 TN:8",
-            examScore: 8.5,
-            totalScore: 8.5,
-            isEditing: false,
-            isEdited: 0
-        },
-        {
-            name: "Christopher Lee",
-            studentID: "7890123",
-            componentScore: "KT:7 BTL:6.5 TN:7",
-            examScore: 7.5,
-            totalScore: 7.0,
-            isEditing: false,
-            isEdited: 0
-        },
-        {
-            name: "Amanda Taylor",
-            studentID: "8901234",
-            componentScore: "KT:8 BTL:7.5 TN:8",
-            examScore: 7.5,
-            totalScore: 8.0,
-            isEditing: false,
-            isEdited: 0
-        },
-        {
-            name: "David Martinez",
-            studentID: "9012345",
-            componentScore: "KT:7.5 BTL:8 TN:8",
-            examScore: 7.5,
-            totalScore: 8.0,
-            isEditing: false,
-            isEdited: 0
-        },
-        {
-            name: "Ashley Garcia",
-            studentID: "0123456",
-            componentScore: "KT:8 BTL:8 TN:8",
-            examScore: 8.0,
-            totalScore: 8.0,
-            isEditing: false,
-            isEdited: 0
         }
     ]);
+    useEffect(() => {
+        const loadGroup = async () => {
+          const arrayStu= groupData.getStudents();
+          if (arrayStu && arrayStu.length > 0) {
+            setStudents(arrayStu.map((stu) => ({
+              name: stu.getName(),
+              studentID: stu.getID(),
+              componentScore: "KT:8 BTL:7 TN:8.5",
+              examScore: 7.5,
+              totalScore: 9.0,
+              isEditing: false,
+              isEdited: 0
+            })));
+          }
+        };
+        loadGroup();
+    }, []);
     const prevStudents = useRef([...students]);
     const [unsavedChanges, setUnsavedChanges] = useState(false);
     const [editMode, setEditMode] = useState(false);
