@@ -1,7 +1,9 @@
+import { db, ref, set, get, child, update, remove } from '../firebase/firebase';
 import { Person } from './Person.js';
 import { getStuData } from '../firebase/firebasefunction';
 import { Course } from './Course.js';
 import { Group } from './Group.js';
+import { Account } from './Account.js';
 export class Student extends Person {
     #studentScores = new Map();
     #studentFeedback = new Map();
@@ -12,7 +14,15 @@ export class Student extends Person {
 
     async loadFromDatabase() {
         const userData = await getStuData(super.getID());
-        
+        const userRef = ref(db, `Student/${super.getID()}/Account/Username`);
+        const snapshot = await get(userRef);
+        if (snapshot.exists()) {
+            const username=snapshot.val();
+            const account = new Account('Student', username);
+            super.setAccount(account);
+        } else {
+            return null;
+        }
         if (userData) {
             await super.setName(userData.Name);
             await super.setDateOfBirth(userData.DateOfBirth);

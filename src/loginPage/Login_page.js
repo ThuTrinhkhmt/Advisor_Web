@@ -34,7 +34,7 @@ function Login() {
             localStorage.setItem('role', role); // Lưu role vào localStorage
             data = await PersonFactory.createPerson(role, username);
             await data.loadFromDatabase();
-            
+            data.setAccount(account);
             alert(`Login successful! You are logged in as a ${role}.`);
             
             // Điều hướng đến trang chính sau khi đăng nhập thành công

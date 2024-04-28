@@ -20,7 +20,7 @@ export class Group {
         this.#coursename = courseData.NameOfCourse;
         if (groupData) {
             const TeacherID= groupData.Teacher;
-            const arrayStu = groupData.Student || [];
+            const arrayStu = Object.keys(groupData.Student || {});
             this.#teacher=TeacherID;
             for (const studentID of arrayStu) {
                 const StuData = await getStuData(studentID);
@@ -139,7 +139,7 @@ export class Group {
 		else return false;
 	}
     getAStudent(id) {
-        for (let student of this.students) {
+        for (let student of this.#students) {
             if (student.getAccount().getId() === id) {
                 return student;
             }
