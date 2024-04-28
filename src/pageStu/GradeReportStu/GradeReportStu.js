@@ -57,7 +57,6 @@ function DisplayGrade({Grade, Semester}){
         <div className="review">
             <p>Số tín chỉ học kỳ: {totalCredits}</p>
             <p>Trung bình học kỳ: {semesterAverage.toFixed(2)}</p>
-            <p>Số tín chỉ tích lũy: {totalAccumulatedCredits}</p>
             <p>Trung bình tích lũy: {accumulatedAverage.toFixed(2)}</p>
         </div>
         </div>
@@ -77,6 +76,7 @@ function GradeReportStu() {
     useEffect(() => {
       const db = getDatabase();
       const studentId = id; // Thay đổi ID sinh viên tại đây
+
       const studentRef = ref(db, 'Student/' + studentId + '/Course');
   
       get(studentRef).then((snapshot) => {
