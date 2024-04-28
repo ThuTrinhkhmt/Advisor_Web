@@ -8,15 +8,59 @@ import { PersonFactory } from '../../model/PersonFactory';
 import { Account } from '../../model/Account';
 import { data } from '../../loginPage/Login_page';
 function InformationStu() {
-    const student = {
-        name: "Nguyễn Văn A",
-        studentID: "SV001",
-        dateOfBirth: "01/01/1990",
-        gender: "Nam",
-        faculty: "Khoa Học Máy Tính",
-        address: "123 Đường ABC, Quận XYZ, Thành phố ABC"
+    const preStudent = useRef(null);
+    const [editable, setEditable] = useState(false);
+    //Hai biến này của tớ
+
+    //Này là từ giáo viên cậu tự lấy thông tin giáo viên và lưu vô biến teacher cho tớ nha, ở chổ useState á
+    const [student, setStudent] = useState({
+        id: "",
+        name: "",
+        dateOfBirth: "",
+        gender: "",
+        faculity: "",
+        address: ""
+    });
+    const [studentData, setStudentData] = useState(null);
+    useEffect(() => {
+        const loadStudent = async () => {
+            setStudentData(data);
+            setStudent({
+                id: data.getID(),
+                name: data.getName(),
+                dateOfBirth: data.getDateOfBirth(),
+                gender: data.getGender(),
+                faculity: data.getFaculity(),
+                address: data.getAddress()
+            });
+        };
+        loadStudent();
+    }, []);
+    const handleEdit = () => {
+        preStudent.current = { ...student };
+        setEditable(true);
     };
 
+    const handleSave = async () => {
+        const fieldsToUpdate = ['id', 'name', 'dateOfBirth', 'gender', 'faculity', 'address'];
+
+        for (const field of fieldsToUpdate) {
+            if (student[field] !== preStudent.current[field]) {
+                await studentData[`set${field.charAt(0).toUpperCase() + field.slice(1)}`](student[field]);
+            }
+        }
+        setEditable(false);
+    };
+
+    const handleCancel = () => {
+        setEditable(false);
+        setStudent(preStudent.current); 
+    };
+
+    const handleInputChange = (e) => {
+        const { name, value } = e.target;
+        setStudent({ ...student, [name]: value });
+    };
     return (
         <Fragment>
             <Header />
