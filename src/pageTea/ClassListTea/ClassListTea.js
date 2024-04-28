@@ -16,10 +16,12 @@ function ClassListTea() {
   useEffect(() => {
     const loadGroup = async () => {
       const arrayGroup= data.getGroup();
+      const arrStu= arrayGroup[0].getStudents();
+      alert(arrStu[0].getName());
       if (arrayGroup && arrayGroup.length > 0) {
         setClassInfoArray(arrayGroup.map((group) => ({
-          name: "Init",
-          courseID: group.getCourse(),
+          name: group.getCourseName(),
+          courseID: group.getCourseID(),
           group: group.getName(),
         })));
       }

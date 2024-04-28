@@ -36,7 +36,6 @@ export class Teacher extends Person {
                     await groupData.loadFromDatabase();
                     this.#groups.push(groupData);
                 }
-                alert(this.#groups.length);
             }
         }
     }

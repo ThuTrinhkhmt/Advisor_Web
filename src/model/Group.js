@@ -1,11 +1,12 @@
 import { db, ref, set, get, child, update, remove } from '../firebase/firebase';
-import { getGroupData, getStuData, getTeaData } from '../firebase/firebasefunction';
+import { getGroupData, getStuData, getTeaData, getCourseData } from '../firebase/firebasefunction';
 import { PersonFactory } from './PersonFactory';
 import { Student } from './Student';
 export class Group {
+    #coursename;
     #course;
     #teacher = null;
-    #students = []; 
+    #students = [];
     #name;
     constructor(course, name) {
         this.#course = course;
@@ -15,6 +16,8 @@ export class Group {
 
     async loadFromDatabase() {
         const groupData = await getGroupData(this.#course, this.#name);
+        const courseData = await getCourseData(this.#course);
+        this.#coursename = courseData.NameOfCourse;
         if (groupData) {
             const TeacherID= groupData.Teacher;
             const arrayStu = groupData.Student || [];
@@ -26,7 +29,7 @@ export class Group {
                     const snapshot = await get(Ref);
                     const username = snapshot.val();
                     const student = await PersonFactory.createPerson('Student', username);
-                    await student.loadFromDatabase();
+                    //await student.loadFromDatabase();
                     this.#students.push(student);
                 }
             }
@@ -70,11 +73,15 @@ export class Group {
         return this.#name;
     }
 
+    getCourseName() {
+        return this.#coursename;
+    }
+    
     setName(name) {
         this.#name = name;
     }
 
-    getCourse() {
+    getCourseID() {
         return this.#course;
     }
 
@@ -83,7 +90,6 @@ export class Group {
     }
     async addStudent(studentID) {
         const userRef = ref(db, `Course/${this.#course}/Group/${this.#name}/Student`);
-        
         try {
             const StuData = await getStuData(studentID);
             if(StuData) {
