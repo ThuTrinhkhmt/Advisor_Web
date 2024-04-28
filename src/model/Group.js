@@ -29,7 +29,7 @@ export class Group {
                     const snapshot = await get(Ref);
                     const username = snapshot.val();
                     const student = await PersonFactory.createPerson('Student', username);
-                    //await student.loadFromDatabase();
+                    await student.loadFromDatabase();
                     this.#students.push(student);
                 }
             }
