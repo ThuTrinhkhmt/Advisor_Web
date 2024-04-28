@@ -1,6 +1,6 @@
 import { db, ref, set, get, child, update, remove } from '../firebase/firebase';
 import {Account} from './Account';
-const role = localStorage.getItem('role');
+import { roleID } from '../loginPage/Login_page';
 export class Person {
     #name;
     #dateOfBirth;
@@ -13,7 +13,7 @@ export class Person {
         this.#id=id;
     }
     async setName(newName) {
-        const userRef = ref(db, `${role}/${this.#id}`);
+        const userRef = ref(db, `${roleID}/${this.#id}`);
         try {
             await update(userRef, {
                 Name: newName
@@ -25,7 +25,7 @@ export class Person {
         }
     }
     async setDateOfBirth(dateOfBirth) {
-        const userRef = ref(db, `${role}/${this.#id}`);
+        const userRef = ref(db, `${roleID}/${this.#id}`);
         try {
             await update(userRef, {
                 DateOfBirth: dateOfBirth
@@ -38,7 +38,7 @@ export class Person {
     }
 
     async setAddress(address) {
-        const userRef = ref(db, `${role}/${this.#id}`);
+        const userRef = ref(db, `${roleID}/${this.#id}`);
         try {
             await update(userRef, {
                 Address: address
@@ -51,7 +51,7 @@ export class Person {
     }
 
     async setFaculity(faculity) {
-        const userRef = ref(db, `${role}/${this.#id}`);
+        const userRef = ref(db, `${roleID}/${this.#id}`);
         try {
             await update(userRef, {
                 Faculity: faculity
@@ -65,7 +65,7 @@ export class Person {
 
     async setGender(gender) {
 
-        const userRef = ref(db, `${role}/${this.#id}`);
+        const userRef = ref(db, `${roleID}/${this.#id}`);
         try {
             await update(userRef, {
                 Gender: gender
