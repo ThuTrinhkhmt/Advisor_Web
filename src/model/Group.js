@@ -1,6 +1,7 @@
 import { db, ref, set, get, child, update, remove } from '../firebase/firebase';
 import { getGroupData, getStuData, getTeaData } from '../firebase/firebasefunction';
 import { PersonFactory } from './PersonFactory';
+import { Student } from './Student';
 export class Group {
     #course;
     #teacher = null;
@@ -16,18 +17,14 @@ export class Group {
         const groupData = await getGroupData(this.#course, this.#name);
         if (groupData) {
             const TeacherID= groupData.Teacher;
-            const TeaData = await getTeaData(TeacherID);;
             const arrayStu = groupData.Student || [];
-            if(TeaData) {
-                const username= TeaData.Account.Username;
-                const teacher = await PersonFactory.createPerson('Teacher', username);
-                await teacher.loadFromDatabase();
-                this.#teacher=teacher;
-            }
+            this.#teacher=TeacherID;
             for (const studentID of arrayStu) {
                 const StuData = await getStuData(studentID);
                 if(StuData) {
-                    const username= StuData.Account.Username;
+                    const Ref = ref(db, `Student/${studentID}/Account/Username`);
+                    const snapshot = await get(Ref);
+                    const username = snapshot.val();
                     const student = await PersonFactory.createPerson('Student', username);
                     await student.loadFromDatabase();
                     this.#students.push(student);

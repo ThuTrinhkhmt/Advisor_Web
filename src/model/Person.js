@@ -7,17 +7,10 @@ export class Person {
     #address;
     #faculity; 
     #gender;
-    #ListClass = [];
     #account = new Account(null,null);
     #id;
     constructor(id) {
-        this.#name = null;
-        this.#dateOfBirth = null;
-        this.#address = null;
-        this.#faculity = null;
-        this.#gender = null;
         this.#id=id;
-        this.#ListClass = [];
     }
     async setName(newName) {
         const userRef = ref(db, `${role}/${this.#id}`);
@@ -92,9 +85,6 @@ export class Person {
         this.#id=ID;
     }
 
-    addClass(ListClass) {
-        this.#ListClass = ListClass;
-    }
 
     getName() {
         return this.#name;
@@ -116,9 +106,6 @@ export class Person {
         return this.#gender;
     }
 
-    getListClass() {
-        return this.#ListClass;
-    }
 
     getAccount(){
         return this.#account;

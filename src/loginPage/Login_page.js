@@ -28,8 +28,11 @@ function Login() {
     await account.loadFromDatabase();
     if (username.length > 0 && password.length > 0 && role.length >0) {
       if (account.getPassword() === password) {
+        localStorage.setItem('role', role);
+        localStorage.setItem('username', username);
         data = await PersonFactory.createPerson(role, username);
         await data.loadFromDatabase();
+        data.setAccount(account);
         alert(`Login successful! You are logged in as a ${role}.`);
         // Điều hướng đến trang chính sau khi đăng nhập thành công
         if(role==="Teacher") {
