@@ -4,9 +4,8 @@ import Footer from '../../components/ComponentTea/FooterTea/FooterTea';
 import Nav from '../../components/ComponentTea/NavTea/NavTea';
 import './InformationTea.css';
 
-import { Account } from '../../model/Account';
+import { data } from '../../loginPage/Login_page';
 import { PersonFactory } from '../../model/PersonFactory';
-//teacherData.setAccount(account);
 function InformationTea() {
     const preTeacher = useRef(null);
     const [editable, setEditable] = useState(false);
@@ -26,12 +25,6 @@ function InformationTea() {
     const [teacherData, setTeacherData] = useState(null);
     useEffect(() => {
         const loadTeacher = async () => {
-            const role = localStorage.getItem('role');
-            const username = localStorage.getItem('username');
-            const account = new Account(role, username);
-            await account.loadFromDatabase();
-            const data = await PersonFactory.createPerson('Teacher', username);
-            await data.loadFromDatabase();
             setTeacherData(data);
             setTeacher({
                 name: data.getName(),
@@ -64,7 +57,7 @@ function InformationTea() {
 
     const handleCancel = () => {
         setEditable(false);
-        setTeacher(preTeacher.current); 
+        setTeacher(preTeacher.current);
     };
 
     const handleInputChange = (e) => {

@@ -1,10 +1,13 @@
 import { db, ref, set, get, child, update, remove } from '../firebase/firebase';
 import { Person } from './Person.js';
 import { getTeaData } from '../firebase/firebasefunction';
+import { Course } from './Course.js';
+import { Group } from './Group.js';
 export class Teacher extends Person {
     #specialize;
     #degree;
     #position;
+    #course = [];
     #groups = [];
     constructor(id) {
         super(id);
@@ -23,11 +26,24 @@ export class Teacher extends Person {
             this.#degree=userData.Degree;
             this.#position=userData.Position;
             this.#specialize=userData.Specialize;
+            const arrayCourse = Object.keys(userData.Course || {});
+            for (const courseID of arrayCourse) {
+                const course = new Course(courseID);
+                await course.loadFromDatabase();
+                this.#course.push(course);
+                //Them group
+                const Ref = ref(db, `Teacher/${super.getID()}/${courseID}`);
+                const arrayGroup = Object.keys(Ref.Class || {});
+                for (const groupID of arrayGroup) {
+                    const groupData = new Group(courseID, groupID);
+                    await groupData.loadFromDatabase();
+                    this.#groups.push(groupData);
+                }
+            }
         }
     }
 
     async setSpecialize(specialize) {
-        this.#specialize = specialize;
         const userRef = ref(db, `Teacher/${super.getID()}`);
         try {
             await update(userRef, {
@@ -80,6 +96,10 @@ export class Teacher extends Person {
 
     getGroup(){
         return this.#groups;
+    }
+
+    getCourse(){
+        return this.#course;
     }
 
     addGroup(course, groupName){

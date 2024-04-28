@@ -30,7 +30,7 @@ function ChangePassword(){
             if(account.getPassword() === old_password){
                 await account.setPassword(new_password);
                 alert("Password changed successfully!");
-                navigate('/Login');
+                navigate('/');
             }else {
                 alert("Invalid username or password!");
             }

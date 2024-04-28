@@ -11,7 +11,7 @@ function HeaderStu() {
     return (
         <div id="Header">
             <div className="WebName">Student Advisor Web</div>
-            <Link to="/" className = "close" onClick={handleLogout}>
+            <Link to="/" className = "close">
                 <div className="Close">
                 Đăng xuất
                 </div>

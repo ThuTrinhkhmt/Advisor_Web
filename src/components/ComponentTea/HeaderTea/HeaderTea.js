@@ -8,7 +8,7 @@ function HeaderTea() {
   return (
     <div id="Header">
         <div className="WebName">Teacher Advisor Web</div>
-        <Link to="/" className = "close" onClick={handleLogout}>
+        <Link to="/" className = "close">
             <div className="Close">
             Đăng xuất
             </div>

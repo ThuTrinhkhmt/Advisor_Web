@@ -38,8 +38,12 @@ export class Account {
     //Ham de thay doi mat khau
     async setPassword(newPassword) {
         const userRef = ref(db, `Account/${this.#role}/${this.#username}`);
+        const userRef2 = ref(db, `${this.#role}/${this.#id}/Account`);
         try {
             await update(userRef, {
+                Password: newPassword
+            });
+            await update(userRef2, {
                 Password: newPassword
             });
             this.#password = newPassword;

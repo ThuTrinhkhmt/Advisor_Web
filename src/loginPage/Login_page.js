@@ -7,7 +7,7 @@ import { useNavigate } from 'react-router-dom';
 import { PersonFactory } from '../model/PersonFactory';
 import { Account } from '../model/Account';
 const login_img=process.env.PUBLIC_URL + 'img/login_page.png'; 
-
+export let data;
 function Login() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
@@ -26,11 +26,10 @@ function Login() {
   const login = async() => {
     const account= new Account(role, username);
     await account.loadFromDatabase();
-    //localStorage.setItem('teacher1', JSON.stringify(teacherData));
     if (username.length > 0 && password.length > 0 && role.length >0) {
       if (account.getPassword() === password) {
-        localStorage.setItem('role', role);
-        localStorage.setItem('username', username);
+        data = await PersonFactory.createPerson(role, username);
+        await data.loadFromDatabase();
         alert(`Login successful! You are logged in as a ${role}.`);
         // Điều hướng đến trang chính sau khi đăng nhập thành công
         if(role==="Teacher") {
