@@ -65,3 +65,9 @@
 #pageAppeal2 .col2:nth-child(even){
     margin-bottom: 12px;
 }
+#pageAppeal2 .student-link{
+    color : black;
+    cursor : pointer;
+    text-decoration: none;
+    color : #0f6cbf;
+}

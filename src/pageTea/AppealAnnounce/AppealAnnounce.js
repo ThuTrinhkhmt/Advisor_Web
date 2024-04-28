@@ -1,11 +1,11 @@
 import React, { Fragment, useState } from 'react';
+import { Link } from 'react-router-dom';
 import Header from '../../components/ComponentTea/HeaderTea/HeaderTea';
 import Footer from '../../components/ComponentTea/FooterTea/FooterTea';
 import Nav from '../../components/ComponentTea/NavTea/NavTea';
-import './AppealAnnounce.css'
+import './AppealAnnounce.css';
 
 function AppealAnnounce() {
-    // Này thì từ giáo viên cậu tìm ra danh sách các sinh viên gửi phúc khảo cho ổng luôn, ở mọi lớp luôn nha
     const [students, setStudents] = useState([
         { name: 'Nguyễn Văn A', studentID: '123456', course: 'Giải tích 1', courseID: 'MT1003', group: 'L07', appeal: false, isDone: false },
         { name: 'Trần Thị B', studentID: '234567', course: 'Lập trình web', courseID: 'CS2001', group: 'L10', appeal: true, isDone: true },
@@ -21,18 +21,20 @@ function AppealAnnounce() {
         setStudents(updatedStudents);
     };
 
-    // Lặp qua danh sách sinh viên và tạo div cho những sinh viên đã đăng ký phúc khảo
     const feedbackList = students.map((student, index) => {
         return (
             <div key={index} className="student-info">
+                {/* Sử dụng Link để tạo link */}
                     <div className="name-studentID row1">
+                    <Link to={`/course/${student.courseID}/${student.group}`} className="student-link">
                         <div className="col2"><strong>Tên:</strong> {student.name}</div>
+                    </Link>
                         <div className="col2"><strong>MSSV:</strong> {student.studentID}</div>
                     </div>
-                    <div className="course-group row1">
-                        <div className="col2"><strong>Môn:</strong> {student.course} ({student.courseID})</div>
-                        <div className="col2"><strong>Nhóm:</strong> {student.group}</div>
-                    </div>
+                <div className="course-group row1">
+                    <div className="col2"><strong>Môn:</strong> {student.course} ({student.courseID})</div>
+                    <div className="col2"><strong>Nhóm:</strong> {student.group}</div>
+                </div>
                 <input
                     className='sticky-button'
                     type="checkbox"
@@ -43,7 +45,6 @@ function AppealAnnounce() {
         );
     });
 
-    // Trong phần render
     return (
         <Fragment>
             <Header />

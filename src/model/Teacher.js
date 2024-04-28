@@ -10,7 +10,6 @@ export class Teacher extends Person {
     #groups = [];
     constructor(id) {
         super(id);
-        //this.loadFromDatabase();
     }
 
     async loadFromDatabase() {
@@ -31,6 +30,7 @@ export class Teacher extends Person {
                 const Ref = ref(db, `Teacher/${super.getID()}/Course/${courseID}/Class`);
                 const snapshot = await get(Ref);
                 const arrayGroup = Object.keys(snapshot.val() || {});
+                console.log(arrayGroup);
                 for (const groupID of arrayGroup) {
                     const groupData = new Group(courseID, groupID);
                     await groupData.loadFromDatabase();

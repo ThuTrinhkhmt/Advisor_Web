@@ -14,10 +14,10 @@ export class Group {
     constructor(course, name) {
         this.#course = course;
         this.#name = name;
-        //this.loadFromDatabase();
     }
 
     async loadFromDatabase() {
+        console.log("Load Load");
         const groupData = await getGroupData(this.#course, this.#name);
         const courseData = await getCourseData(this.#course);
         this.#coursename = courseData.NameOfCourse;
