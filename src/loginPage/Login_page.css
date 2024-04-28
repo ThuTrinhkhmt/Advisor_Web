@@ -16,7 +16,7 @@ body{
     align-items: center; /*Căn giữa theo chiều dọc */
     border-radius: 20px;
 }
-.login_page .left_side {
+.login_page .login_page .left_side {
     width: 300px;
     height: 400px; 
     display: flex;

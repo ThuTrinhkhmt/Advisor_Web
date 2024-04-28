@@ -2,24 +2,58 @@ import './InformationStu.css'
 import Header from '../../components/ComponentStu/HeaderStu/HeaderStu'
 import Footer from '../../components/ComponentStu/FooterStu/FooterStu'
 import Nav from '../../components/ComponentStu/NavStu/NavStu'
-import { Fragment , useState, useRef } from 'react'
+import { Fragment } from 'react'
+import React, { useEffect, useState, useRef } from 'react';
+import { PersonFactory } from '../../model/PersonFactory';
+import { Account } from '../../model/Account';
 function InformationStu() {
     const preStudent = useRef(null);
     const [editable, setEditable] = useState(false);
+    //Hai biến này của tớ
+
+    //Này là từ giáo viên cậu tự lấy thông tin giáo viên và lưu vô biến teacher cho tớ nha, ở chổ useState á
     const [student, setStudent] = useState({
-        name: "Nguyễn Văn A",
-        studentID: "SV001",
-        dateOfBirth: "01/01/1990",
-        gender: "Nam",
-        faculty: "Khoa Học Máy Tính",
-        address: "123 Đường ABC, Quận XYZ, Thành phố ABC"
+        id: "",
+        name: "",
+        dateOfBirth: "",
+        gender: "",
+        faculity: "",
+        address: ""
     });
+    const [studentData, setStudentData] = useState(null);
+    useEffect(() => {
+        const loadStudent = async () => {
+            const role = localStorage.getItem('role');
+            const username = localStorage.getItem('username');
+            const account = new Account(role, username);
+            await account.loadFromDatabase();
+            const data = await PersonFactory.createPerson('Student', username);
+            await data.loadFromDatabase();
+            setStudentData(data);
+            setStudent({
+                id: data.getID(),
+                name: data.getName(),
+                dateOfBirth: data.getDateOfBirth(),
+                gender: data.getGender(),
+                faculity: data.getFaculity(),
+                address: data.getAddress()
+            });
+        };
+        loadStudent();
+    }, []);
     const handleEdit = () => {
         preStudent.current = { ...student };
         setEditable(true);
     };
 
-    const handleSave = () => {
+    const handleSave = async () => {
+        const fieldsToUpdate = ['id', 'name', 'dateOfBirth', 'gender', 'faculity', 'address'];
+
+        for (const field of fieldsToUpdate) {
+            if (student[field] !== preStudent.current[field]) {
+                await studentData[`set${field.charAt(0).toUpperCase() + field.slice(1)}`](student[field]);
+            }
+        }
         setEditable(false);
     };
 
@@ -28,8 +62,8 @@ function InformationStu() {
         setStudent(preStudent.current); 
     };
 
-    const handleInputChange = (event) => {
-        const { name, value } = event.target;
+    const handleInputChange = (e) => {
+        const { name, value } = e.target;
         setStudent({ ...student, [name]: value });
     };
     return (
@@ -58,10 +92,10 @@ function InformationStu() {
                 </div>
                 <div className="row-2">
                     <div className="col">
-                        <strong>MSSV:</strong> {student.studentID}
+                        <strong>MSSV:</strong> {student.id}
                     </div>
                     <div className="col">
-                        <strong>Khoa:</strong> {student.faculty}
+                        <strong>Khoa:</strong> {student.faculity}
                     </div>
                 </div>
                 <div className="row-2">
@@ -70,7 +104,7 @@ function InformationStu() {
                         {editable ? 
                             <input type="text" name="address" className="input-address" value={student.address} onChange={handleInputChange} /> 
                             : student.address}
-                    </div>
+                              </div>
                 </div>
                 <div className="button-container">
                     {editable ? (

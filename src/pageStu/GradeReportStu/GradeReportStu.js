@@ -2,13 +2,14 @@ import './GradeReportStu.css'
 import Header from '../../components/ComponentStu/HeaderStu/HeaderStu'
 import Footer from '../../components/ComponentStu/FooterStu/FooterStu'
 import Nav from '../../components/ComponentStu/NavStu/NavStu'
-import { Fragment, useState } from 'react'
+import { Fragment, useState, useEffect } from 'react'
+import { getDatabase, ref, get } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-database.js"; 
 function DisplayGrade({Grade, Semester}){
     return (
         <div>
         <table id="Grade_table">
                     <tr class="title1">
-                        <td colSpan={7}>Bảng điểm học kì {Semester}</td>
+                        <td className = "strong" colSpan={7}>Bảng điểm học kì {Semester}</td>
                     </tr>
                     <tr class="title2">
                         <td rowSpan={2}>Mã môn học</td>
@@ -29,9 +30,9 @@ function DisplayGrade({Grade, Semester}){
                                 <td>{subject.Subject}</td>
                                 <td>{subject.Group}</td>
                                 <td>{subject.Redit}</td>
-                                <td>{subject.Grade1}</td>
-                                <td>{subject.Grade2}</td>
-                                <td>{subject.GradeFinal}</td>
+                                <td>{subject.componentScore}</td>
+                                <td>{subject.examScore}</td>
+                                <td>{subject.totalScore}</td>
                             </tr>
                     ))
                     }
@@ -48,178 +49,65 @@ function DisplayGrade({Grade, Semester}){
     )
 }
 function GradeReportStu() {
-    const [Semester, setSemester]= useState('')
-    const handleSemester =(event)=>{
-        setSemester(event.target.value);
-    }
-    const Grade =[
-        {
-            semester: 221,
-            GradeSem: [
-                {   
-                    CouseID: 'MT1003',
-                    Subject: 'Giải tích 1',
-                    Group: 'L04',
-                    Redit: '4',
-                    componentScore: "KT:8 BTL:8 TN:8",
-                    examScore: '8.0',
-                    totalScore: '8.0', 
-                },
-                {   
-                    CouseID: 'MT1005',
-                    Subject: 'Giải tích 2',
-                    Group: 'L09',
-                    Redit: '4',
-                    componentScore: "KT:8 BTL:8 TN:8",
-                    examScore: '8.0',
-                    totalScore: '8.0',
-                },
-                {
-                    CouseID: 'CO2011',
-                    Subject: 'Mô hình hóa',
-                    Group: 'L17',
-                    Redit: '4',
-                    componentScore: "KT:8 BTL:8 TN:8",
-                    examScore: '8.0',
-                    totalScore: '8.0',
-                }]
-            
-        },
-        {
-            semester: 222,
-            GradeSem:[
-                {
-                    CouseID: 'MT1003',
-                    Subject: 'Giải tích 3',
-                    Group: 'L04',
-                    Redit: '4',
-                    componentScore: "KT:8 BTL:8 TN:8",
-                    examScore: '8.0',
-                    totalScore: '8.0',
-                },
-                {
-                    CouseID: 'MT1005',
-                    Subject: 'Giải tích 2',
-                    Group: 'L09',
-                    Redit: '4',
-                    componentScore: "KT:8 BTL:8 TN:8",
-                    examScore: '8.0',
-                    totalScore: '8.0',
-                },
-                {
-                    CouseID: 'CO2011',
-                    Subject: 'Mô hình hóa',
-                    Group: 'L17',
-                    Redit: '4',
-                    componentScore: "KT:8 BTL:8 TN:8",
-                    examScore: '8.0',
-                    totalScore: '8.0', 
-                }
-            ]
-        },
-        {
-            semester: 223,
-            GradeSem:[
-                {
-                    CouseID: 'MT1003',
-                    Subject: 'Giải tích 4',
-                    Group: 'L04',
-                    Redit: '4',
-                    componentScore: "KT:8 BTL:8 TN:8",
-                    examScore: '8.0',
-                    totalScore: '8.0', 
-                },
-                {
-                    CouseID: 'MT1005',
-                    Subject: 'Giải tích 2',
-                    Group: 'L09',
-                    Redit: '4',
-                    componentScore: "KT:8 BTL:8 TN:8",
-                    examScore: '8.0',
-                    totalScore: '8.0',
-                },
-                {
-                    CouseID: 'CO2011',
-                    Subject: 'Mô hình hóa',
-                    Group: 'L17',
-                    Redit: '4',
-                    componentScore: "KT:8 BTL:8 TN:8",
-                    examScore: '8.0',
-                    totalScore: '8.0',
-                }
-            ]
+    const [grades, setGrades] = useState([]);
 
+    useEffect(() => {
+      const db = getDatabase();
+      const studentId = '1234567'; // Thay đổi ID sinh viên tại đây
+      const studentRef = ref(db, 'Student/' + studentId + '/Course');
+  
+      get(studentRef).then((snapshot) => {
+        if (snapshot.exists()) {
+          const data = snapshot.val();
+          const semesters = Object.keys(data).map((semester) => {
+            const courses = Object.keys(data[semester]).map((courseId) => {
+              const course = data[semester][courseId];
+              return {
+                ...course,
+                semester,
+                courseId
+              };
+            });
+            return courses;
+          }).flat();
+          setGrades(semesters);
+        } else {
+          console.log("No data available");
         }
-    ]
-
+      }).catch((error) => {
+        console.error(error);
+      });
+    }, []);
+  
     return (
-        <Fragment>
-            <Header />
-            <Nav />
-            <div id = "GradeReportStu">
-            <h1>BẢNG ĐIỂM SINH VIÊN</h1>
-                <div id="Student_infor">
-                    <p>Họ tên: Trần Văn A</p>
-                    <p>Mssv: 112233</p>
-                    <p>Ngành: KHMT</p>
-                </div>
-                <select className="Select_sem" onChange={handleSemester}>
-                    <option value="All">Bảng điểm tất cả các kì</option>
-                    <option value="221">Bảng điểm HK221</option>
-                    <option value="222">Bảng điểm HK222</option>
-                    <option value="223">Bảng điểm HK223</option>
-                </select>
-                <div>
-                    {(Semester == 'All' || Semester=='' ) ? (
-                        <div>
-                            {
-                            Grade.map((semester, index)=>(
-                                <div key={index}>
-                                    <DisplayGrade Grade={semester.GradeSem} Semester={semester.semester}/>
-                                </div>
-                            ))
-                        }
-                        </div>
-                        
-                        
-                    ):
-                    (
-                        <div>
-                        {
-                            Grade.map((semester, index)=>(
-                                <div key={index}>
-                                    {
-                                        Semester == semester.semester &&(
-                                            <div>
-                                                <DisplayGrade Grade={semester.GradeSem} Semester={semester.semester}/>
-                                            </div>
-                                        )
-                                    }
-                                </div>
-                            ))
-                        }
-                        </div>
-                    ) }
-{/*                 
-                    {Semester == '222' &&(
-                        <div>
-                        <DisplayGrade Grade={Semester222} Semester={Semester}/>
-                        </div>
-                    )}
-                    {Semester == '223' &&(
-                        <div>
-                        <DisplayGrade Grade={Semester223} Semester={Semester}/>
-                        </div>
-                    )} */}
-                       
-                       
-                    
-                </div>
-                
-            </div>
-            <Footer />
-        </Fragment>
-    )
+      <div>
+        <h1>Bảng Điểm Sinh Viên</h1>
+        <table>
+          <thead>
+            <tr>
+              <th>Học Kỳ</th>
+              <th>Mã Môn</th>
+              <th>Điểm TN</th>
+              <th>Điểm KT</th>
+              <th>Điểm Thi</th>
+              <th>Điểm Tổng Kết</th>
+            </tr>
+          </thead>
+          <tbody>
+            {grades.map((grade, index) => (
+              <tr key={index}>
+                <td>{grade.semester}</td>
+                <td>{grade.courseId}</td>
+                <td>{grade.TN}</td>
+                <td>{grade.KT}</td>
+                <td>{grade.Final}</td>
+                <td>{(parseFloat(grade.TN) + parseFloat(grade.KT) + parseFloat(grade.Final)) / 3}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    );
 }
 
 export default GradeReportStu

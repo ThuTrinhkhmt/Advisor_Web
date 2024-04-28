@@ -126,13 +126,13 @@ function CourseRegistationStu() {
                 <div className='Infor'>
                     <p>Học kì: 223.</p>
                     <p style={{ fontStyle: 'italic' }}>Thời gian đăng kí: 10/07/2022 - 20/7/2022.</p>
-                    <p>Sinh viên cần nhập đúng tên môn học hoặc mã môn.</p>
-                    <p>Các thao tác ngoài thời gian đăng kí môn sẽ không được chấp nhận.</p>
+                    <p className = "red">Sinh viên cần nhập đúng tên môn học hoặc mã môn.</p>
+                    <p className = "red">Các thao tác ngoài thời gian đăng kí môn sẽ không được chấp nhận.</p>
                 </div>
 
                 <div className="head">
                     <input id="Inputsubject" placeholder="Insert name subject or code"></input>
-                    <button className="button-registation-stu" onClick={handleFindSub}> Find </button>
+                    <button> Find </button>
                 </div>
                 {
                     FindSub !== '' && Subjects.length > 0 && (

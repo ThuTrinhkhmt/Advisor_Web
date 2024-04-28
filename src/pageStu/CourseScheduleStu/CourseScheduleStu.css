@@ -1,14 +1,16 @@
 #CourseScheduleStu1{
-    margin-top : 50px;
-    margin-left: 20%;
-    padding : 30px;
-    min-height: 500px;   
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
+    margin-top: 50px;
+    padding: 30px;
+    min-height: 500px;
+    margin-left: 24%;
+    margin-bottom: 36px;
+    margin-right: 18px;
 }
 #CourseScheduleStu1 .header{
-    text-align: center;  
+    text-align: center;
+    line-height: 32px;
+    font-size: 36px;
+    margin-bottom: 52px;
 }
 #CourseScheduleStu1 h2{
     margin-bottom: 20px;  
@@ -34,3 +36,7 @@
     font-size: 18px;
 }
 
+#CourseScheduleStu1 .Subject .NameSub a{
+    text-decoration: none;
+    color : rgb(15, 108, 191);
+}

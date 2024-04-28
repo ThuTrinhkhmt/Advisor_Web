@@ -1,14 +1,19 @@
 #GradeAppealStu1{
-    margin-top : 50px;
-    margin-left: 20%;
-    padding : 30px;
-    min-height: 500px;   
+    margin-top: 50px;
+    padding: 30px;
+    min-height: 500px;
+    margin-left: 24%;
+    margin-bottom: 36px;
+    margin-right: 18px; 
     display: flex;
     flex-direction: column;
     gap: 20px;
 }
 #GradeAppealStu1 h1{ 
     text-align: center;
+    margin-bottom: 36px;
+    line-height: 32px;
+    font-size: 36px;
 }
 #GradeAppealStu1 .Appeal{ 
     display: flex;
@@ -74,4 +79,8 @@
  
  #GradeAppealStu1 .Appeal .Confirm .btn-appeal-stu:hover{
     background-color: rgba(62, 113, 231, 0.212);
+}
+
+#GradeAppealStu1 p{
+    margin: 4px;
 }

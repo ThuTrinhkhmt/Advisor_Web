@@ -1,9 +1,9 @@
 #InformationPage1{
-    margin-top : 50px;
-    margin-left: 20%;
-    padding : 30px;
+    margin-top: 50px;
+    padding: 30px;
     min-height: 500px;
-    margin-right: 36px;
+    margin-left: 20%;
+    margin-bottom: 48px;
 }
 
 #InformationPage1 h1 {

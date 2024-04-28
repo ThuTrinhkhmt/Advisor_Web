@@ -159,7 +159,7 @@ function ClassGrade() {
         <>
             <Header />
             <Nav key='Nav' />
-            <div className="pageGradeClass">
+            <div className="pageGradeClass2">
                 <h1>Bảng điểm môn {courseID} lớp {group}</h1>
                 <table>
                     <thead>
