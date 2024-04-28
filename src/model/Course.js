@@ -22,9 +22,9 @@ export class Course {
             this.#numOfCredit = CourseData.NumOfCredits;
             const arrayGroup = Object.keys(CourseData.Group || {});
             for (const groupID of arrayGroup) {
-                //const groupData = new Group(this.#idCourse, groupID);
-                //await groupData.loadFromDatabase();
-                //this.#groups.push(groupData);
+                const groupData = new Group(this.#idCourse, groupID);
+                await groupData.loadFromDatabase();
+                this.#groups.push(groupData);
             }
         }
     }

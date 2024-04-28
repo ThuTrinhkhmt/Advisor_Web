@@ -1,8 +1,7 @@
 import { db, ref, set, get, child, update, remove } from '../firebase/firebase';
 import { Person } from './Person.js';
 import { getStuData } from '../firebase/firebasefunction';
-import { Course } from './Course.js';
-import { Group } from './Group.js';
+import { Score } from './Score.js';
 import { Account } from './Account.js';
 export class Student extends Person {
     #studentScores = new Map();
@@ -15,7 +14,9 @@ export class Student extends Person {
     async loadFromDatabase() {
         const userData = await getStuData(super.getID());
         const userRef = ref(db, `Student/${super.getID()}/Account/Username`);
+        const userScore = ref(db, `Student/${super.getID()}/Course/HK222`);
         const snapshot = await get(userRef);
+        const scores = await get(userScore);
         if (snapshot.exists()) {
             const username=snapshot.val();
             const account = new Account('Student', username);
@@ -29,6 +30,16 @@ export class Student extends Person {
             await super.setAddress(userData.Address);
             await super.setFaculity(userData.Faculity);
             await super.setGender(userData.Gender);
+        }
+        const arrayCourse = Object.keys(scores.val() || {});
+        for(const courseID of arrayCourse){
+            const ScoreData = ref(db, `Student/${super.getID()}/Course/HK222/${courseID}`);
+            const snapshot2 = await get(ScoreData);
+            const getScore=snapshot2.val(); 
+            const scoreData = "KT: " + getScore.KT + " BTL: " + getScore.BTL + " TN:" + getScore.TN;
+            const ave= (parseFloat(getScore.KT) + parseFloat(getScore.BTL) + parseFloat(getScore.TN) + parseFloat(getScore.Final))/4;
+            const value = new Score(scoreData, getScore.Final, ave);
+            this.#studentScores.set(courseID, value);
         }
     }
 
@@ -50,9 +61,9 @@ export class Student extends Person {
     setStudentScore(group, score){
         this.studentScore.set(group, score);
     }
-    getStudentScore(groupName){
-        for (let [group, score] of this.studentScore.entries()) {
-            if (group.getName() === groupName) {
+    getStudentScore(CourseName){
+        for (let [group, score] of this.#studentScores.entries()) {
+            if (group === CourseName) {
                 return score;
             }
         }

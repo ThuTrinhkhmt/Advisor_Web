@@ -10,7 +10,7 @@ export class Teacher extends Person {
     #groups = [];
     constructor(id) {
         super(id);
-        this.loadFromDatabase();
+        //this.loadFromDatabase();
     }
 
     async loadFromDatabase() {

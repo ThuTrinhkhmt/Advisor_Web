@@ -28,16 +28,16 @@ function ClassGrade() {
             setStudents(arrayStu.map((stu) => ({
               name: stu.getName(),
               studentID: stu.getID(),
-              componentScore: "KT:8 BTL:7 TN:8.5",
-              examScore: 7.5,
-              totalScore: 9.0,
+              componentScore: stu.getStudentScore(courseID).getComponentScore(),
+              examScore: stu.getStudentScore(courseID).getFinalScore(),
+              totalScore: stu.getStudentScore(courseID).getAverScore(),
               isEditing: false,
               isEdited: 0
             })));
           }
         };
         loadGroup();
-    }, []);
+    }, [courseID, groupData]);
     const prevStudents = useRef([...students]);
     const [unsavedChanges, setUnsavedChanges] = useState(false);
     const [editMode, setEditMode] = useState(false);
