@@ -27,7 +27,6 @@ function SubjectTab({ subjectArr }) {
 function CourseScheduleStu() {
     const [subjects, setSubjects] = useState([]);
     const id = data.getID(); // Lấy ID của sinh viên
-
     useEffect(() => {
         const db = getDatabase();
         const studentRef = ref(db, 'Student/' + id + '/Course'); 

@@ -24,11 +24,11 @@ function Process({weeklyFeedback}){
     );
 }
 function Course() {
-    const { CodeCourse, Class, Teacher } = useParams();
+    let { courseID, group, teacher } = useParams();
     const object={
-        teacher: Teacher,
-        nameSub: CodeCourse,
-        group: Class,
+        teacher: teacher,
+        nameSub: courseID,
+        group: group,
         weeklyFeedback: [
             { week: 1, comment: "Tuần đầu tiên, mọi thứ vẫn diễn ra suôn sẻ.", rating: 4 },
             { week: 2, comment: "Tuần này có một số khó khăn nhưng vẫn hoàn thành được nhiệm vụ.", rating: 5 },

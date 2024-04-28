@@ -3,10 +3,11 @@ import Header from '../../components/ComponentStu/HeaderStu/HeaderStu'
 import Footer from '../../components/ComponentStu/FooterStu/FooterStu'
 import Nav from '../../components/ComponentStu/NavStu/NavStu'
 import { Fragment, useState } from 'react'
+import { data } from '../../loginPage/Login_page'
 //Sửa thành có một danh sách phúc khảo trước
 function GradeAppealStu() {
     const Groups={starttime:'01/01/2022', endtime:'15/05/2022'}
-    const Student={Name: 'Trần Văn A', ID: '112233', faculty:'Khoa học máy tính' }
+    const Student= data;
     const [haveAtleastOne, setHaveAtleastOne] = useState(false);
     const [Subject_can_appeal, setSubject_can_appeal]= useState([{
         CourseID: "CH1005",
@@ -65,9 +66,9 @@ function GradeAppealStu() {
                 <h1>Phúc tra điểm</h1>
                 <div className='Infor1'>
                     <div className="Student_infor">
-                        <p>Họ tên: {Student.Name}</p>
-                        <p>Mssv: {Student.ID}</p>
-                        <p>Ngành: {Student.faculty}</p>
+                        <p>Họ tên: {Student.getName()}</p>
+                        <p>Mssv: {Student.getID()}</p>
+                        <p>Ngành: {Student.getFaculity()}</p>
                     </div>
                     <div className="Realtime_infor">
                         <p>Học kì: 223.</p>
