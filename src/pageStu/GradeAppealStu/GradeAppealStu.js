@@ -23,13 +23,11 @@ function GradeAppealStu() {
 
     const saveAppealToFirebase = (subject) => {
         const db = getDatabase();
-        const appealRef = ref(db, 'Appeal/' + id + '/' + subject.CourseID);
+        const appealRef = ref(db, 'Student/' + id + '/Course/HK222/' + subject.CourseID);
     
-        set(appealRef, {
-            CodeCourse: subject.CourseID,
-            Grade: subject.Grade,
-            Class: subject.Group, 
-            Code: subject.Code, 
+        update(appealRef, {
+            date: subject.Date,
+            code: subject.Code, 
             isAppeal: true
         }).then(() => {
             console.log('Data saved successfully.');
@@ -40,9 +38,8 @@ function GradeAppealStu() {
 
     useEffect(() => {
         const db = getDatabase();
-        const studentId = id; // Thay đổi ID sinh viên tại đây
       
-        const studentRef = ref(db, 'Student/' + studentId + '/Course/HK222');
+        const studentRef = ref(db, 'Student/' + id + '/Course/HK222');
       
         get(studentRef).then((snapshot) => {
           if (snapshot.exists()) {
@@ -55,9 +52,9 @@ function GradeAppealStu() {
                 Group: course.Class,
                 Grade: course.Final,
                 IsAppeal: course.isAppeal,
-                IsDone: false,
-                Code: '',
-                Date:''
+                IsDone: course.isDone,
+                Code: course.code,
+                Date: course.date
               };
             });
             setSubject_can_appeal(courses);
