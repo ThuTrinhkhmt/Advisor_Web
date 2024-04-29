@@ -12,6 +12,7 @@ export class Score {
         this.#finalScore = finalScore;
 		this.#aveScore = aveScore;
 		this.#isEditing = false;
+		this.#isEdited=0;
     }
 
     setAllScore(componentScore, finalScore, aveScore) {
@@ -29,9 +30,8 @@ export class Score {
 	getAverScore() {
 		return this.#aveScore;
 	}
-    editScore(finalScore, aveScore) {
+    editScore(finalScore) {
 		this.#finalScore = finalScore;
-		this.#aveScore = aveScore;
 		this.#isEdited = 2;
 	}
 	setIsEditing(isEditing) {

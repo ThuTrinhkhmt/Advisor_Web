@@ -1,16 +1,12 @@
-import { db, ref, set, get, child, update, remove } from '../firebase/firebase';
+import { db, ref, set, get, update} from '../firebase/firebase';
 import { Person } from './Person.js';
 import { getTeaData } from '../firebase/firebasefunction';
-import { Course } from './Course.js';
 import { Group } from './Group.js';
 export class Teacher extends Person {
     #specialize;
     #degree;
     #position;
     #groups = [];
-    constructor(id) {
-        super(id);
-    }
 
     async loadFromDatabase() {
         const userData = await getTeaData(super.getID());
@@ -30,7 +26,6 @@ export class Teacher extends Person {
                 const Ref = ref(db, `Teacher/${super.getID()}/Course/${courseID}/Class`);
                 const snapshot = await get(Ref);
                 const arrayGroup = Object.keys(snapshot.val() || {});
-                console.log(arrayGroup);
                 for (const groupID of arrayGroup) {
                     const groupData = new Group(courseID, groupID);
                     await groupData.loadFromDatabase();
@@ -96,7 +91,7 @@ export class Teacher extends Person {
     }
 
     async addGroup(course, groupName){
-        const HasCourse = false;
+        let HasCourse = false;
         const nameCourse = course.getName();
         const courseGroups = course.getGroup();
         const userRef = ref(db, `Teacher/${super.getID()}/Course`);

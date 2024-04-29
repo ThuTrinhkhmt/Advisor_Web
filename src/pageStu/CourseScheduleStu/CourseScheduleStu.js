@@ -65,9 +65,9 @@ function CourseScheduleStu() {
                     <SubjectTab subjectArr={subjects}/>
                 </div>
             </div>
-            <Footer />
+        <Footer />
         </Fragment>
-    );
+    )
 }
 
 export default CourseScheduleStu

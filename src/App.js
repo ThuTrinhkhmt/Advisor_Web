@@ -32,7 +32,6 @@ function App() {
           <Route path="/StuCourse/:courseID/:group/:teacher" element={<Course />} />
           <Route path="/informationStu" element={<Information1 />} />
           <Route path="/courseScheduleStu" element={<CourseSchedule1 />} />
-          <Route path="/StuCourse/:courseID/:group/:teacher"  element={<Course />} />
           <Route path="/gradeReportStu" element={<GradeReport1 />} />
           <Route path="/gradeAppealStu" element={<GradeAppeal1 />} />
           <Route path="/AppealAnnounce" element={<AppealAnnounce />} />

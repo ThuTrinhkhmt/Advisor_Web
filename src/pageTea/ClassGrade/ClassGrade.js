@@ -8,22 +8,13 @@ import { data } from '../../loginPage/Login_page';
 function ClassGrade() {
     let { courseID, group } = useParams();
     const groupData=data.getAGroup(courseID, group);
+    const arrayStu= groupData.getStudents();
+    const [StuGrade, setStuGrade] = useState(null);
     //Từ courseID và group (này là mã môn và nhóm lớp), cậu tìm danh sách sinh viên trong lớp đó cho tớ
     //Cậu lấy class students rồi quăng vô chổ students cho tớ á, quăng ở chổ useState(trong này nè), tớ nghĩ thế
-    const [students, setStudents] = useState([
-        {
-            name: "John Doe",
-            studentID: "001",
-            componentScore: "KT:8 BTL:7 TN:8.5",
-            examScore: 7.5,
-            totalScore: 9.0,
-            isEditing: false,
-            isEdited: 0
-        }
-    ]);
+    const [students, setStudents] = useState([]);
     useEffect(() => {
         const loadGroup = async () => {
-          const arrayStu= groupData.getStudents();
           if (arrayStu && arrayStu.length > 0) {
             setStudents(arrayStu.map((stu) => ({
               name: stu.getName(),
@@ -31,13 +22,13 @@ function ClassGrade() {
               componentScore: stu.getStudentScore(courseID).getComponentScore(),
               examScore: stu.getStudentScore(courseID).getFinalScore(),
               totalScore: stu.getStudentScore(courseID).getAverScore(),
-              isEditing: false,
-              isEdited: 0
+              isEditing: stu.getStudentScore(courseID).getIsEditing(),
+              isEdited: stu.getStudentScore(courseID).getIsEdited()
             })));
           }
         };
         loadGroup();
-    }, [courseID, groupData]);
+    }, [courseID, groupData, arrayStu]);
     const prevStudents = useRef([...students]);
     const [unsavedChanges, setUnsavedChanges] = useState(false);
     const [editMode, setEditMode] = useState(false);
@@ -64,13 +55,27 @@ function ClassGrade() {
         setEditingIndex(index);
     };
     
-    const handleSaveScore = (index) => {
+    const handleSaveScore = async (index) => {
+        alert("2");
         if (window.confirm("Bạn có muốn cập nhật điểm không?")) {
             const updatedStudents = [...students];
             updatedStudents[index].isEditing = false;
             updatedStudents[index].isEdited++;
             setStudents(updatedStudents);
             setUnsavedChanges(false);
+            const fieldsToUpdate = ['componentScore', 'examScore'];
+            let changedFieldsCount = 0;
+            fieldsToUpdate.forEach(field => {
+                if (students[index][field] !== prevStudents.current[index][field]) {
+                    changedFieldsCount++; // Tăng biến đếm nếu có thay đổi
+                }
+            });
+            alert(changedFieldsCount);
+            if(changedFieldsCount === 1){
+                setStuGrade(arrayStu[index]);
+                //alert(arrayStu[index].getName());
+                await arrayStu[index].setStudentExamScore(courseID, students[index]['examScore']);
+            }
         } else {
             setStudents([...prevStudents.current]); // Khôi phục lại trạng thái trước khi chỉnh sửa
             setUnsavedChanges(false);
@@ -78,13 +83,26 @@ function ClassGrade() {
         setEditMode(false);
     };
 
-    const handleBlur = (index) => {
+    const handleBlur = async (index) => {
         if (window.confirm("Bạn có muốn cập nhật điểm không?")) {
             const updatedStudents = [...students];
             updatedStudents[index].isEditing = false;
             updatedStudents[index].isEdited++;
             setStudents(updatedStudents);
             setUnsavedChanges(false);
+            const fieldsToUpdate = ['componentScore', 'examScore'];
+            let changedFieldsCount = 0;
+            fieldsToUpdate.forEach(field => {
+                if (students[index][field] !== prevStudents.current[index][field]) {
+                    changedFieldsCount++; // Tăng biến đếm nếu có thay đổi
+                }
+            });
+            alert(changedFieldsCount);
+            if(changedFieldsCount === 1){
+                setStuGrade(arrayStu[index]);
+                //alert(arrayStu[index].getName());
+                await arrayStu[index].setStudentExamScore(courseID, students[index]['examScore']);
+            }
         } else {
             setStudents([...prevStudents.current]);
             setUnsavedChanges(false);

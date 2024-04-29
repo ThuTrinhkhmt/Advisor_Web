@@ -58,12 +58,30 @@ export class Student extends Person {
         }
         return groups;
     }
-    setStudentScore(group, score){
-        this.studentScore.set(group, score);
+    async setStudentExamScore(courseName, scoreData){
+        for (let [course, score] of this.#studentScores.entries()) {
+            if (course === courseName) {
+                const userScore = ref(db, `Student/${super.getID()}/Course/HK222/${courseName}`);
+                const snapshot = await get(userScore);
+                score.editScore(scoreData);
+                if(snapshot.exists()){
+                    try {
+                        await update(userScore, {
+                            Final: scoreData
+                        });
+                        alert("User data updated successfully");
+                    } catch (error) {
+                        console.error("Error updating user data:", error);
+                    }
+                }
+                break;
+            }
+        }
+        return null;
     }
     getStudentScore(CourseName){
-        for (let [group, score] of this.#studentScores.entries()) {
-            if (group === CourseName) {
+        for (let [course, score] of this.#studentScores.entries()) {
+            if (course === CourseName) {
                 return score;
             }
         }
