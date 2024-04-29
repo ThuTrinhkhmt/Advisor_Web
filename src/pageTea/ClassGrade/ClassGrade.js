@@ -56,26 +56,20 @@ function ClassGrade() {
     };
     
     const handleSaveScore = async (index) => {
-        alert("2");
         if (window.confirm("Bạn có muốn cập nhật điểm không?")) {
             const updatedStudents = [...students];
             updatedStudents[index].isEditing = false;
-            updatedStudents[index].isEdited++;
-            setStudents(updatedStudents);
             setUnsavedChanges(false);
-            const fieldsToUpdate = ['componentScore', 'examScore'];
-            let changedFieldsCount = 0;
-            fieldsToUpdate.forEach(field => {
-                if (students[index][field] !== prevStudents.current[index][field]) {
-                    changedFieldsCount++; // Tăng biến đếm nếu có thay đổi
+            const fieldsToUpdate = ['componentScore', 'examScore','totalScore'];
+            for (const field of fieldsToUpdate) {
+                if (updatedStudents[index][field] !== prevStudents.current[index][field]) {
+                    if(field==='componentScore') await arrayStu[index].setComponentScore(courseID, updatedStudents[index]['componentScore']);
+                    else if(field==='examScore') await arrayStu[index].setExamScore(courseID, updatedStudents[index]['examScore']);
+                    else await arrayStu[index].setTotalScore(courseID, updatedStudents[index]['totalScore']);
                 }
-            });
-            alert(changedFieldsCount);
-            if(changedFieldsCount === 1){
-                setStuGrade(arrayStu[index]);
-                //alert(arrayStu[index].getName());
-                await arrayStu[index].setStudentExamScore(courseID, students[index]['examScore']);
             }
+            updatedStudents[index].isEdited=arrayStu[index].getStudentScore(courseID).getIsEdited();
+            setStudents(updatedStudents);
         } else {
             setStudents([...prevStudents.current]); // Khôi phục lại trạng thái trước khi chỉnh sửa
             setUnsavedChanges(false);
@@ -87,24 +81,19 @@ function ClassGrade() {
         if (window.confirm("Bạn có muốn cập nhật điểm không?")) {
             const updatedStudents = [...students];
             updatedStudents[index].isEditing = false;
-            updatedStudents[index].isEdited++;
-            setStudents(updatedStudents);
             setUnsavedChanges(false);
-            const fieldsToUpdate = ['componentScore', 'examScore'];
-            let changedFieldsCount = 0;
-            fieldsToUpdate.forEach(field => {
-                if (students[index][field] !== prevStudents.current[index][field]) {
-                    changedFieldsCount++; // Tăng biến đếm nếu có thay đổi
+            const fieldsToUpdate = ['componentScore', 'examScore','totalScore'];
+            for (const field of fieldsToUpdate) {
+                if (updatedStudents[index][field] !== prevStudents.current[index][field]) {
+                    if(field==='componentScore') await arrayStu[index].setComponentScore(courseID, updatedStudents[index]['componentScore']);
+                    else if(field==='examScore') await arrayStu[index].setExamScore(courseID, updatedStudents[index]['examScore']);
+                    else await arrayStu[index].setTotalScore(courseID, updatedStudents[index]['totalScore']);
                 }
-            });
-            alert(changedFieldsCount);
-            if(changedFieldsCount === 1){
-                setStuGrade(arrayStu[index]);
-                //alert(arrayStu[index].getName());
-                await arrayStu[index].setStudentExamScore(courseID, students[index]['examScore']);
             }
+            updatedStudents[index].isEdited=arrayStu[index].getStudentScore(courseID).getIsEdited();
+            setStudents(updatedStudents);
         } else {
-            setStudents([...prevStudents.current]);
+            setStudents([...prevStudents.current]); // Khôi phục lại trạng thái trước khi chỉnh sửa
             setUnsavedChanges(false);
         }
         setEditMode(false);
