@@ -27,7 +27,7 @@ function Login() {
   const login = async () => {
     const account = new Account(role, username);
     await account.loadFromDatabase();
-    
+  
     if (username.length > 0 && password.length > 0 && role.length > 0) {
         if (account.getPassword() === password) {
             roleID=role;

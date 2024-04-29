@@ -7,11 +7,9 @@ import ReactQuill from 'react-quill';
 import ReactHtmlParser from 'html-react-parser'; // Import html-react-parser
 import 'react-quill/dist/quill.snow.css';
 import './CourseView.css';
-
 function CourseView() {
   let { courseID, group } = useParams();
   // Từ courseID và group (này là mã môn và nhóm lớp), cậu tìm ra cái class tài liệu hướng dẫn dì á
-
   // Khai báo state cho thông tin của môn học
   const [editing, setEditing] = useState(false);
   const [course, setCourse] = useState({
