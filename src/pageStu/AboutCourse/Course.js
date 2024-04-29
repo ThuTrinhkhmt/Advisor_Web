@@ -6,6 +6,7 @@ import { Fragment, useState, useEffect } from 'react';
 import { getDatabase, ref, get } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-database.js";
 import { Link, useParams } from 'react-router-dom';
 import { data } from '../../loginPage/Login_page';
+import { Title } from 'chart.js';
 
 function Process({ weeklyFeedback }) {
     return (
@@ -29,6 +30,7 @@ function Course() {
     let { courseID, group, teacher } = useParams();
     const [weeklyFeedback, setWeeklyFeedback] = useState([]);
     const [courseDescription, setCourseDescription] = useState('');
+    const [courseTitle, setCourseTitle] = useState('');
     const id = data.getID();
     const [detail, setDetail] = useState([
         { name: '', link: ''},
@@ -40,14 +42,15 @@ function Course() {
         const dbRef = ref(db, `Course/${courseID}/Group/${group}/Student`);
         const descRef = ref(db, `Course/${courseID}/Group/${group}/AboutCourse/Description`);
         const docRef = ref(db, `Course/${courseID}/Group/${group}/AboutCourse/Document`);
-        
+        const titlRef = ref(db, `Course/${courseID}/Group/${group}/AboutCourse/Title`);
         get(docRef).then((snapshot) => {
             if (snapshot.exists()) {
                 const documents = snapshot.val();
-                setDetail([
-                    { name: documents[0].name, link: documents[0].url },
-                    { name: documents[1].name, link: documents[1].url }
-                ]);
+                const details = documents.map(doc => ({
+                    name: doc.name,
+                    link: doc.url
+                }));
+                setDetail(details);
             } else {
                 console.log("No data available");
             }
@@ -57,6 +60,11 @@ function Course() {
         
         get(descRef).then((snapshot) => {
             setCourseDescription(snapshot.val());
+        }).catch((error) => {
+            console.error("Error getting course description:", error);
+        });
+        get(titlRef).then((snapshot) => {
+            setCourseTitle(snapshot.val());
         }).catch((error) => {
             console.error("Error getting course description:", error);
         });
@@ -105,7 +113,7 @@ function Course() {
                     showCourses ? (
                         <div className='CourseView'>
                             <div className='Descript'>
-                                <h2>Mô tả môn học</h2>
+                                <h2>{courseTitle}</h2>
                                 <p>{courseDescription}</p>
                             </div>
                             <div className='Detail'>

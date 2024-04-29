@@ -76,17 +76,22 @@ function GradeAppealStu() {
         if (Subject_can_appeal[index].IsAppeal) {
             alert('Môn học đã được chọn phúc tra!');
         } else {
-            const confirmation = window.confirm('Bạn xác nhận phúc tra?');
-            if (confirmation) {
-                //Bật true lên
-            const updatedSubjects = [...Subject_can_appeal];
-            const currentDate = new Date().toLocaleDateString(); // Lấy ngày tháng hiện tại
-            updatedSubjects[index].IsAppeal = true;
-            updatedSubjects[index].Code = '#' + generateRandomCode(4);
-            updatedSubjects[index].Date = currentDate;
-            setSubject_can_appeal(updatedSubjects); // Cập nhật state
-            saveAppealToFirebase(updatedSubjects[index]);
-            alert('Xác nhận phúc tra thành công!');
+            const currentDate = new Date();
+            const startTime = new Date(subject.StartTime);
+            const endTime = new Date(subject.EndTime);
+            if (currentDate >= startTime && currentDate <= endTime) {
+                const confirmation = window.confirm('Bạn xác nhận phúc tra?');
+                if (confirmation) {
+                    const updatedSubjects = [...Subject_can_appeal];
+                    updatedSubjects[index].IsAppeal = true;
+                    updatedSubjects[index].Code = '#' + generateRandomCode(4);
+                    updatedSubjects[index].Date = currentDate.toLocaleDateString();
+                    setSubject_can_appeal(updatedSubjects);
+                    saveAppealToFirebase(updatedSubjects[index]);
+                    alert('Xác nhận phúc tra thành công!');
+                }
+            } else {
+                alert('Đã quá hạn phúc tra.');
             }
         }
     }
@@ -104,7 +109,6 @@ function GradeAppealStu() {
                     </div>
                     <div className="Realtime_infor">
                         <p>Học kì: 222.</p>
-                        <p>Thời gian phúc tra: {Groups.starttime} - {Groups.endtime}.</p>
                     </div>
                 </div>
                 <div className="Appeal">
