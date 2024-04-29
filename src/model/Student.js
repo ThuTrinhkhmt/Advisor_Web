@@ -36,9 +36,9 @@ export class Student extends Person {
             const ScoreData = ref(db, `Student/${super.getID()}/Course/HK222/${courseID}`);
             const snapshot2 = await get(ScoreData);
             const getScore=snapshot2.val(); 
-            const scoreData = "KT: " + getScore.KT + " BTL: " + getScore.BTL + " TN:" + getScore.TN;
-            const ave= (parseFloat(getScore.KT) + parseFloat(getScore.BTL) + parseFloat(getScore.TN) + parseFloat(getScore.Final))/4;
-            const value = new Score(scoreData, getScore.Final, ave);
+            const value = new Score(getScore.componentScore, getScore.examScore, getScore.totalScore);
+            value.setIsAppeal(getScore.isAppeal);
+            value.setIsDone(getScore.isDone);
             this.#studentScores.set(courseID, value);
         }
     }
@@ -58,16 +58,81 @@ export class Student extends Person {
         }
         return groups;
     }
-    async setStudentExamScore(courseName, scoreData){
+    async setScore(courseName, compoScore, finalScore, totalScore){
         for (let [course, score] of this.#studentScores.entries()) {
             if (course === courseName) {
                 const userScore = ref(db, `Student/${super.getID()}/Course/HK222/${courseName}`);
                 const snapshot = await get(userScore);
-                score.editScore(scoreData);
+                score.setAllScore(compoScore, finalScore, totalScore)
                 if(snapshot.exists()){
                     try {
                         await update(userScore, {
-                            Final: scoreData
+                            componentScore: compoScore,
+                            examScore: finalScore,
+                            totalScore: totalScore
+                        });
+                        alert("User data updated successfully");
+                    } catch (error) {
+                        console.error("Error updating user data:", error);
+                    }
+                }
+                break;
+            }
+        }
+        return null;
+    }
+    async setExamScore(courseName, scoreData){
+        for (let [course, score] of this.#studentScores.entries()) {
+            if (course === courseName) {
+                const userScore = ref(db, `Student/${super.getID()}/Course/HK222/${courseName}`);
+                const snapshot = await get(userScore);
+                score.setFinalScore(scoreData);
+                if(snapshot.exists()){
+                    try {
+                        await update(userScore, {
+                            examScore: scoreData
+                        });
+                        alert("User data updated successfully");
+                    } catch (error) {
+                        console.error("Error updating user data:", error);
+                    }
+                }
+                break;
+            }
+        }
+        return null;
+    }
+    async setTotalScore(courseName, scoreData){
+        for (let [course, score] of this.#studentScores.entries()) {
+            if (course === courseName) {
+                const userScore = ref(db, `Student/${super.getID()}/Course/HK222/${courseName}`);
+                const snapshot = await get(userScore);
+                score.setAverScore(scoreData);
+                if(snapshot.exists()){
+                    try {
+                        await update(userScore, {
+                            totalScore: scoreData
+                        });
+                        alert("User data updated successfully");
+                    } catch (error) {
+                        console.error("Error updating user data:", error);
+                    }
+                }
+                break;
+            }
+        }
+        return null;
+    }
+    async setComponentScore(courseName, scoreData){
+        for (let [course, score] of this.#studentScores.entries()) {
+            if (course === courseName) {
+                const userScore = ref(db, `Student/${super.getID()}/Course/HK222/${courseName}`);
+                const snapshot = await get(userScore);
+                score.setComponentScore(scoreData);
+                if(snapshot.exists()){
+                    try {
+                        await update(userScore, {
+                            componentScore: scoreData
                         });
                         alert("User data updated successfully");
                     } catch (error) {
@@ -89,6 +154,21 @@ export class Student extends Person {
     }
     getAllScore(){
         return this.#studentScores;
+    }
+    async setDay(courseName, startDay, endDay){
+        const userScore = ref(db, `Student/${super.getID()}/Course/HK222/${courseName}/appealTime`);
+        const snapshot = await get(userScore);
+        if(snapshot.exists()){
+            try {
+                await update(userScore, {
+                    EndTime: endDay,
+                    StartTime: startDay
+                });
+                alert("User data updated successfully");
+            } catch (error) {
+                console.error("Error updating user data:", error);
+            }
+        }
     }
     setStudentFeedback(group, feedback){
         this.#studentFeedback.set(group, feedback);
