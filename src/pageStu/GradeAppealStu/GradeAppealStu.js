@@ -16,9 +16,9 @@ function generateRandomCode(length) {
 
 function GradeAppealStu() {
     const id = data.getID();
-    const Groups={starttime:'01/01/2022', endtime:'15/05/2022'}
+    const Groups={starttime:'', endtime:''}
     const Student= data;
-    const [haveAtleastOne, setHaveAtleastOne] = useState(false);
+    // const [haveAtleastOne, setHaveAtleastOne] = useState(false);
     const [Subject_can_appeal, setSubject_can_appeal] = useState([]);
 
     const saveAppealToFirebase = (subject) => {
@@ -50,14 +50,18 @@ function GradeAppealStu() {
                 CourseID: course.CodeCourse,
                 Subject: course.Name,
                 Group: course.Class,
-                Grade: course.Final,
+                Grade: course.totalScore,
                 IsAppeal: course.isAppeal,
                 IsDone: course.isDone,
                 Code: course.code,
-                Date: course.date
+                Date: course.date,
+                StartTime: course.appealTime.StartTime,
+                EndTime: course.appealTime.EndTime
               };
             });
             setSubject_can_appeal(courses);
+            Groups.starttime = courses[0].StartTime;
+            Groups.endtime = courses[0].EndTime;
           } else {
             console.log("No data available");
           }

@@ -30,12 +30,31 @@ function Course() {
     const [weeklyFeedback, setWeeklyFeedback] = useState([]);
     const [courseDescription, setCourseDescription] = useState('');
     const id = data.getID();
-
+    const [detail, setDetail] = useState([
+        { name: '', link: ''},
+        { name: '', link: ''}
+    ]);
+    
     useEffect(() => {
         const db = getDatabase();
         const dbRef = ref(db, `Course/${courseID}/Group/${group}/Student`);
-        const descRef = ref(db, `Course/${courseID}/Description`);
- 
+        const descRef = ref(db, `Course/${courseID}/Group/${group}/AboutCourse/Description`);
+        const docRef = ref(db, `Course/${courseID}/Group/${group}/AboutCourse/Document`);
+        
+        get(docRef).then((snapshot) => {
+            if (snapshot.exists()) {
+                const documents = snapshot.val();
+                setDetail([
+                    { name: documents[0].name, link: documents[0].url },
+                    { name: documents[1].name, link: documents[1].url }
+                ]);
+            } else {
+                console.log("No data available");
+            }
+        }).catch((error) => {
+            console.error("Error getting documents:", error);
+        });
+        
         get(descRef).then((snapshot) => {
             setCourseDescription(snapshot.val());
         }).catch((error) => {
@@ -62,11 +81,6 @@ function Course() {
         nameSub: courseID,
         group: group,
     };
-
-    const detail = [
-        { link: 'https://www.facebook.com', descript: 'Ôn cuối kì' },
-        { link: 'https://www.youtube.com', descript: 'Slide' }
-    ];
 
     const [showCourses, setShowCourses] = useState(true);
 
@@ -99,7 +113,7 @@ function Course() {
                                 {
                                     detail.map((obj, index) => (
                                         <ul key={index}>
-                                            <p>Sử dụng đường link sau đây để mở tài nguyên: <Link to={obj.link}>{obj.descript}</Link></p>
+                                            <p>Sử dụng đường link sau đây để mở tài nguyên: <Link to={obj.link}>{obj.name}</Link></p>
                                         </ul>
                                     ))
                                 }

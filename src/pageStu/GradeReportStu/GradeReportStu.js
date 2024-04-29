@@ -14,7 +14,7 @@ function DisplayGrade({Grade, Semester}){
     const totalCredits = Grade.reduce((sum, subject) => sum + Number(subject.credit), 0);
 
     // Tính trung bình học kỳ (điểm tổng kết * số tín chỉ / tổng số tín chỉ)
-    const semesterAverage = Grade.reduce((sum, subject) => sum + Number(subject.Final) * Number(subject.credit), 0) / totalCredits;
+    const semesterAverage = Grade.reduce((sum, subject) => sum + Number(subject.totalScore) * Number(subject.credit), 0) / totalCredits;
 
     // Cập nhật tổng số tín chỉ tích lũy và trung bình tích lũy
     totalAccumulatedCredits += totalCredits;
@@ -46,9 +46,9 @@ function DisplayGrade({Grade, Semester}){
                                 <td>{subject.Name}</td>
                                 <td>{subject.Class}</td>
                                 <td>{subject.credit}</td>
-                                <td>{"KT: " + subject.KT + "  TN:" + subject.TN + "  BTL: " + subject.BTL}</td>
-                                <td>{subject.Midterm}</td>
-                                <td>{subject.Final}</td>
+                                <td>{subject.componentScore}</td>
+                                <td>{subject.examScore}</td>
+                                <td>{subject.totalScore}</td>
                             </tr>
                     ))
                     }
