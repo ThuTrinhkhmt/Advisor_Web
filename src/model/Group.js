@@ -8,13 +8,13 @@ export class Group {
     #teacher = null;
     #students = [];
     #name;
+    #documents=[];
     #dayofWeek;
     #startTime;
     #endTime;
     constructor(course, name) {
         this.#course = course;
         this.#name = name;
-        //this.loadFromDatabase();
     }
 
     async loadFromDatabase() {
@@ -36,6 +36,18 @@ export class Group {
                     this.#students.push(student);
                 }
             }
+        }
+        const userRef = ref(db, `Course/${this.#course}/Group/${this.#name}/AboutCourse/Document`);
+        const snapshot = await get(userRef);
+        const arrayDoc = Object.keys(snapshot.val() || {});
+        for(const doc of arrayDoc){
+            const userRef2 = ref(db, `Course/${this.#course}/Group/${this.#name}/AboutCourse/Document/${doc}`);
+            const snapshot2 = await get(userRef2);
+            const data = snapshot2.val();
+            const docData={};
+            docData.name=data.name;
+            docData.url=data.url;
+            this.#documents.push(docData);
         }
     }
 
@@ -95,7 +107,18 @@ export class Group {
     setEndDay(day){
         this.#endTime=day;
     }
-
+    addDocument(document) {
+        this.#documents.push(document);
+    }
+    getDocuments() {
+        return this.#documents;
+    }
+    getStartDay(){
+        return this.#startTime;
+    }
+    getEndDay(){
+        return this.#endTime;
+    }
     getCourseID() {
         return this.#course;
     }

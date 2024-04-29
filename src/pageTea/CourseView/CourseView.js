@@ -1,4 +1,4 @@
-import React, { Fragment, useState, useRef } from 'react';
+import React, { Fragment, useState, useRef, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import Header from '../../components/ComponentTea/HeaderTea/HeaderTea';
 import Footer from '../../components/ComponentTea/FooterTea/FooterTea';
@@ -7,16 +7,34 @@ import ReactQuill from 'react-quill';
 import ReactHtmlParser from 'html-react-parser'; // Import html-react-parser
 import 'react-quill/dist/quill.snow.css';
 import './CourseView.css';
+import { data } from '../../loginPage/Login_page';
 function CourseView() {
   let { courseID, group } = useParams();
   // Từ courseID và group (này là mã môn và nhóm lớp), cậu tìm ra cái class tài liệu hướng dẫn dì á
+  const groupData=data.getAGroup(courseID, group);
   // Khai báo state cho thông tin của môn học
   const [editing, setEditing] = useState(false);
   const [course, setCourse] = useState({
-    title: 'Tiêu đề môn học',
+    title: 'Tổng quan môn học',
     content: 'Nội dung môn học',
     links: []
   });
+  useEffect(() => {
+    const loadDoc = async () => {
+        const docArr = groupData.getDocuments(); // Lấy danh sách tài liệu
+
+        if (Array.isArray(docArr)) { // Đảm bảo là mảng hợp lệ
+            const links = docArr.map(doc => doc); // Lấy các liên kết
+            // Làm rỗng mảng trước khi thêm dữ liệu mới
+            setCourse(prevCourse => ({
+                ...prevCourse,
+                links: [...links], // Thêm liên kết mới
+            }));
+        }
+    };
+
+    loadDoc(); // Chạy hàm
+}, [groupData]);
   const preCourse = useRef(null);
   const handleEdit = () => {
     preCourse.current = {...course};

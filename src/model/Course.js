@@ -6,12 +6,10 @@ export class Course {
     #name;
     #title;
     #content;
-    #documents = new Map();
     #numOfCredit;
     #groups = [];
     constructor(idCourse) {
         this.#idCourse=idCourse;
-        this.loadFromDatabase();
     }
 
     async loadFromDatabase() {
@@ -85,14 +83,6 @@ export class Course {
 
     getNumOfCredit() {
         return this.#numOfCredit;
-    }
-
-    addDocument(document) {
-        this.#documents.push(document);
-    }
-
-    getDocuments() {
-        return this.#documents;
     }
     getGroup(){
         return this.#groups;

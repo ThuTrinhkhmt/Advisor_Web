@@ -2,30 +2,13 @@ import './GradeReportStu.css'
 import Header from '../../components/ComponentStu/HeaderStu/HeaderStu'
 import Footer from '../../components/ComponentStu/FooterStu/FooterStu'
 import Nav from '../../components/ComponentStu/NavStu/NavStu'
-import { Fragment, useState, useEffect } from 'react'
-import { getDatabase, ref, set, get, child, update, remove } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-database.js";
-import { data } from '../../loginPage/Login_page'
-
-let totalAccumulatedCredits = 0;
-let accumulatedAverage = 0;
-
+import { Fragment, useState } from 'react'
 function DisplayGrade({Grade, Semester}){
-    // Tính tổng số tín chỉ trong học kỳ
-    const totalCredits = Grade.reduce((sum, subject) => sum + Number(subject.credit), 0);
-
-    // Tính trung bình học kỳ (điểm tổng kết * số tín chỉ / tổng số tín chỉ)
-    const semesterAverage = Grade.reduce((sum, subject) => sum + Number(subject.totalScore) * Number(subject.credit), 0) / totalCredits;
-
-    // Cập nhật tổng số tín chỉ tích lũy và trung bình tích lũy
-    totalAccumulatedCredits += totalCredits;
-    accumulatedAverage = (accumulatedAverage * (totalAccumulatedCredits - totalCredits) + semesterAverage * totalCredits) / totalAccumulatedCredits;
-
- 
     return (
         <div>
         <table id="Grade_table">
                     <tr class="title1">
-                        <td className = "strong" colSpan={7}>Bảng điểm {Semester}</td>
+                        <td className = "strong" colSpan={7}>Bảng điểm học kì {Semester}</td>
                     </tr>
                     <tr class="title2">
                         <td rowSpan={2}>Mã môn học</td>
@@ -42,22 +25,23 @@ function DisplayGrade({Grade, Semester}){
                     {
                     Grade.map((subject, index)=>(
                             <tr key={index}>
-                                <td>{subject.CodeCourse}</td>
-                                <td>{subject.Name}</td>
-                                <td>{subject.Class}</td>
-                                <td>{subject.credit}</td>
-                                <td>{subject.componentScore}</td>
-                                <td>{subject.examScore}</td>
-                                <td>{subject.totalScore}</td>
+                                <td>{subject.CouseID}</td>
+                                <td>{subject.Subject}</td>
+                                <td>{subject.Group}</td>
+                                <td>{subject.Redit}</td>
+                                <td>{subject.Grade1}</td>
+                                <td>{subject.Grade2}</td>
+                                <td>{subject.GradeFinal}</td>
                             </tr>
                     ))
                     }
                     
         </table>
         <div className="review">
-            <p>Số tín chỉ học kỳ: {totalCredits}</p>
-            <p>Trung bình học kỳ: {semesterAverage.toFixed(2)}</p>
-            <p>Trung bình tích lũy: {accumulatedAverage.toFixed(2)}</p>
+            <p>Số tín chỉ học kì:..</p>
+            <p>Trung bình học kì:..</p>
+            <p>Số tín chỉ tích lũy:..</p>
+            <p>Trung bình tích lũy:..</p>
         </div>
         </div>
 
@@ -65,42 +49,109 @@ function DisplayGrade({Grade, Semester}){
 }
 function GradeReportStu() {
     const [Semester, setSemester]= useState('')
-    const name = data.getName();
-    const id = data.getID();
-    const falculity = data.getFaculity();
     const handleSemester =(event)=>{
         setSemester(event.target.value);
     }
-    const [grades, setGrades] = useState([]);
+    const Grade =[
+        {
+            semester: 221,
+            GradeSem: [
+                {   
+                    CouseID: 'MT1003',
+                    Subject: 'Giải tích 1',
+                    Group: 'L04',
+                    Redit: '4',
+                    componentScore: "KT:8 BTL:8 TN:8",
+                    examScore: '8.0',
+                    totalScore: '8.0', 
+                },
+                {   
+                    CouseID: 'MT1005',
+                    Subject: 'Giải tích 2',
+                    Group: 'L09',
+                    Redit: '4',
+                    componentScore: "KT:8 BTL:8 TN:8",
+                    examScore: '8.0',
+                    totalScore: '8.0',
+                },
+                {
+                    CouseID: 'CO2011',
+                    Subject: 'Mô hình hóa',
+                    Group: 'L17',
+                    Redit: '4',
+                    componentScore: "KT:8 BTL:8 TN:8",
+                    examScore: '8.0',
+                    totalScore: '8.0',
+                }]
+            
+        },
+        {
+            semester: 222,
+            GradeSem:[
+                {
+                    CouseID: 'MT1003',
+                    Subject: 'Giải tích 3',
+                    Group: 'L04',
+                    Redit: '4',
+                    componentScore: "KT:8 BTL:8 TN:8",
+                    examScore: '8.0',
+                    totalScore: '8.0',
+                },
+                {
+                    CouseID: 'MT1005',
+                    Subject: 'Giải tích 2',
+                    Group: 'L09',
+                    Redit: '4',
+                    componentScore: "KT:8 BTL:8 TN:8",
+                    examScore: '8.0',
+                    totalScore: '8.0',
+                },
+                {
+                    CouseID: 'CO2011',
+                    Subject: 'Mô hình hóa',
+                    Group: 'L17',
+                    Redit: '4',
+                    componentScore: "KT:8 BTL:8 TN:8",
+                    examScore: '8.0',
+                    totalScore: '8.0', 
+                }
+            ]
+        },
+        {
+            semester: 223,
+            GradeSem:[
+                {
+                    CouseID: 'MT1003',
+                    Subject: 'Giải tích 4',
+                    Group: 'L04',
+                    Redit: '4',
+                    componentScore: "KT:8 BTL:8 TN:8",
+                    examScore: '8.0',
+                    totalScore: '8.0', 
+                },
+                {
+                    CouseID: 'MT1005',
+                    Subject: 'Giải tích 2',
+                    Group: 'L09',
+                    Redit: '4',
+                    componentScore: "KT:8 BTL:8 TN:8",
+                    examScore: '8.0',
+                    totalScore: '8.0',
+                },
+                {
+                    CouseID: 'CO2011',
+                    Subject: 'Mô hình hóa',
+                    Group: 'L17',
+                    Redit: '4',
+                    componentScore: "KT:8 BTL:8 TN:8",
+                    examScore: '8.0',
+                    totalScore: '8.0',
+                }
+            ]
 
-    useEffect(() => {
-      const db = getDatabase();
-      const studentId = id; // Thay đổi ID sinh viên tại đây
-
-      const studentRef = ref(db, 'Student/' + studentId + '/Course');
-  
-      get(studentRef).then((snapshot) => {
-        if (snapshot.exists()) {
-          const check = snapshot.val();
-          const semesters = Object.keys(check).map((semester) => {
-            const courses = Object.keys(check[semester]).map((courseId) => {
-              const course = check[semester][courseId];
-              return {
-                ...course,
-                semester,
-                courseId
-              };
-            });
-            return {semester, courses};
-          });
-          setGrades(semesters);
-        } else {
-          console.log("No data available");
         }
-      }).catch((error) => {
-        console.error(error);
-      });
-    }, []);
+    ]
+
     return (
         <Fragment>
             <Header />
@@ -108,23 +159,23 @@ function GradeReportStu() {
             <div id = "GradeReportStu">
             <h1>BẢNG ĐIỂM SINH VIÊN</h1>
                 <div id="Student_infor">
-                    <p>Họ tên: {name}</p>
-                    <p>Mssv: {id}</p>
-                    <p>Ngành: {falculity}</p>
+                    <p>Họ tên: Trần Văn A</p>
+                    <p>Mssv: 112233</p>
+                    <p>Ngành: KHMT</p>
                 </div>
                 <select className="Select_sem" onChange={handleSemester}>
                     <option value="All">Bảng điểm tất cả các kì</option>
-                    <option value="HK221">Bảng điểm HK221</option>
-                    <option value="HK222">Bảng điểm HK222</option>
-                    <option value="HK223">Bảng điểm HK223</option>
+                    <option value="221">Bảng điểm HK221</option>
+                    <option value="222">Bảng điểm HK222</option>
+                    <option value="223">Bảng điểm HK223</option>
                 </select>
                 <div>
                     {(Semester == 'All' || Semester=='' ) ? (
                         <div>
                             {
-                            grades.map((semesterData, index)=>(
+                            Grade.map((semester, index)=>(
                                 <div key={index}>
-                                    <DisplayGrade Grade={semesterData.courses} Semester={semesterData.semester}/>
+                                    <DisplayGrade Grade={semester.GradeSem} Semester={semester.semester}/>
                                 </div>
                             ))
                         }
@@ -135,12 +186,12 @@ function GradeReportStu() {
                     (
                         <div>
                         {
-                            grades.map((semesterData, index)=>(
+                            Grade.map((semester, index)=>(
                                 <div key={index}>
                                     {
-                                        Semester == semesterData.semester &&(
+                                        Semester == semester.semester &&(
                                             <div>
-                                                <DisplayGrade Grade={semesterData.courses} Semester={semesterData.semester}/>
+                                                <DisplayGrade Grade={semester.GradeSem} Semester={semester.semester}/>
                                             </div>
                                         )
                                     }
@@ -149,6 +200,20 @@ function GradeReportStu() {
                         }
                         </div>
                     ) }
+{/*                 
+                    {Semester == '222' &&(
+                        <div>
+                        <DisplayGrade Grade={Semester222} Semester={Semester}/>
+                        </div>
+                    )}
+                    {Semester == '223' &&(
+                        <div>
+                        <DisplayGrade Grade={Semester223} Semester={Semester}/>
+                        </div>
+                    )} */}
+                       
+                       
+                    
                 </div>
                 
             </div>
