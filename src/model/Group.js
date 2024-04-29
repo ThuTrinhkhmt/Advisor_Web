@@ -8,10 +8,13 @@ export class Group {
     #teacher = null;
     #students = [];
     #name;
+    #dayofWeek;
+    #startTime;
+    #endTime;
     constructor(course, name) {
         this.#course = course;
         this.#name = name;
-        this.loadFromDatabase();
+        //this.loadFromDatabase();
     }
 
     async loadFromDatabase() {
@@ -20,7 +23,7 @@ export class Group {
         this.#coursename = courseData.NameOfCourse;
         if (groupData) {
             const TeacherID= groupData.Teacher;
-            const arrayStu = groupData.Student || [];
+            const arrayStu = Object.keys(groupData.Student || {});
             this.#teacher=TeacherID;
             for (const studentID of arrayStu) {
                 const StuData = await getStuData(studentID);
@@ -77,6 +80,9 @@ export class Group {
         return this.#coursename;
     }
     
+    setDayofWeek(week){
+        this.#dayofWeek=week;
+    }
     setName(name) {
         this.#name = name;
     }
@@ -84,7 +90,9 @@ export class Group {
     getCourseID() {
         return this.#course;
     }
-
+    getDayofWeek(){
+        return this.#dayofWeek;
+    }
     setCourse(course) {
         this.#course = course;
     }

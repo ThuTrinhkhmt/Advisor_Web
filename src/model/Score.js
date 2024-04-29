@@ -2,18 +2,17 @@ export class Score {
     #componentScore;
 	#finalScore;
 	#aveScore;
+	#startAppeal;
 	#isEditing;
 	#isEdited;
-	#appeal;
+	#isAppeal;
 	#isDone;
-    constructor(componentScore, finalScore, aveScore, isEdited, appeal, isDone) {
+    constructor(componentScore, finalScore, aveScore) {
         this.#componentScore = componentScore;
-        this.#aveScore = finalScore = finalScore;
+        this.#finalScore = finalScore;
 		this.#aveScore = aveScore;
 		this.#isEditing = false;
-		this.#isEdited = isEdited;
-		this.#appeal = appeal;
-		this.#isDone = isDone;
+		this.#isEdited=0;
     }
 
     setAllScore(componentScore, finalScore, aveScore) {
@@ -31,9 +30,8 @@ export class Score {
 	getAverScore() {
 		return this.#aveScore;
 	}
-    editScore(finalScore, aveScore) {
+    editScore(finalScore) {
 		this.#finalScore = finalScore;
-		this.#aveScore = aveScore;
 		this.#isEdited = 2;
 	}
 	setIsEditing(isEditing) {
@@ -42,11 +40,11 @@ export class Score {
 	getIsEditing() {
 		return this.#isEditing;
 	}
-	setAppeal(appeal) {
-		this.#appeal = appeal;
+	setIsAppeal(appeal) {
+		this.#isAppeal = appeal;
 	}
-	getAppeal() {
-		return this.#appeal;
+	getIsAppeal() {
+		return this.#isAppeal;
 	}
 	setIsDone(isDone) {
 		this.#isDone = isDone;

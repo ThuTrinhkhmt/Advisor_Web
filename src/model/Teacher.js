@@ -1,21 +1,16 @@
-import { db, ref, set, get, child, update, remove } from '../firebase/firebase';
+import { db, ref, set, get, update} from '../firebase/firebase';
 import { Person } from './Person.js';
 import { getTeaData } from '../firebase/firebasefunction';
-import { Course } from './Course.js';
 import { Group } from './Group.js';
 export class Teacher extends Person {
     #specialize;
     #degree;
     #position;
     #groups = [];
-    constructor(id) {
-        super(id);
-        this.loadFromDatabase();
-    }
 
     async loadFromDatabase() {
         const userData = await getTeaData(super.getID());
-        
+        this.#groups=[];
         if (userData) {
             await super.setName(userData.Name);
             await super.setDateOfBirth(userData.DateOfBirth);
@@ -96,11 +91,12 @@ export class Teacher extends Person {
     }
 
     async addGroup(course, groupName){
-        const HasCourse = false;
+        let HasCourse = false;
         const nameCourse = course.getName();
         const courseGroups = course.getGroup();
         const userRef = ref(db, `Teacher/${super.getID()}/Course`);
-        const arrayCourse = Object.keys(userRef || {});
+        const snapshot = await get(userRef);
+        const arrayCourse = Object.keys(snapshot.val() || {});
         for (let courseData of arrayCourse) {
             if(courseData === nameCourse) {
                 HasCourse = true;
@@ -125,9 +121,9 @@ export class Teacher extends Person {
             }
         }
     }
-    getAGroup(groupName){
-        for (let group of this.groups) {
-            if (group.getName() === groupName) {
+    getAGroup(courseID, groupName){
+        for (let group of this.#groups) {
+            if (group.getName() === groupName && group.getCourseID() === courseID) {
                 return group;
             }
         }
