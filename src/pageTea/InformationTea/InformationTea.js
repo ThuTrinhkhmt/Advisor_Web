@@ -74,9 +74,7 @@ function InformationTea() {
                 <div className="img-contain">
                     <img src="../../../img/avt.jpg" alt="Avatar" />
                     <p>
-                        {editable ? 
-                            <input type="text" name="name" className="input-name" value={teacher.name} onChange={handleInputChange} /> 
-                            : teacher.name}
+                        {teacher.name}
                     </p>
                 </div>
                 <div className="row">
@@ -102,23 +100,17 @@ function InformationTea() {
                     </div>
                     <div className="col-2">
                         <strong>Bằng cấp: </strong> 
-                        {editable ? 
-                            <input type="text" name="degree" className="input-degree" value={teacher.degree} onChange={handleInputChange} /> 
-                            : teacher.degree}
+                        {teacher.degree}
                     </div>
                 </div>
                 <div className="row">
                     <div className="col-2">
                         <strong>Chức vụ: </strong> 
-                        {editable ? 
-                            <input typ="text" name="position" className="input-position" value={teacher.position} onChange={handleInputChange} /> 
-                            : teacher.position}
+                        {teacher.position}
                     </div>
                     <div className="col-2">
                         <strong>Khoa: </strong> 
-                        {editable ? 
-                            <input type="text" name="faculity" className="input-faculity" value={teacher.faculity} onChange={handleInputChange} /> 
-                            : teacher.faculity}
+                        {teacher.faculity}
                     </div>
                 </div>
                 <div className="row">

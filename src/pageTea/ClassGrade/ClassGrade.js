@@ -9,7 +9,6 @@ function ClassGrade() {
     let { courseID, group } = useParams();
     const groupData=data.getAGroup(courseID, group);
     const arrayStu= groupData.getStudents();
-    const [StuGrade, setStuGrade] = useState(null);
     //Từ courseID và group (này là mã môn và nhóm lớp), cậu tìm danh sách sinh viên trong lớp đó cho tớ
     //Cậu lấy class students rồi quăng vô chổ students cho tớ á, quăng ở chổ useState(trong này nè), tớ nghĩ thế
     const [students, setStudents] = useState([]);

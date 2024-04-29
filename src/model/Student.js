@@ -69,9 +69,9 @@ export class Student extends Person {
                         await update(userScore, {
                             componentScore: compoScore,
                             examScore: finalScore,
-                            totalScore: totalScore
+                            totalScore: totalScore,
+                            isEdited: 1
                         });
-                        alert("User data updated successfully");
                     } catch (error) {
                         console.error("Error updating user data:", error);
                     }
@@ -92,7 +92,6 @@ export class Student extends Person {
                         await update(userScore, {
                             examScore: scoreData
                         });
-                        alert("User data updated successfully");
                     } catch (error) {
                         console.error("Error updating user data:", error);
                     }
@@ -108,12 +107,19 @@ export class Student extends Person {
                 const userScore = ref(db, `Student/${super.getID()}/Course/HK222/${courseName}`);
                 const snapshot = await get(userScore);
                 score.setAverScore(scoreData);
+                score.setIsDone(true);
+                const data= snapshot.val();
                 if(snapshot.exists()){
                     try {
                         await update(userScore, {
                             totalScore: scoreData
                         });
-                        alert("User data updated successfully");
+                        if(data.isAppeal===true) {
+                            await update(userScore, {
+                                isEdited: 2,
+                                isDone: true
+                            });
+                        }
                     } catch (error) {
                         console.error("Error updating user data:", error);
                     }
@@ -134,7 +140,26 @@ export class Student extends Person {
                         await update(userScore, {
                             componentScore: scoreData
                         });
-                        alert("User data updated successfully");
+                    } catch (error) {
+                        console.error("Error updating user data:", error);
+                    }
+                }
+                break;
+            }
+        }
+        return null;
+    }
+    async setIsDone(courseName, isDone){
+        for (let [course, score] of this.#studentScores.entries()) {
+            if (course === courseName) {
+                const userScore = ref(db, `Student/${super.getID()}/Course/HK222/${courseName}`);
+                const snapshot = await get(userScore);
+                score.setIsDone(isDone);
+                if(snapshot.exists()){
+                    try {
+                        await update(userScore, {
+                            isDone: isDone
+                        });
                     } catch (error) {
                         console.error("Error updating user data:", error);
                     }
@@ -164,7 +189,6 @@ export class Student extends Person {
                     EndTime: endDay,
                     StartTime: startDay
                 });
-                alert("User data updated successfully");
             } catch (error) {
                 console.error("Error updating user data:", error);
             }

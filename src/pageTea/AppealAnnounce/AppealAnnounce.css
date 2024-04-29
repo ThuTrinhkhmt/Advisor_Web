@@ -40,7 +40,6 @@
     font-weight: bold;
 }
 #pageAppeal2 .sticky-button {
-    pointer-events: none;
     transform: scale(1.5);
     position: absolute;
     top: 10px; 
