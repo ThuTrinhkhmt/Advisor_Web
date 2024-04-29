@@ -4,15 +4,12 @@ import Header from '../../components/ComponentTea/HeaderTea/HeaderTea';
 import Footer from '../../components/ComponentTea/FooterTea/FooterTea';
 import Nav from '../../components/ComponentTea/NavTea/NavTea';
 import './AppealAnnounce.css';
-
+import { data } from '../../loginPage/Login_page';
 function AppealAnnounce() {
+
     const [students, setStudents] = useState([
         { name: 'Nguyễn Văn A', studentID: '001', course: 'Công nghệ phần mềm', courseID: 'CO2018', group: 'L01', appeal: false, isDone: false },
-        { name: 'Trần Thị B', studentID: '234567', course: 'Lập trình web', courseID: 'CS2001', group: 'L10', appeal: true, isDone: true },
-        { name: 'Phạm Văn C', studentID: '345678', course: 'Toán cao cấp', courseID: 'MT1005', group: 'L15', appeal: false, isDone: false },
-        { name: 'Nguyễn Văn D', studentID: '143456', course: 'Giải tích 1', courseID: 'MT1003', group: 'L07', appeal: false, isDone: true },
-        { name: 'Trần Thị E', studentID: '234367', course: 'Lập trình web', courseID: 'CS2001', group: 'L10', appeal: true, isDone: false },
-        { name: 'Phạm Văn F', studentID: '347378', course: 'Toán cao cấp', courseID: 'MT1005', group: 'L05', appeal: true, isDone: true },
+        { name: 'Trần Văn B', studentID: '002', course: 'Công nghệ phần mềm', courseID: 'CO2018', group: 'L01', appeal: true, isDone: true },
     ]);
 
     const handleCheckboxChange = (index) => {

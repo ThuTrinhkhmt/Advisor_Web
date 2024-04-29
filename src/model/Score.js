@@ -13,7 +13,6 @@ export class Score {
 		this.#aveScore = aveScore;
 		this.#isEditing = false;
 		this.#isEdited=0;
-		this.#isDone=true;
     }
 
     setAllScore(componentScore, finalScore, aveScore) {
@@ -24,7 +23,7 @@ export class Score {
 	}
 	setComponentScore(componentScore) {
 		this.#componentScore = componentScore;
-		if(this.#isAppeal===false) {this.#isEdited = 1;} else this.#isEdited=2;
+		//if(this.#isAppeal===false) {this.#isEdited = 1;} else this.#isEdited=2;
 	}
 	setFinalScore(finalScore){
 		this.#finalScore=finalScore;

@@ -83,8 +83,17 @@ export class Group {
     setDayofWeek(week){
         this.#dayofWeek=week;
     }
+
     setName(name) {
         this.#name = name;
+    }
+
+    setStartDay(day){
+        this.#startTime=day;
+    }
+
+    setEndDay(day){
+        this.#endTime=day;
     }
 
     getCourseID() {

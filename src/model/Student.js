@@ -58,6 +58,29 @@ export class Student extends Person {
         }
         return groups;
     }
+    async setScore(courseName, compoScore, finalScore, totalScore){
+        for (let [course, score] of this.#studentScores.entries()) {
+            if (course === courseName) {
+                const userScore = ref(db, `Student/${super.getID()}/Course/HK222/${courseName}`);
+                const snapshot = await get(userScore);
+                score.setAllScore(compoScore, finalScore, totalScore)
+                if(snapshot.exists()){
+                    try {
+                        await update(userScore, {
+                            componentScore: compoScore,
+                            examScore: finalScore,
+                            totalScore: totalScore
+                        });
+                        alert("User data updated successfully");
+                    } catch (error) {
+                        console.error("Error updating user data:", error);
+                    }
+                }
+                break;
+            }
+        }
+        return null;
+    }
     async setExamScore(courseName, scoreData){
         for (let [course, score] of this.#studentScores.entries()) {
             if (course === courseName) {
@@ -131,6 +154,21 @@ export class Student extends Person {
     }
     getAllScore(){
         return this.#studentScores;
+    }
+    async setDay(courseName, startDay, endDay){
+        const userScore = ref(db, `Student/${super.getID()}/Course/HK222/${courseName}/appealTime`);
+        const snapshot = await get(userScore);
+        if(snapshot.exists()){
+            try {
+                await update(userScore, {
+                    EndTime: endDay,
+                    StartTime: startDay
+                });
+                alert("User data updated successfully");
+            } catch (error) {
+                console.error("Error updating user data:", error);
+            }
+        }
     }
     setStudentFeedback(group, feedback){
         this.#studentFeedback.set(group, feedback);
