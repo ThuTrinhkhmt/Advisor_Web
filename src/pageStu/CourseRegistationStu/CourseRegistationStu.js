@@ -11,7 +11,22 @@ function CourseRegistationStu() {
     const [subjects, setSubjects] = useState([]);
     const [registedSub, setRegistedSub] = useState([]);
     const [findSub, setFindSub] = useState('');
+    const [regisTime, setRegisTime] = useState('');
+    useEffect(() => {
+        const db = getDatabase();
+        const regisTimeRef = ref(db, 'Course/RegisTime');
 
+        get(regisTimeRef).then((snapshot) => {
+            if (snapshot.exists()) {
+                const data = snapshot.val();
+                setRegisTime(`${data.StartTime} - ${data.EndTime}`);
+            } else {
+                console.log("No data available");
+            }
+        }).catch((error) => {
+            console.error(error);
+        });
+    }, []);
     useEffect(() => {
         const db = getDatabase();
         const dataRef = ref(db);
@@ -77,41 +92,48 @@ function CourseRegistationStu() {
         const updatedSubjects = [...subjects];
         const updatedRegistedSub = [...registedSub];
         const course = updatedSubjects[index];
+        const regisStartTime = new Date(database.Course.RegisTime.StartTime);
+        const regisEndTime = new Date(database.Course.RegisTime.EndTime);
+        const currentTime = new Date();
     
-        if (!course.IsRegist) {
-            const confirmation = window.confirm('Bạn xác nhận đăng kí?');
-            if (course.NumberStu >= 30) {
-                alert('Lớp đã quá số lượng thành viên');
-            } else if (confirmation) {
-                // Kiểm tra xem môn học đã được đăng ký trên Firebase hay chưa
-                const db = getDatabase();
-                const Ref = ref(db, `CourseRegisted/${data.getID()}/${course.Subject}`);
-                get(Ref).then((snapshot) => {
-                    if (snapshot.exists()) {
-                        alert('Môn học này đã được đăng ký.');
-                    } else {
-                        course.IsRegist = true;
-                        setSubjects(updatedSubjects);
+        if (currentTime >= regisStartTime && currentTime <= regisEndTime) {
+            if (!course.IsRegist) {
+                const confirmation = window.confirm('Bạn xác nhận đăng kí?');
+                if (course.NumberStu >= 30) {
+                    alert('Lớp đã quá số lượng thành viên');
+                } else if (confirmation) {
+                    // Kiểm tra xem môn học đã được đăng ký trên Firebase hay chưa
+                    const db = getDatabase();
+                    const Ref = ref(db, `CourseRegisted/${data.getID()}/${course.Subject}`);
+                    get(Ref).then((snapshot) => {
+                        if (snapshot.exists()) {
+                            alert('Môn học này đã được đăng ký.');
+                        } else {
+                            course.IsRegist = true;
+                            setSubjects(updatedSubjects);
     
-                        const obj = {
-                            CourseID: course.CourseID,
-                            Subject: course.Subject,
-                            Group: course.Group,
-                            Credit: course.Credit,
-                            NumberStu: course.NumberStu,
-                            IsDelete: false
-                        };
-                        updatedRegistedSub.push(obj);
-                        saveRegistationToFirebase(obj);
-                        setRegistedSub(updatedRegistedSub);
-                        alert('Đăng kí thành công.');
-                    }
-                }).catch((error) => {
-                    console.error(error);
-                });
+                            const obj = {
+                                CourseID: course.CourseID,
+                                Subject: course.Subject,
+                                Group: course.Group,
+                                Credit: course.Credit,
+                                NumberStu: course.NumberStu,
+                                IsDelete: false
+                            };
+                            updatedRegistedSub.push(obj);
+                            saveRegistationToFirebase(obj);
+                            setRegistedSub(updatedRegistedSub);
+                            alert('Đăng kí thành công.');
+                        }
+                    }).catch((error) => {
+                        console.error(error);
+                    });
+                }
+            } else {
+                alert('Không thể đăng ký môn học do đã đăng kí, trùng tiết hoặc nằm ngoài thời gian đăng kí!');
             }
         } else {
-            alert('Không thể đăng ký môn học do đã đăng kí, trùng tiết hoặc nằm ngoài thời gian đăng kí!');
+            alert('Hiện tại không phải là thời gian đăng ký môn học.');
         }
     };
 
@@ -171,7 +193,7 @@ function CourseRegistationStu() {
                 <h1>Đăng kí khóa học</h1>
                 <div className='Infor'>
                     <p>Học kì: 223.</p>
-                    <p style={{fontStyle: 'italic'}}>Thời gian đăng kí: 10/07/2022 - 20/7/2022.</p>
+                    <p style={{fontStyle: 'italic'}}>Thời gian đăng kí: {regisTime}.</p>
                     <p className="red">Sinh viên cần nhập đúng mã môn hoặc tên môn học.</p>
                     <p className="red">Các thao tác ngoài thời gian đăng kí môn sẽ không được chấp nhận.</p>
                 </div>
