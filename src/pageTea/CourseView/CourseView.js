@@ -81,17 +81,18 @@ function CourseView() {
     if (originalDescription !== newDescription) {
       await groupData.changeDescription(newDescription); // Hàm cập nhật `description`
     }
+    //Chinh sua link
     if (changedLinks.length > 0 && originalLinks.length===newLinks.length) {
       for (const item of changedLinks) {
         await groupData.changeDocument(item.index, item.link);
-      }
+      }//xoa link
     }else if(originalLinks.length>newLinks.length){
       const removedLinks = findRemovedLinks(originalLinks, newLinks);
       const reversedRemovedLinks = removedLinks.reverse();
       for (const item of reversedRemovedLinks ) {
         await groupData.removeDocument(item);
       }
-    }else{
+    }else{//them link
       const addedLinks = findAddedLinks(originalLinks, newLinks);
       for (const item of addedLinks) {
         await groupData.addDocument(item);
