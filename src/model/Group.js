@@ -7,6 +7,9 @@ export class Group {
     #teacher = null;
     #students = [];
     #name;
+    #title;
+    #content;
+    #description;
     #documents=[];
     #dayofWeek;
     #startTime;
@@ -48,6 +51,11 @@ export class Group {
             docData.url=data.url;
             this.#documents.push(docData);
         }
+        const userRef2 = ref(db, `Course/${this.#course}/Group/${this.#name}/AboutCourse`);
+        const snapshot2 = await get(userRef2);
+        const data=snapshot2.val();
+        this.#description=data.Description;
+        this.#title=data.Title;
     }
 
     getTeacher() {
@@ -106,6 +114,34 @@ export class Group {
     setEndDay(day){
         this.#endTime=day;
     }
+    async changeDescription(description){
+        this.#description=description;
+        const userRef2 = ref(db, `Course/${this.#course}/Group/${this.#name}/AboutCourse`);
+        const snapshot2 = await get(userRef2);
+        if(snapshot2.exists()){
+            try {
+                await update(userRef2, {
+                    Description: description
+                });
+            } catch (error) {
+                console.error("Error updating user data:", error);
+            }
+        }
+    }
+    async changeTitle(title){
+        this.#title=title;
+        const userRef2 = ref(db, `Course/${this.#course}/Group/${this.#name}/AboutCourse`);
+        const snapshot2 = await get(userRef2);
+        if(snapshot2.exists()){
+            try {
+                await update(userRef2, {
+                    Title: title
+                });
+            } catch (error) {
+                console.error("Error updating user data:", error);
+            }
+        }
+    }
     async changeDocument(index, document){
         this.#documents[index]=document;
         const userRef2 = ref(db, `Course/${this.#course}/Group/${this.#name}/AboutCourse/Document/${index}`);
@@ -161,6 +197,27 @@ export class Group {
     }
     getDayofWeek(){
         return this.#dayofWeek;
+    }
+    setTitle(title) {
+        this.#title = title;
+    }
+
+    setContent(content) {
+        this.#content = content;
+    }
+    setDescription(description) {
+        this.#description= description;
+    }
+    
+    getDescription() {
+        return this.#description;
+    }
+    getContent() {
+        return this.#content;
+    }
+
+    getTitle() {
+        return this.#title;
     }
     setCourse(course) {
         this.#course = course;

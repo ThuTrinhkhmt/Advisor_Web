@@ -4,8 +4,6 @@ import { Group } from './Group.js';
 export class Course {
     #idCourse;
     #name;
-    #title;
-    #content;
     #numOfCredit;
     #groups = [];
     constructor(idCourse) {
@@ -16,7 +14,6 @@ export class Course {
         const CourseData = await getCourseData(this.#idCourse);
         if (CourseData) {
             this.#name = CourseData.NameOfCourse;
-            this.#content = CourseData.Desciption;
             this.#numOfCredit = CourseData.NumOfCredits;
             const arrayGroup = Object.keys(CourseData.Group || {});
             for (const groupID of arrayGroup) {
@@ -59,22 +56,6 @@ export class Course {
 
     getCourseCode() {
         return this.#idCourse;
-    }
-
-    setTitle(title) {
-        this.#title = title;
-    }
-
-    setContent(content) {
-        this.#content = content;
-    }
-
-    getContent() {
-        return this.#content;
-    }
-
-    getTitle() {
-        return this.#title;
     }
 
     setNumOfCredit(numOfCredit) {

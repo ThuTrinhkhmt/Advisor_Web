@@ -209,8 +209,57 @@ export class Student extends Person {
             }
         }
     }
-    setStudentFeedback(group, feedback){
-        this.#studentFeedback.set(group, feedback);
+    async setStudentFeedback(course, week, comment, rate){
+        const ScoreData = ref(db, `Student/${super.getID()}/Course/HK222/${course}`);
+        const snapshot2 = await get(ScoreData);
+        //Feedback
+        const getData=snapshot2.val(); 
+        const userRef2 = ref(db, `Course/${course}/Group/${getData.Class}/Student/${super.getID()}/Week/${week}`);
+        if (!this.#studentFeedback.has(course)) {
+            const newNodeData = {
+                comment: comment,
+                score: rate
+            };
+            await set(userRef2, newNodeData);
+            const feedback=new Feedback();
+            feedback.setFeedback(week, comment, rate);
+            this.#studentFeedback.set(course, feedback);
+        }else{
+            try {
+                await update(userRef2, {
+                    comment: comment,
+                    score: rate
+                });
+            } catch (error) {
+                console.error("Error updating user data:", error);
+            }
+            const courseFeedback = this.getAGroupFeedback(course).getAFeedback(week);
+            courseFeedback.setComment(comment);
+            courseFeedback.setRate(rate);
+        }
+    }
+    async addStudentFeedback(course, week, comment, rate){
+        const ScoreData = ref(db, `Student/${super.getID()}/Course/HK222/${course}`);
+        const snapshot2 = await get(ScoreData);
+        const getData=snapshot2.val(); 
+        const userRef2 = ref(db, `Course/${course}/Group/${getData.Class}/Student/${super.getID()}/Week/${week}`);
+            const newNodeData = {
+                comment: comment,
+                score: rate
+            };
+            await set(userRef2, newNodeData);
+            const courseFeedback = this.getAGroupFeedback(course);
+            courseFeedback.setFeedback(week, comment, rate);
+    }
+    async removeStudentFeedback(course, week){
+        const ScoreData = ref(db, `Student/${super.getID()}/Course/HK222/${course}`);
+        const snapshot2 = await get(ScoreData);
+        const getData=snapshot2.val(); 
+        const userRef2 = ref(db, `Course/${course}/Group/${getData.Class}/Student/${super.getID()}/Week/${week}`);
+        await remove(userRef2);
+
+        const courseFeedback = this.getAGroupFeedback(course);
+        courseFeedback.removeAFeedback(week);
     }
     getAGroupFeedback(courseName){
         for (let [course, feedback] of this.#studentFeedback.entries()) {

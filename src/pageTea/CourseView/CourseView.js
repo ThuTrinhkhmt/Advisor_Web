@@ -15,8 +15,8 @@ function CourseView() {
   // Khai báo state cho thông tin của môn học
   const [editing, setEditing] = useState(false);
   const [course, setCourse] = useState({
-    title: 'Tổng quan môn học',
-    content: 'Nội dung môn học',
+    title: groupData.getTitle(),
+    content: groupData.getDescription(),
     links: []
   });
   useEffect(() => {
@@ -71,14 +71,24 @@ function CourseView() {
     const originalLinks = preCourse.current.links; // Các liên kết trước khi chỉnh sửa
     const newLinks = course.links;
     const changedLinks = checkChangedLinks(preCourse.current.links, course.links); // Kiểm tra liên kết đã thay đổi
+    const originalTitle = preCourse.current.title;
+    const newTitle = course.title; 
+    const originalDescription = preCourse.current.content;
+    const newDescription = course.content;
+    if (originalTitle !== newTitle) {
+      await groupData.changeTitle(newTitle); // Hàm cập nhật `title`
+    }
+    if (originalDescription !== newDescription) {
+      await groupData.changeDescription(newDescription); // Hàm cập nhật `description`
+    }
     if (changedLinks.length > 0 && originalLinks.length===newLinks.length) {
       for (const item of changedLinks) {
         await groupData.changeDocument(item.index, item.link);
       }
     }else if(originalLinks.length>newLinks.length){
       const removedLinks = findRemovedLinks(originalLinks, newLinks);
-      alert(removedLinks.length);
-      for (const item of removedLinks) {
+      const reversedRemovedLinks = removedLinks.reverse();
+      for (const item of reversedRemovedLinks ) {
         await groupData.removeDocument(item);
       }
     }else{

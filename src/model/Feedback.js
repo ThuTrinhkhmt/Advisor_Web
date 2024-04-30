@@ -17,6 +17,14 @@ export class Feedback {
         }
         return null;
     }
+    removeAFeedback(weekData) {
+        if (this.#week.has(weekData)) {
+            const removedFeedback = this.#week.get(weekData); // Lấy phản hồi đã xóa
+            this.#week.delete(weekData); // Xóa phản hồi dựa trên `weekData`
+            return removedFeedback; // Trả về phản hồi đã xóa
+        }
+        return null;
+    }
 
     getFeedback() {
         return this.#week;

@@ -111,11 +111,17 @@ function BackgroundStu() {
 
     const handleSaveWeek = (week) => {
         const updatedFeedback = weeklyFeedback.map(item => {
-            if (item.week === week) {
-                return { ...item, comment: editFeedback[week].comment, rating: editFeedback[week].rating };
-            } else {
-                return item;
-            }
+        const currentEdit = editFeedback[item.week]; // Lấy giá trị từ `editFeedback`
+        if (currentEdit) {
+            // Nếu tuần hiện tại đang chỉnh sửa, cập nhật giá trị mới
+            studentData.setStudentFeedback(courseID, item.week, currentEdit.comment, currentEdit.rating);
+            return {
+                ...item, // Giữ lại các giá trị hiện có
+                comment: currentEdit.comment, // Cập nhật nhận xét mới
+                rating: currentEdit.rating, // Cập nhật điểm mới
+            };
+        }
+        return item;
         });
         setWeeklyFeedback(updatedFeedback);
         setEditFeedback({ ...editFeedback, [week]: false });
@@ -125,15 +131,17 @@ function BackgroundStu() {
         setEditFeedback({ ...editFeedback, [week]: false });
     };
 
-    const handleAddWeek = () => {
+    const handleAddWeek = async () => {
         const newWeek = { week: weeklyFeedback.length + 1, comment: "", rating: 0 };
+        await studentData.addStudentFeedback(courseID, weeklyFeedback.length + 1, "", 0);
         setWeeklyFeedback([...weeklyFeedback, newWeek]);
     };
 
-    const handleDeleteWeek = () => {
+    const handleDeleteWeek = async () => {
         if (weeklyFeedback.length > 0) {
             setWeeklyFeedback(weeklyFeedback.slice(0, -1));
         }
+        await studentData.removeStudentFeedback(courseID, weeklyFeedback.length);
     };
     
     return (
