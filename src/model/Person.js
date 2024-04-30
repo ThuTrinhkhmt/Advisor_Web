@@ -76,7 +76,7 @@ export class Person {
             console.error("Error updating user data:", error);
         }
     }
-    async setName(role, newName) {
+    async setStuName(role, newName) {
         const userRef = ref(db, `${role}/${this.#id}`);
         try {
             await update(userRef, {
@@ -88,7 +88,7 @@ export class Person {
             console.error("Error updating user data:", error);
         }
     }
-    async setDateOfBirth(role, dateOfBirth) {
+    async setStuDateOfBirth(role, dateOfBirth) {
         const userRef = ref(db, `${role}/${this.#id}`);
         try {
             await update(userRef, {
@@ -101,7 +101,7 @@ export class Person {
         }
     }
 
-    async setAddress(role, address) {
+    async setStuAddress(role, address) {
         const userRef = ref(db, `${role}/${this.#id}`);
         try {
             await update(userRef, {
@@ -114,7 +114,7 @@ export class Person {
         }
     }
 
-    async setFaculity(role, faculity) {
+    async setStuFaculity(role, faculity) {
         const userRef = ref(db, `${role}/${this.#id}`);
         try {
             await update(userRef, {
@@ -127,7 +127,7 @@ export class Person {
         }
     }
 
-    async setGender(role, gender) {
+    async setStuGender(role, gender) {
 
         const userRef = ref(db, `${role}/${this.#id}`);
         try {
