@@ -3,7 +3,7 @@ import Header from '../../components/ComponentStu/HeaderStu/HeaderStu';
 import Footer from '../../components/ComponentStu/FooterStu/FooterStu';
 import Nav from '../../components/ComponentStu/NavStu/NavStu';
 import { Fragment, useState, useEffect } from 'react';
-import { getDatabase, ref, get, set } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-database.js";
+import { getDatabase, ref, get, set, remove } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-database.js";
 import { data } from '../../loginPage/Login_page';
 
 function CourseRegistationStu() {
@@ -60,8 +60,15 @@ function CourseRegistationStu() {
             const confirmation = window.confirm('Bạn xác nhận hủy môn?');
             if (confirmation) {
                 course.IsDelete = true;
-                setRegistedSub(updatedRegistedSub);
                 alert('Hủy môn thành công.');
+                const db = getDatabase();
+                const Ref = ref(db, `CourseRegisted/${data.getID()}/${course.Subject}`);
+                remove(Ref).then(() => {
+                    console.log("Môn học đã được xóa khỏi Firebase");
+                }).catch((error) => {
+                    console.error("Lỗi xóa môn học từ Firebase: ", error);
+                });
+                setRegistedSub(updatedRegistedSub);
             }
         } 
     };
@@ -97,48 +104,47 @@ function CourseRegistationStu() {
         }
     };
 
+    useEffect(() => {
+        const db = getDatabase();
+        const Ref = ref(db, `CourseRegisted/${data.getID()}`);
+        get(Ref).then((snapshot) => {
+            if (snapshot.exists()) {
+                const data = snapshot.val();
+                const registedCourses = [];
+                for (const subject in data) {
+                    for (const group in data[subject]) {
+                        const course = data[subject][group];
+                        registedCourses.push({
+                            CourseID: course.courseID,
+                            Subject: course.Subject,
+                            Group: group,
+                            Credit: course.Credit,
+                            NumberStu: course.NumberStu,
+                            IsRegisted: course.IsRegisted,
+                            IsDelete: false
+                        });
+                    }
+                }
+                setRegistedSub(registedCourses);
+            } else {
+                console.log("No data available");
+            }
+        }).catch((error) => {
+            console.error(error);
+        });
+    }, []);
+
+
     const saveRegistationToFirebase = (subject) => {
         const db = getDatabase();
-        const regisRef = ref(db, `Student/${data.getID()}/Course/HK223/${subject.CourseID}`);
-        const classRef = ref(db, `Course/${subject.CourseID}/Group/${subject.Group}/Student/${data.getID()}`);
-
-        set(classRef, {
-            week: {
-                '0o1': {
-                    comment: "",
-                    score: ""
-                },
-                '0o2': {
-                    comment: "",
-                    score: ""
-                },
-                '0o3': {
-                    comment: "",
-                    score: ""
-                },
-                '0o4': {
-                    comment: "",
-                    score: ""
-                }
-            }
-        })
-        set(regisRef, {
-            Class: subject.Group,
-            CodeCourse: subject.CourseID,
-            appealTime: {
-                EndTime: "",
-                StartTime: ""
-            },
-            Name: subject.Subject,
-            Teacher: "",
-            code: "",
-            componentScore: "",
-            credit: subject.Credit,
-            date: "",
-            examScore: "",
-            isAppeal: false,
-            isDone: false,
-            totalScore: ""
+        const Ref = ref(db, `CourseRegisted/${data.getID()}/${subject.Subject}/${subject.Group}`);
+        set(Ref, {
+           courseID: subject.CourseID,
+           Subject: subject.Subject,
+           Credit: subject.Credit,
+           Group: subject.Group,
+           NumberStu: subject.NumberStu + 1, 
+           IsRegisted: true
         }).then(() => {
             console.log('Data saved successfully.');
         }).catch((error) => {
@@ -154,7 +160,7 @@ function CourseRegistationStu() {
                 <h1>Đăng kí khóa học</h1>
                 <div className='Infor'>
                     <p>Học kì: 223.</p>
-                    <p style={{ fontStyle: 'italic' }}>Thời gian đăng kí: {database && database.Course && database.Course.RegisTime ? `${database.Course.RegisTime.StartTime} - ${database.Course.RegisTime.EndTime}` : ''}.</p>
+                    <p style={{fontStyle: 'italic'}}>Thời gian đăng kí: 10/07/2022 - 20/7/2022.</p>
                     <p className="red">Sinh viên cần nhập đúng mã môn hoặc tên môn học.</p>
                     <p className="red">Các thao tác ngoài thời gian đăng kí môn sẽ không được chấp nhận.</p>
                 </div>
