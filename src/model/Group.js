@@ -1,7 +1,6 @@
-import { db, ref, set, get, child, update, remove } from '../firebase/firebase';
+import { db, ref, set, get, update, remove } from '../firebase/firebase';
 import { getGroupData, getStuData, getTeaData, getCourseData } from '../firebase/firebasefunction';
 import { PersonFactory } from './PersonFactory';
-import { Student } from './Student';
 export class Group {
     #coursename;
     #course;
@@ -107,8 +106,46 @@ export class Group {
     setEndDay(day){
         this.#endTime=day;
     }
-    addDocument(document) {
+    async changeDocument(index, document){
+        this.#documents[index]=document;
+        const userRef2 = ref(db, `Course/${this.#course}/Group/${this.#name}/AboutCourse/Document/${index}`);
+        const snapshot2 = await get(userRef2);
+        if(snapshot2.exists()){
+            try {
+                await update(userRef2, {
+                    name: document.name,
+                    url: document.url
+                });
+            } catch (error) {
+                console.error("Error updating user data:", error);
+            }
+        }
+    }
+    async addDocument(document) {
         this.#documents.push(document);
+        const length= this.#documents.length;
+        const userRef2 = ref(db, `Course/${this.#course}/Group/${this.#name}/AboutCourse/Document/${length-1}`);
+        const newNodeData = {
+            name: document.name,
+            url: document.url
+        };
+        alert(`Tài liệu đã được thêm: ${document.name}`);
+        await set(userRef2, newNodeData);
+    }
+    async removeDocument(document) {
+        const index = this.#documents.findIndex((doc) => doc.name === document.name && doc.url === document.url);
+
+    if (index !== -1) {
+        // Xóa tài liệu khỏi danh sách
+        alert(`Tài liệu đã bị xóa: ${document.name}`);
+        this.#documents.splice(index, 1);
+        // Tham chiếu đến nút cần xóa
+        const nodePath = `Course/${this.#course}/Group/${this.#name}/AboutCourse/Document/${index}`;
+        const nodeRef = ref(db, nodePath);
+        await remove(nodeRef);
+    } else {
+        alert("Không tìm thấy tài liệu cần xóa");
+    }
     }
     getDocuments() {
         return this.#documents;
