@@ -1,114 +1,151 @@
-import './CourseRegistationStu.css'
-import Header from '../../components/ComponentStu/HeaderStu/HeaderStu'
-import Footer from '../../components/ComponentStu/FooterStu/FooterStu'
-import Nav from '../../components/ComponentStu/NavStu/NavStu'
-import { Fragment, useState, useRef } from 'react'
+import './CourseRegistationStu.css';
+import Header from '../../components/ComponentStu/HeaderStu/HeaderStu';
+import Footer from '../../components/ComponentStu/FooterStu/FooterStu';
+import Nav from '../../components/ComponentStu/NavStu/NavStu';
+import { Fragment, useState, useEffect } from 'react';
+import { getDatabase, ref, get, set } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-database.js";
+import { data } from '../../loginPage/Login_page';
 
-
-//Nhận vào môn học đã đăng ký và những môn học tìm kiếm
 function CourseRegistationStu() {
-    const Groups={starttime:'01/01/2022', endtime:'15/05/2022'}
-    const semester = '223';
-    const [registedSub, setRegistedSub]= useState([{
-        CourseID: "MT1003",
-        Subject: "Giải tích 1",
-        Group: "L04",
-        Credit: "4",
-        NumberStu: "20/30",
-        IsDelete: false
-    },
-    {
-        CourseID: "MT1005",
-        Subject: "Giải tích 2",
-        Group: "L05",
-        Credit: "4",
-        NumberStu: "25/30",
-        IsDelete: false
-    },
-    {
-        CourseID: "CO2011",
-        Subject: "Mô hình hóa",
-        Group: "L17",
-        Credit: "4",
-        NumberStu: "2/30",
-        IsDelete: false
-    }
-    ])
-    const [Subjects, setSubjects] = useState([
-        {
-            CourseID: "MT1003",
-            Subject: "Hóa ",
-            Group: "L04",
-            Credit: "4",
-            NumberStu: "20/30",
-            Day: ['Thứ 2: Tiết 1, 2', 'Thứ 3: Tiết 3, 4'],
-            IsRegist: false
-        },
-        {
-            CourseID: "MT1005",
-            Subject: "Lí",
-            Group: "L05",
-            Credit: "4",
-            NumberStu: "25/30",
-            Day: ['Thứ 2: Tiết 1, 2', 'Thứ 3: Tiết 3, 4'],
-            IsRegist: false
-        },
-        {
-            CourseID: "CO2011",
-            Subject: "Sinh",
-            Group: "L17",
-            Credit: "4",
-            NumberStu: "2/30",
-            Day: ['Thứ 2: Tiết 1, 2', 'T    hứ 3: Tiết 3, 4'],
-            IsRegist: false
-        }
-    ]);
+    const [database, setDatabase] = useState(null);
+    const [subjects, setSubjects] = useState([]);
+    const [registedSub, setRegistedSub] = useState([]);
+    const [findSub, setFindSub] = useState('');
 
-    const [FindSub, setFindSub] = useState('');
+    useEffect(() => {
+        const db = getDatabase();
+        const dataRef = ref(db);
+
+        get(dataRef).then((snapshot) => {
+            if (snapshot.exists()) {
+                setDatabase(snapshot.val());
+            } else {
+                console.log("No data available");
+            }
+        }).catch((error) => {
+            console.error(error);
+        });
+    }, []);
 
     const handleFindSub = () => {
-        setFindSub(document.getElementById("Inputsubject").value);
+        const inputSubject = findSub;
+        const foundSubjects = [];
+        if (database) {
+            for (const courseCode in database.Course) {
+                const course = database.Course[courseCode];
+                if (course.CodeCourse === inputSubject || course.NameOfCourse === inputSubject) {
+                    for (const groupKey in course.Group) {
+                        const group = course.Group[groupKey];
+                        const subject = {
+                            CourseID: course.CodeCourse,
+                            Subject: course.NameOfCourse,
+                            Group: groupKey,
+                            Credit: course.NumOfCredits,
+                            NumberStu: Object.keys(group.Student).length,
+                            IsRegist: false
+                        };
+                        foundSubjects.push(subject);
+                    }
+                }
+            }
+        }
+        setSubjects(foundSubjects);
     };
 
     const confirmDelete = (index) => {
-        const updatedregistedSub = [...registedSub];
-        const course = updatedregistedSub[index];
+        const updatedRegistedSub = [...registedSub];
+        const course = updatedRegistedSub[index];
 
         if (!course.IsDelete) {
             const confirmation = window.confirm('Bạn xác nhận hủy môn?');
             if (confirmation) {
                 course.IsDelete = true;
-                setRegistedSub(updatedregistedSub);
+                setRegistedSub(updatedRegistedSub);
                 alert('Hủy môn thành công.');
             }
         } 
     };
+
     const confirmRegist = (index) => {
-        const updatedSubjects = [...Subjects];
+        const updatedSubjects = [...subjects];
         const updatedRegistedSub = [...registedSub];
         const course = updatedSubjects[index];
 
         if (!course.IsRegist) {
             const confirmation = window.confirm('Bạn xác nhận đăng kí?');
-            if (confirmation) {
+            if (course.NumberStu >= 30) {
+                alert('Lớp đã quá số lượng thành viên');
+            } else if (confirmation) {
                 course.IsRegist = true;
                 setSubjects(updatedSubjects);
-               
-                const obj={
+
+                const obj = {
                     CourseID: course.CourseID,
                     Subject: course.Subject,
                     Group: course.Group,
                     Credit: course.Credit,
                     NumberStu: course.NumberStu,
-                    IsDelete: false}
-                    updatedRegistedSub.push(obj);
-                    setRegistedSub(updatedRegistedSub);
-                }
+                    IsDelete: false
+                };
+                updatedRegistedSub.push(obj);
+                saveRegistationToFirebase(obj);
+                setRegistedSub(updatedRegistedSub);
                 alert('Đăng kí thành công.');
+            }
         } else {
             alert('Không thể đăng ký môn học do đã đăng kí, trùng tiết hoặc nằm ngoài thời gian đăng kí!');
         }
     };
+
+    const saveRegistationToFirebase = (subject) => {
+        const db = getDatabase();
+        const regisRef = ref(db, `Student/${data.getID()}/Course/HK223/${subject.CourseID}`);
+        const classRef = ref(db, `Course/${subject.CourseID}/Group/${subject.Group}/Student/${data.getID()}`);
+
+        set(classRef, {
+            week: {
+                '0o1': {
+                    comment: "",
+                    score: ""
+                },
+                '0o2': {
+                    comment: "",
+                    score: ""
+                },
+                '0o3': {
+                    comment: "",
+                    score: ""
+                },
+                '0o4': {
+                    comment: "",
+                    score: ""
+                }
+            }
+        })
+        set(regisRef, {
+            Class: subject.Group,
+            CodeCourse: subject.CourseID,
+            appealTime: {
+                EndTime: "",
+                StartTime: ""
+            },
+            Name: subject.Subject,
+            Teacher: "",
+            code: "",
+            componentScore: "",
+            credit: subject.Credit,
+            date: "",
+            examScore: "",
+            isAppeal: false,
+            isDone: false,
+            totalScore: ""
+        }).then(() => {
+            console.log('Data saved successfully.');
+        }).catch((error) => {
+            console.error('Data could not be saved.' + error);
+        });
+    };
+
     return (
         <Fragment>
             <Header />
@@ -116,18 +153,18 @@ function CourseRegistationStu() {
             <div id="CourseRegistationStu1">
                 <h1>Đăng kí khóa học</h1>
                 <div className='Infor'>
-                    <p>Học kì: {semester}.</p>
-                    <p style={{ fontStyle: 'italic' }}>Thời gian đăng kí: {Groups.starttime} - {Groups.endtime}.</p>
-                    <p className = "red">Sinh viên cần nhập đúng tên môn học hoặc mã môn.</p>
-                    <p className = "red">Các thao tác ngoài thời gian đăng kí môn sẽ không được chấp nhận.</p>
+                    <p>Học kì: 223.</p>
+                    <p style={{ fontStyle: 'italic' }}>Thời gian đăng kí: {database && database.Course && database.Course.RegisTime ? `${database.Course.RegisTime.StartTime} - ${database.Course.RegisTime.EndTime}` : ''}.</p>
+                    <p className="red">Sinh viên cần nhập đúng mã môn hoặc tên môn học.</p>
+                    <p className="red">Các thao tác ngoài thời gian đăng kí môn sẽ không được chấp nhận.</p>
                 </div>
 
                 <div className="head">
-                    <input id="Inputsubject" placeholder="Insert name subject or code"></input>
-                    <button> Find </button>
+                    <input id="Inputsubject" placeholder="Insert name subject or code" value={findSub} onChange={(e) => setFindSub(e.target.value)} />
+                    <button onClick={handleFindSub}> Find </button>
                 </div>
                 {
-                    FindSub !== '' && Subjects.length > 0 && (
+                    findSub !== '' && subjects.length > 0 && (
                         <div>
                             <table className='RegistSub'>
                                 <thead>
@@ -142,38 +179,26 @@ function CourseRegistationStu() {
                                         <td width='100px'>Số tín chỉ</td>
                                         <td width='100px'>Nhóm lớp</td>
                                         <td width='100px'>Sĩ số</td>
-                                        <td>Tiết</td>
-                                        <td>Đăng kí</td>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {
-                                        Subjects.map((course, index) => (
-                                            <tr key={index}>
-                                                <td>{course.CourseID}</td>
-                                                <td>{course.Subject}</td>
-                                                <td>{course.Credit}</td>
-                                                <td>{course.Group}</td>
-                                                <td>{course.NumberStu}</td>
-                                                <td>
-                                                    {course.Day.map((day, index) => (
-                                                        <p key={index}>{day}<br /></p>
-                                                    ))}
-                                                </td>
-                                                <td>
-                                                    <button className='confirm' onClick={() => confirmRegist(index)}>
-                                                        Đăng kí
-                                                    </button>
-                                                </td>
-                                            </tr>
-                                        ))
-                                    }
+                                    {subjects.map((subject, index) => (
+                                        <tr key={index}>
+                                            <td>{subject.CourseID}</td>
+                                            <td>{subject.Subject}</td>
+                                            <td>{subject.Credit}</td>
+                                            <td>{subject.Group}</td>
+                                            <td>{subject.NumberStu}</td>
+                                            <td>
+                                                <button onClick={() => confirmRegist(index)}>Đăng ký</button>
+                                            </td>
+                                        </tr>
+                                    ))}
                                 </tbody>
                             </table>
                         </div>
                     )
                 }
-
                 <table className='RegistedTab'>
                     <thead>
                         <tr>
@@ -187,33 +212,32 @@ function CourseRegistationStu() {
                             <td width='100px'>Số tín chỉ</td>
                             <td width='100px'>Nhóm lớp</td>
                             <td width='100px'>Sĩ số</td>
-                            <td >Đăng kí hủy môn</td>
-
+                            <td>Đăng kí hủy môn</td>
                         </tr>
                     </thead>
                     <tbody>
-                        {
-                            registedSub.map((course, index) => ( 
-                                (!course.IsDelete) && (<tr key={index}>
+                        {registedSub.map((course, index) => (
+                            (!course.IsDelete) && (
+                                <tr key={index}>
                                     <td>{course.CourseID}</td>
                                     <td>{course.Subject}</td>
                                     <td>{course.Credit}</td>
                                     <td>{course.Group}</td>
                                     <td>{course.NumberStu}</td>
                                     <td>
-                                        <button className='confirm'onClick={()=> confirmDelete(index)}>
+                                        <button className='confirm' onClick={() => confirmDelete(index)}>
                                             Đăng kí hủy môn
                                         </button>
                                     </td>
-                                </tr>)
+                                </tr>
                             )
-                            )
-                        }
+                        ))}
                     </tbody>
                 </table>
             </div>
             <Footer />
         </Fragment>
-    )
+    );
 }
-export default CourseRegistationStu
+
+export default CourseRegistationStu;
