@@ -6,10 +6,6 @@ import Nav from '../../components/ComponentTea/NavTea/NavTea';
 import './ClassListTea.css';
 
 import { data } from '../../loginPage/Login_page';
-import { Group } from '../../model/Group';
-import { Course } from '../../model/Course';
-import { PersonFactory } from '../../model/PersonFactory';
-import { Student } from '../../model/Student';
 function ClassListTea() {
   // Từ giáo viên đó cậu tìm ra danh sách các môn học mà ổng dạy á
   const [classInfoArray, setClassInfoArray] = useState([]);

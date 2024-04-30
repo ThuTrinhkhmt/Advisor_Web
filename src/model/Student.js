@@ -1,8 +1,10 @@
-import { db, ref, set, get, child, update, remove } from '../firebase/firebase';
+import { db, ref, set, get, update, remove } from '../firebase/firebase';
 import { Person } from './Person.js';
 import { getStuData } from '../firebase/firebasefunction';
 import { Score } from './Score.js';
 import { Account } from './Account.js';
+import { WeeklyFeedback } from './WeeklyFeedback.js';
+import { Feedback } from './Feedback.js';
 export class Student extends Person {
     #studentScores = new Map();
     #studentFeedback = new Map();
@@ -40,6 +42,19 @@ export class Student extends Person {
             value.setIsAppeal(getScore.isAppeal);
             value.setIsDone(getScore.isDone);
             this.#studentScores.set(courseID, value);
+            //Feedback
+            const getData=snapshot2.val(); 
+            const userRef2 = ref(db, `Course/${courseID}/Group/${getData.Class}/Student/${super.getID()}/Week`);
+            const snapshotData = await get(userRef2);
+            const arrayWeek = Object.keys(snapshotData.val() || {});
+            const feedback = new Feedback();
+            for(const week of arrayWeek){
+                const Data = ref(db, `Course/${courseID}/Group/${getData.Class}/Student/${super.getID()}/Week/${week}`);
+                const snapshot3 = await get(Data);
+                const getValue=snapshot3.val(); 
+                feedback.setFeedback(week, getValue.comment, getValue.score);
+            }
+            this.#studentFeedback.set(courseID, feedback);
         }
     }
 
@@ -197,9 +212,9 @@ export class Student extends Person {
     setStudentFeedback(group, feedback){
         this.#studentFeedback.set(group, feedback);
     }
-    getAGroupFeedback( groupName){
-        for (let [group, feedback] of this.#studentFeedback.entries()) {
-            if (group.getGroupName() === groupName) {
+    getAGroupFeedback(courseName){
+        for (let [course, feedback] of this.#studentFeedback.entries()) {
+            if (course === courseName) {
                 return feedback;
             }
         }
