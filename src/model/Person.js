@@ -76,7 +76,70 @@ export class Person {
             console.error("Error updating user data:", error);
         }
     }
+    async setName(role, newName) {
+        const userRef = ref(db, `${role}/${this.#id}`);
+        try {
+            await update(userRef, {
+                Name: newName
+            });
+            this.#name = newName;
+            console.log("User data updated successfully");
+        } catch (error) {
+            console.error("Error updating user data:", error);
+        }
+    }
+    async setDateOfBirth(role, dateOfBirth) {
+        const userRef = ref(db, `${role}/${this.#id}`);
+        try {
+            await update(userRef, {
+                DateOfBirth: dateOfBirth
+            });
+            this.#dateOfBirth = dateOfBirth;
+            console.log("User data updated successfully");
+        } catch (error) {
+            console.error("Error updating user data:", error);
+        }
+    }
 
+    async setAddress(role, address) {
+        const userRef = ref(db, `${role}/${this.#id}`);
+        try {
+            await update(userRef, {
+                Address: address
+            });
+            this.#address = address;
+            console.log("User data updated successfully");
+        } catch (error) {
+            console.error("Error updating user data:", error);
+        }
+    }
+
+    async setFaculity(role, faculity) {
+        const userRef = ref(db, `${role}/${this.#id}`);
+        try {
+            await update(userRef, {
+                Faculity: faculity
+            });
+            this.#faculity = faculity;
+            console.log("User data updated successfully");
+        } catch (error) {
+            console.error("Error updating user data:", error);
+        }
+    }
+
+    async setGender(role, gender) {
+
+        const userRef = ref(db, `${role}/${this.#id}`);
+        try {
+            await update(userRef, {
+                Gender: gender
+            });
+            this.#gender = gender;
+            console.log("User data updated successfully");
+        } catch (error) {
+            console.error("Error updating user data:", error);
+        }
+    }
     setAccount(account){
         this.#account=account;
     }

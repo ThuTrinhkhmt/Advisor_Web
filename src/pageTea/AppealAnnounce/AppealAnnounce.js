@@ -13,6 +13,7 @@ function AppealAnnounce() {
           for (let groupData of groups) {
             const arrStu = groupData.getStudents();
             for (let StuData of arrStu) {
+                await StuData.loadFromDatabase();
                 if(StuData.getStudentScore(groupData.getCourseID()).getIsAppeal()){
                     setStudents((prevStudents) => {
                         // Kiểm tra nếu sinh viên đã tồn tại

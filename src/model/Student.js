@@ -10,7 +10,6 @@ export class Student extends Person {
     #studentFeedback = new Map();
     constructor(id) {
         super(id);
-        this.loadFromDatabase();
     }
 
     async loadFromDatabase() {
@@ -27,11 +26,11 @@ export class Student extends Person {
             return null;
         }
         if (userData) {
-            await super.setName(userData.Name);
-            await super.setDateOfBirth(userData.DateOfBirth);
-            await super.setAddress(userData.Address);
-            await super.setFaculity(userData.Faculity);
-            await super.setGender(userData.Gender);
+            await super.setName('Student', userData.Name);
+            await super.setDateOfBirth('Student', userData.DateOfBirth);
+            await super.setAddress('Student', userData.Address);
+            await super.setFaculity('Student', userData.Faculity);
+            await super.setGender('Student', userData.Gender);
         }
         const arrayCourse = Object.keys(scores.val() || {});
         for(const courseID of arrayCourse){
