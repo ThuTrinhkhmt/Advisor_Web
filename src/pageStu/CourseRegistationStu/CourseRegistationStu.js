@@ -72,7 +72,7 @@ function CourseRegistationStu() {
     const confirmDelete = (index) => {
         const updatedRegistedSub = [...registedSub];
         const course = updatedRegistedSub[index];
-
+    
         if (!course.IsDelete) {
             const confirmation = window.confirm('Bạn xác nhận hủy môn?');
             if (confirmation) {
@@ -85,10 +85,18 @@ function CourseRegistationStu() {
                 }).catch((error) => {
                     console.error("Lỗi xóa môn học từ Firebase: ", error);
                 });
+                const courseRef = ref(db, `CourseToRegister/${course.CourseID}/Group/${course.Group}/${data.getID()}`);
+                remove(courseRef).then(() => {
+                    console.log("Đã xóa ID sinh viên khỏi nhóm đã đăng ký trên Firebase");
+                }).catch((error) => {
+                    console.error("Lỗi khi xóa ID sinh viên khỏi nhóm đã đăng ký trên Firebase: ", error);
+                });
+    
                 setRegistedSub(updatedRegistedSub);
             }
         } 
     };
+    
 
     const confirmRegist = (index) => {
         const updatedSubjects = [...subjects];
@@ -104,7 +112,6 @@ function CourseRegistationStu() {
                 if (course.NumberStu >= 30) {
                     alert('Lớp đã quá số lượng thành viên');
                 } else if (confirmation) {
-                    // Kiểm tra xem môn học đã được đăng ký trên Firebase hay chưa
                     const db = getDatabase();
                     const Ref = ref(db, `CourseRegisted/${data.getID()}/${course.Subject}`);
                     get(Ref).then((snapshot) => {
@@ -126,6 +133,12 @@ function CourseRegistationStu() {
                             saveRegistationToFirebase(obj);
                             setRegistedSub(updatedRegistedSub);
                             alert('Đăng kí thành công.');
+                            const courseRef = ref(db, `CourseToRegister/${course.CourseID}/Group/${course.Group}/${data.getID()}`);
+                            set(courseRef, "").then(() => {
+                                console.log("Đã thêm ID sinh viên vào Firebase");
+                            }).catch((error) => {
+                                console.error("Error ", error);
+                            });
                         }
                     }).catch((error) => {
                         console.error(error);
@@ -136,9 +149,9 @@ function CourseRegistationStu() {
             }
         } else {
             alert('Hiện tại không phải là thời gian đăng ký môn học.');
-
         }
     };
+    
 
     useEffect(() => {
         const db = getDatabase();
