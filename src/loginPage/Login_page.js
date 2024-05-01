@@ -27,7 +27,7 @@ function Login() {
   const login = async () => {
     const account = new Account(role, username);
     await account.loadFromDatabase();
-  
+    
     if (username.length > 0 && password.length > 0 && role.length > 0) {
         if (account.getPassword() === password) {
             roleID=role;
@@ -36,7 +36,6 @@ function Login() {
             await data.loadFromDatabase();
             data.setAccount(account);
             alert(`Login successful! You are logged in as a ${role}.`);
-            
             // Điều hướng đến trang chính sau khi đăng nhập thành công
             if (role === "Teacher") {
                 navigate('/Tea');

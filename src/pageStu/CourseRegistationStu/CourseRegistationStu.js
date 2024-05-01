@@ -1,3 +1,4 @@
+
 import './CourseRegistationStu.css';
 import Header from '../../components/ComponentStu/HeaderStu/HeaderStu';
 import Footer from '../../components/ComponentStu/FooterStu/FooterStu';
@@ -135,6 +136,7 @@ function CourseRegistationStu() {
             }
         } else {
             alert('Hiện tại không phải là thời gian đăng ký môn học.');
+
         }
     };
 
@@ -195,6 +197,7 @@ function CourseRegistationStu() {
                 <div className='Infor'>
                     <p>Học kì: 223.</p>
                     <p style={{fontStyle: 'italic'}}>Thời gian đăng kí: {RegistTime}.</p>
+
                     <p className="red">Sinh viên cần nhập đúng mã môn hoặc tên môn học.</p>
                     <p className="red">Các thao tác ngoài thời gian đăng kí môn sẽ không được chấp nhận.</p>
                 </div>

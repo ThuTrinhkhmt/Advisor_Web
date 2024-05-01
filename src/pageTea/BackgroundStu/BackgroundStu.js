@@ -15,6 +15,7 @@ function BackgroundStu() {
     //Ở trang này có nút chỉnh sửa nên cập nhật dữ liệu thường xuyên nè
     const groupdata = data.getAGroup(courseID, group);
     const studentData = groupdata.getAStudent(studentID);
+    const StuFeedback = studentData.getAGroupFeedback(courseID).getFeedback();
     //Biến này của tớ
     const gradient = useMemo(() => {
         const ctx = document.createElement('canvas').getContext('2d');
@@ -31,21 +32,24 @@ function BackgroundStu() {
         gender: studentData.getGender(),
         faculty: studentData.getFaculity(),
         address: studentData.getAddress()
-    }), []);
+    }), [studentData,studentID]);
     //Tiến trình đây nữa
-    const [weeklyFeedback ,setWeeklyFeedback] = useState(() => ([
-        { week: 1, comment: "Tuần đầu tiên, mọi thứ vẫn diễn ra suôn sẻ.", rating: 4 },
-        { week: 2, comment: "Tuần này có một số khó khăn nhưng vẫn hoàn thành được nhiệm vụ.", rating: 5 },
-        { week: 3, comment: "Cần cải thiện việc quản lý thời gian trong tuần này.", rating: 4 },
-        { week: 4, comment: "Tuần này đã đạt được mục tiêu đề ra.", rating: 1 },
-        { week: 5, comment: "Thành công trong việc giải quyết các vấn đề phát sinh.", rating: 4 },
-        { week: 6, comment: "Cần tăng cường giao tiếp và hợp tác trong nhóm.", rating: 2 },
-        { week: 7, comment: "Tuần này có nhiều áp lực nhưng vẫn giữ vững được sự kiên nhẫn.", rating: 5 },
-        { week: 8, comment: "Cảm thấy mệt mỏi nhưng vẫn tiếp tục phấn đấu.", rating: 3 },
-        { week: 9, comment: "Cần thêm sự tổ chức trong lịch làm việc của mình.", rating: 0 },
-        { week: 10, comment: "Hoàn thành mọi nhiệm vụ một cách xuất sắc.", rating: 2 }
-    ]));
-
+    const [weeklyFeedback ,setWeeklyFeedback] = useState([]);
+    useEffect(() => {
+        const loadGroup = async () => {
+            const weeklyFeedback = [];
+            // Lặp qua các mục trong Map `StuFeedback`
+            for (const [week, feedback] of StuFeedback.entries()) {
+                weeklyFeedback.push({
+                    week,
+                    comment: feedback.getComment(),
+                    rating: feedback.getRate(),
+                });
+            }
+            setWeeklyFeedback(weeklyFeedback);
+        };
+        loadGroup();
+    }, [StuFeedback]);
     const chartRef = useRef();
     const [editFeedback, setEditFeedback] = useState({});
     //Hai biến này củng là của tớ
@@ -99,7 +103,7 @@ function BackgroundStu() {
         });
 
         chartRef.current.chart = chart;
-    }, []);
+    }, [gradient, weeklyFeedback]);
 
     const handleEditWeek = (week, comment, rating) => {
         setEditFeedback({ ...editFeedback, [week]: { ...editFeedback[week], comment: comment, rating: rating, editing: true } });
@@ -107,11 +111,17 @@ function BackgroundStu() {
 
     const handleSaveWeek = (week) => {
         const updatedFeedback = weeklyFeedback.map(item => {
-            if (item.week === week) {
-                return { ...item, comment: editFeedback[week].comment, rating: editFeedback[week].rating };
-            } else {
-                return item;
-            }
+        const currentEdit = editFeedback[item.week]; // Lấy giá trị từ `editFeedback`
+        if (currentEdit) {
+            // Nếu tuần hiện tại đang chỉnh sửa, cập nhật giá trị mới
+            studentData.setStudentFeedback(courseID, item.week, currentEdit.comment, currentEdit.rating);
+            return {
+                ...item, // Giữ lại các giá trị hiện có
+                comment: currentEdit.comment, // Cập nhật nhận xét mới
+                rating: currentEdit.rating, // Cập nhật điểm mới
+            };
+        }
+        return item;
         });
         setWeeklyFeedback(updatedFeedback);
         setEditFeedback({ ...editFeedback, [week]: false });
@@ -121,15 +131,17 @@ function BackgroundStu() {
         setEditFeedback({ ...editFeedback, [week]: false });
     };
 
-    const handleAddWeek = () => {
+    const handleAddWeek = async () => {
         const newWeek = { week: weeklyFeedback.length + 1, comment: "", rating: 0 };
+        await studentData.addStudentFeedback(courseID, weeklyFeedback.length + 1, "", 0);
         setWeeklyFeedback([...weeklyFeedback, newWeek]);
     };
 
-    const handleDeleteWeek = () => {
+    const handleDeleteWeek = async () => {
         if (weeklyFeedback.length > 0) {
             setWeeklyFeedback(weeklyFeedback.slice(0, -1));
         }
+        await studentData.removeStudentFeedback(courseID, weeklyFeedback.length);
     };
     
     return (

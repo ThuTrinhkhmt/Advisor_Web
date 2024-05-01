@@ -1,20 +1,22 @@
-import { db, ref, set, get, child, update, remove } from '../firebase/firebase';
+import { db, ref, set, get, update, remove } from '../firebase/firebase';
 import { getGroupData, getStuData, getTeaData, getCourseData } from '../firebase/firebasefunction';
 import { PersonFactory } from './PersonFactory';
-import { Student } from './Student';
 export class Group {
     #coursename;
     #course;
     #teacher = null;
     #students = [];
     #name;
+    #title;
+    #content;
+    #description;
+    #documents=[];
     #dayofWeek;
     #startTime;
     #endTime;
     constructor(course, name) {
         this.#course = course;
         this.#name = name;
-        //this.loadFromDatabase();
     }
 
     async loadFromDatabase() {
@@ -37,6 +39,23 @@ export class Group {
                 }
             }
         }
+        const userRef = ref(db, `Course/${this.#course}/Group/${this.#name}/AboutCourse/Document`);
+        const snapshot = await get(userRef);
+        const arrayDoc = Object.keys(snapshot.val() || {});
+        for(const doc of arrayDoc){
+            const userRef2 = ref(db, `Course/${this.#course}/Group/${this.#name}/AboutCourse/Document/${doc}`);
+            const snapshot2 = await get(userRef2);
+            const data = snapshot2.val();
+            const docData={};
+            docData.name=data.name;
+            docData.url=data.url;
+            this.#documents.push(docData);
+        }
+        const userRef2 = ref(db, `Course/${this.#course}/Group/${this.#name}/AboutCourse`);
+        const snapshot2 = await get(userRef2);
+        const data=snapshot2.val();
+        this.#description=data.Description;
+        this.#title=data.Title;
     }
 
     getTeacher() {
@@ -83,15 +102,122 @@ export class Group {
     setDayofWeek(week){
         this.#dayofWeek=week;
     }
+
     setName(name) {
         this.#name = name;
     }
 
+    setStartDay(day){
+        this.#startTime=day;
+    }
+
+    setEndDay(day){
+        this.#endTime=day;
+    }
+    async changeDescription(description){
+        this.#description=description;
+        const userRef2 = ref(db, `Course/${this.#course}/Group/${this.#name}/AboutCourse`);
+        const snapshot2 = await get(userRef2);
+        if(snapshot2.exists()){
+            try {
+                await update(userRef2, {
+                    Description: description
+                });
+            } catch (error) {
+                console.error("Error updating user data:", error);
+            }
+        }
+    }
+    async changeTitle(title){
+        this.#title=title;
+        const userRef2 = ref(db, `Course/${this.#course}/Group/${this.#name}/AboutCourse`);
+        const snapshot2 = await get(userRef2);
+        if(snapshot2.exists()){
+            try {
+                await update(userRef2, {
+                    Title: title
+                });
+            } catch (error) {
+                console.error("Error updating user data:", error);
+            }
+        }
+    }
+    async changeDocument(index, document){
+        this.#documents[index]=document;
+        const userRef2 = ref(db, `Course/${this.#course}/Group/${this.#name}/AboutCourse/Document/${index}`);
+        const snapshot2 = await get(userRef2);
+        if(snapshot2.exists()){
+            try {
+                await update(userRef2, {
+                    name: document.name,
+                    url: document.url
+                });
+            } catch (error) {
+                console.error("Error updating user data:", error);
+            }
+        }
+    }
+    async addDocument(document) {
+        this.#documents.push(document);
+        const length= this.#documents.length;
+        const userRef2 = ref(db, `Course/${this.#course}/Group/${this.#name}/AboutCourse/Document/${length-1}`);
+        const newNodeData = {
+            name: document.name,
+            url: document.url
+        };
+        alert(`Tài liệu đã được thêm: ${document.name}`);
+        await set(userRef2, newNodeData);
+    }
+    async removeDocument(document) {
+        const index = this.#documents.findIndex((doc) => doc.name === document.name && doc.url === document.url);
+
+    if (index !== -1) {
+        // Xóa tài liệu khỏi danh sách
+        alert(`Tài liệu đã bị xóa: ${document.name}`);
+        this.#documents.splice(index, 1);
+        // Tham chiếu đến nút cần xóa
+        const nodePath = `Course/${this.#course}/Group/${this.#name}/AboutCourse/Document/${index}`;
+        const nodeRef = ref(db, nodePath);
+        await remove(nodeRef);
+    } else {
+        alert("Không tìm thấy tài liệu cần xóa");
+    }
+    }
+    getDocuments() {
+        return this.#documents;
+    }
+    getStartDay(){
+        return this.#startTime;
+    }
+    getEndDay(){
+        return this.#endTime;
+    }
     getCourseID() {
         return this.#course;
     }
     getDayofWeek(){
         return this.#dayofWeek;
+    }
+    setTitle(title) {
+        this.#title = title;
+    }
+
+    setContent(content) {
+        this.#content = content;
+    }
+    setDescription(description) {
+        this.#description= description;
+    }
+    
+    getDescription() {
+        return this.#description;
+    }
+    getContent() {
+        return this.#content;
+    }
+
+    getTitle() {
+        return this.#title;
     }
     setCourse(course) {
         this.#course = course;
