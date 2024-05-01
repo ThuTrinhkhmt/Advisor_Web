@@ -46,7 +46,6 @@ function InformationTea() {
 
     const handleSave = async () => {
         const fieldsToUpdate = ['name', 'dateOfBirth', 'gender', 'faculity', 'address', 'specialize', 'degree', 'position'];
-
         for (const field of fieldsToUpdate) {
             if (teacher[field] !== preTeacher.current[field]) {
                 await teacherData[`set${field.charAt(0).toUpperCase() + field.slice(1)}`](teacher[field]);

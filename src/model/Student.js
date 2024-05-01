@@ -3,15 +3,14 @@ import { Person } from './Person.js';
 import { getStuData } from '../firebase/firebasefunction';
 import { Score } from './Score.js';
 import { Account } from './Account.js';
+<<<<<<< HEAD
 import { WeeklyFeedback } from './WeeklyFeedback.js';
+=======
+>>>>>>> aaf83eff352276190efe9cdc425ff5c2f171074b
 import { Feedback } from './Feedback.js';
 export class Student extends Person {
     #studentScores = new Map();
     #studentFeedback = new Map();
-    constructor(id) {
-        super(id);
-        this.loadFromDatabase();
-    }
 
     async loadFromDatabase() {
         const userData = await getStuData(super.getID());
@@ -27,11 +26,11 @@ export class Student extends Person {
             return null;
         }
         if (userData) {
-            await super.setName(userData.Name);
-            await super.setDateOfBirth(userData.DateOfBirth);
-            await super.setAddress(userData.Address);
-            await super.setFaculity(userData.Faculity);
-            await super.setGender(userData.Gender);
+            await super.setStuName('Student', userData.Name);
+            await super.setStuDateOfBirth('Student', userData.DateOfBirth);
+            await super.setStuAddress('Student', userData.Address);
+            await super.setStuFaculity('Student', userData.Faculity);
+            await super.setStuGender('Student', userData.Gender);
         }
         const arrayCourse = Object.keys(scores.val() || {});
         for(const courseID of arrayCourse){
@@ -59,7 +58,7 @@ export class Student extends Person {
     }
 
     deleteGroup(groupName, courseName){
-        for (let [group, score] of this.studentScore.entries()) {
+        for (let [group] of this.studentScore.entries()) {
             if (group.getCourse().getName() === courseName && group.getGroupName() === groupName) {
                 this.studentScore.delete(group);
                 break;

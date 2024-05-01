@@ -36,7 +36,6 @@ function Login() {
             await data.loadFromDatabase();
             data.setAccount(account);
             alert(`Login successful! You are logged in as a ${role}.`);
-            
             // Điều hướng đến trang chính sau khi đăng nhập thành công
             if (role === "Teacher") {
                 navigate('/Tea');

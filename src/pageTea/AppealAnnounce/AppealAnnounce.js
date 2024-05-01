@@ -3,42 +3,54 @@ import { Link } from 'react-router-dom';
 import Header from '../../components/ComponentTea/HeaderTea/HeaderTea';
 import Footer from '../../components/ComponentTea/FooterTea/FooterTea';
 import Nav from '../../components/ComponentTea/NavTea/NavTea';
+import { db, onValue, ref } from '../../firebase/firebase';
 import './AppealAnnounce.css';
 import { data } from '../../loginPage/Login_page';
 function AppealAnnounce() {
     const groups= data.getGroup();
     const [students, setStudents] = useState([]);
     useEffect(() => {
-        const loadGroup = async () => {
-          for (let groupData of groups) {
+        const listeners = [];
+        groups.forEach((groupData) => {
             const arrStu = groupData.getStudents();
-            for (let StuData of arrStu) {
-                if(StuData.getStudentScore(groupData.getCourseID()).getIsAppeal()){
-                    setStudents((prevStudents) => {
-                        // Kiểm tra nếu sinh viên đã tồn tại
-                        const exists = prevStudents.some(
-                            (student) => student.studentID === StuData.getID() && student.courseID === groupData.getCourseID()
-                        );
-                        if (!exists) {
-                            return [
-                                ...prevStudents, // Giữ lại các phần tử hiện tại
-                                {
-                                    name: StuData.getName(),
-                                    studentID: StuData.getID(),
-                                    course: groupData.getCourseName(),
-                                    courseID: groupData.getCourseID(),
-                                    group: groupData.getName(),
-                                    isDone: StuData.getStudentScore(groupData.getCourseID()).getIsDone(),
-                                },
-                            ];
+            arrStu.forEach((StuData) => {
+                const userScoreRef = ref(db, `Student/${StuData.getID()}/Course/HK222/${groupData.getCourseID()}`);
+                const listener = onValue(userScoreRef, (snapshot) => {
+                    if (snapshot.exists()) {
+                        const scoreData = snapshot.val();
+                        const isAppeal = scoreData.isAppeal;
+                        if (isAppeal) {
+                            setStudents((prevStudents) => {
+                                const exists = prevStudents.some(
+                                    (student) =>
+                                        student.studentID === StuData.getID() && student.courseID === groupData.getCourseID()
+                                );
+                                if (!exists) {
+                                    return [
+                                        ...prevStudents,
+                                        {
+                                            name: StuData.getName(),
+                                            studentID: StuData.getID(),
+                                            course: groupData.getCourseName(),
+                                            courseID: groupData.getCourseID(),
+                                            group: groupData.getName(),
+                                            isDone: StuData.getStudentScore(groupData.getCourseID()).getIsDone(),
+                                        },
+                                    ];
+                                }
+                                return prevStudents; // Giữ nguyên nếu sinh viên đã tồn tại
+                            });
                         }
-                        return prevStudents; // Trả về mảng hiện tại nếu đã tồn tại
-                    });
-                }
-            }
-          }
+                    }
+                });
+                listeners.push(listener); // Lưu lại để hủy đăng ký sau này
+            });
+        });
+    
+        return () => {
+            // Hủy đăng ký các listener khi component bị hủy
+            listeners.forEach((listener) => listener());
         };
-        loadGroup();
     }, [groups]);
 
 
