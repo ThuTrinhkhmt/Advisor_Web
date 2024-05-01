@@ -3,14 +3,10 @@ import { Person } from './Person.js';
 import { getStuData } from '../firebase/firebasefunction';
 import { Score } from './Score.js';
 import { Account } from './Account.js';
-import { WeeklyFeedback } from './WeeklyFeedback.js';
 import { Feedback } from './Feedback.js';
 export class Student extends Person {
     #studentScores = new Map();
     #studentFeedback = new Map();
-    constructor(id) {
-        super(id);
-    }
 
     async loadFromDatabase() {
         const userData = await getStuData(super.getID());
@@ -58,7 +54,7 @@ export class Student extends Person {
     }
 
     deleteGroup(groupName, courseName){
-        for (let [group, score] of this.studentScore.entries()) {
+        for (let [group] of this.studentScore.entries()) {
             if (group.getCourse().getName() === courseName && group.getGroupName() === groupName) {
                 this.studentScore.delete(group);
                 break;
