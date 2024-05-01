@@ -5,6 +5,7 @@ import Footer from '../../components/ComponentTea/FooterTea/FooterTea';
 import Nav from '../../components/ComponentTea/NavTea/NavTea';
 import './ClassGrade.css';
 import { data } from '../../loginPage/Login_page';
+import { db, onValue, ref } from '../../firebase/firebase';
 function ClassGrade() {
     let { courseID, group } = useParams();
     const groupData=data.getAGroup(courseID, group);
@@ -22,7 +23,8 @@ function ClassGrade() {
               examScore: stu.getStudentScore(courseID).getFinalScore(),
               totalScore: stu.getStudentScore(courseID).getAverScore(),
               isEditing: stu.getStudentScore(courseID).getIsEditing(),
-              isEdited: stu.getStudentScore(courseID).getIsEdited()
+              isEdited: stu.getStudentScore(courseID).getIsEdited(),
+              isAppeal: stu.getStudentScore(courseID).getIsAppeal()
             })));
           }
         };
@@ -60,15 +62,20 @@ function ClassGrade() {
             updatedStudents[index].isEditing = false;
             setUnsavedChanges(false);
             const fieldsToUpdate = ['componentScore', 'examScore','totalScore'];
+            let allFieldsEmpty = true;
             let changedFieldsCount = 0;
             // Lặp qua các trường cần cập nhật
             fieldsToUpdate.forEach(field => {
+            //Kiểm tra xem có trường nào có dữ liệu không
+            if (prevStudents.current[index][field]) {
+                allFieldsEmpty = false; // Nếu một trường không rỗng, đặt lại thành `false`
+            }
             // Kiểm tra nếu giá trị đã thay đổi
             if (students[index][field] !== prevStudents.current[index][field]) {
                 changedFieldsCount++; // Tăng biến đếm nếu có thay đổi
             }
             });
-            if(changedFieldsCount===3) {
+            if(changedFieldsCount===3 && allFieldsEmpty) {
                 await arrayStu[index].setScore(courseID, updatedStudents[index]['componentScore'], 
                 updatedStudents[index]['examScore'], updatedStudents[index]['totalScore']);
                 const now = new Date();
@@ -87,6 +94,10 @@ function ClassGrade() {
                 const formattedDate = now.toLocaleDateString();
                 const formattedDate2 = futureDate.toLocaleDateString();
                 arrayStu[index].setDay(courseID, formattedDate, formattedDate2);
+                arrayStu[index].setIsEdited(courseID, 1);
+            }else if(changedFieldsCount===3 && !allFieldsEmpty){
+                await arrayStu[index].setScore(courseID, updatedStudents[index]['componentScore'], 
+                updatedStudents[index]['examScore'], updatedStudents[index]['totalScore']);
             }else{
                 for (const field of fieldsToUpdate) {
                     if (updatedStudents[index][field] !== prevStudents.current[index][field]) {
@@ -96,6 +107,7 @@ function ClassGrade() {
                     }
                 }
             }
+            updatedStudents[index].isAppeal=arrayStu[index].getStudentScore(courseID).getIsAppeal();
             updatedStudents[index].isEdited=arrayStu[index].getStudentScore(courseID).getIsEdited();
             setStudents(updatedStudents);
         } else {
@@ -126,16 +138,16 @@ function ClassGrade() {
                     <tbody>
                         {students.map((student, index) => (
                             <tr key={index}>
-                                <td className={`centerTable ${student.isEdited >= 2 ? 'edited' : ''}`}>
+                                <td className={`centerTable ${student.isEdited >= 2 && student.isAppeal === true? 'edited' : ''}`}>
                                         {index + 1}</td>
-                                <td className={`${student.isEdited >= 2 ? 'edited' : ''}`}>
+                                <td className={`${student.isEdited >= 2 && student.isAppeal === true? 'edited' : ''}`}>
                                     <Link to={`/course/${courseID}/${group}/${student.studentID}`}>
                                         {student.name}</Link>
                                 </td>
-                                <td className={`centerTable ${student.isEdited >= 2 ? 'edited' : ''}`}>
+                                <td className={`centerTable ${student.isEdited >= 2  && student.isAppeal === true? 'edited' : ''}`}>
                                     {student.studentID}</td>
                                 <td
-                                    className={`${student.isEdited >= 2 ? 'edited' : ''}`}
+                                    className={`${student.isEdited >= 2  && student.isAppeal === true? 'edited' : ''}`}
                                 >
                                     {student.isEditing && editMode && editingIndex === index ? (
                                         <input
@@ -151,7 +163,7 @@ function ClassGrade() {
                                 </td>
                                 <td
                                     className={`centerTable ${
-                                        student.isEdited >= 2 ? 'edited' : ''
+                                        student.isEdited >= 2  && student.isAppeal === true? 'edited' : ''
                                     }`}
                                 >
                                     {student.isEditing && editMode && editingIndex === index ? (
@@ -168,7 +180,7 @@ function ClassGrade() {
                                 </td>
                                 <td
                                     className={`centerTable ${
-                                        student.isEdited >= 2 ? 'edited' : ''
+                                        student.isEdited >= 2  && student.isAppeal === true? 'edited' : ''
                                     }`}
                                 >
                                     {student.isEditing && editMode && editingIndex === index ? (
@@ -183,7 +195,7 @@ function ClassGrade() {
                                         student.totalScore
                                     )}
                                 </td>
-                                <td className={`centerTable hover-btn ${student.isEdited >= 2 ? 'edited' : ''}`}>
+                                <td className={`centerTable hover-btn ${student.isEdited >= 2  && student.isAppeal === true? 'edited' : ''}`}>
                                     {student.isEditing && editMode && editingIndex === index ? (
                                         <div className="edit-button" onClick={() => handleSaveScore(index)}>O</div>
                                     ) : (
