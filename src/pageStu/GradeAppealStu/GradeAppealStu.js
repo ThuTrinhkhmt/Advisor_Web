@@ -53,6 +53,7 @@ function GradeAppealStu() {
                 Grade: course.totalScore,
                 IsAppeal: course.isAppeal,
                 IsDone: course.isDone,
+                IsEdited: course.isEdited,
                 Code: course.code,
                 Date: course.date,
                 StartTime: course.appealTime.StartTime,
@@ -153,26 +154,32 @@ function GradeAppealStu() {
                         </thead>
                         <tbody>
                         {hasAppealSubjects ? (
-                        Subject_can_appeal.map((subject, index) => (
-                        subject.IsAppeal && (
-                            <tr key={index}>
-                                <td>{subject.Code}</td>
-                                <td>{subject.Date}</td>
-                                <td>{subject.CourseID}</td>
-                                <td>{subject.Subject}</td>
-                                {subject.IsDone ? (
-                                    <td>Đã xử lý</td>
-                                ) : (
-                                    <td>Chưa xử lý</td>
-                                )}
-                            </tr>
-                        )
-                    ))
+    Subject_can_appeal.map((subject, index) => (
+        subject.IsAppeal && (
+            <tr key={index}>
+                <td>{subject.Code}</td>
+                <td>{subject.Date}</td>
+                <td>{subject.CourseID}</td>
+                <td>{subject.Subject}</td>
+                {subject.IsDone ? (
+                    <td>Đã xử lý</td>
                 ) : (
-                    <tr>
-                        <td colSpan="5">Chưa có môn học đăng kí phúc tra</td>
-                    </tr>
+                    <td>Chưa xử lý</td>
                 )}
+                {subject.IsEdited ? (
+                    <td>Đã sửa điểm</td>
+                ) : (
+                    <td>Chưa sửa điểm</td>
+                )}
+            </tr>
+        )
+    ))
+) : (
+    <tr>
+        <td colSpan="6">Chưa có môn học đăng kí phúc tra</td>
+    </tr>
+)}
+
                         </tbody>
             </table>
             </div>

@@ -197,7 +197,10 @@ function CourseRegistationStu() {
                 <div className='Infor'>
                     <p>Học kì: 223.</p>
                     <p style={{fontStyle: 'italic'}}>Thời gian đăng kí: {RegistTime}.</p>
+<<<<<<< HEAD
 
+=======
+>>>>>>> 9e13b46dcd91c8f0ed263a0e0e0b017b20abb6a7
                     <p className="red">Sinh viên cần nhập đúng mã môn hoặc tên môn học.</p>
                     <p className="red">Các thao tác ngoài thời gian đăng kí môn sẽ không được chấp nhận.</p>
                 </div>
