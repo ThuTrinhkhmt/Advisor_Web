@@ -11,15 +11,15 @@ function CourseRegistationStu() {
     const [subjects, setSubjects] = useState([]);
     const [registedSub, setRegistedSub] = useState([]);
     const [findSub, setFindSub] = useState('');
-    const [regisTime, setRegisTime] = useState('');
+    const [RegistTime, setRegistTime] = useState('');
     useEffect(() => {
         const db = getDatabase();
-        const regisTimeRef = ref(db, 'Course/RegisTime');
+        const RegistTimeRef = ref(db, 'CourseToRegister/RegistTime');
 
-        get(regisTimeRef).then((snapshot) => {
+        get(RegistTimeRef).then((snapshot) => {
             if (snapshot.exists()) {
                 const data = snapshot.val();
-                setRegisTime(`${data.StartTime} - ${data.EndTime}`);
+                setRegistTime(`${data.StartTime} - ${data.EndTime}`);
             } else {
                 console.log("No data available");
             }
@@ -46,17 +46,17 @@ function CourseRegistationStu() {
         const inputSubject = findSub;
         const foundSubjects = [];
         if (database) {
-            for (const courseCode in database.Course) {
-                const course = database.Course[courseCode];
-                if (course.CodeCourse === inputSubject || course.NameOfCourse === inputSubject) {
+            for (const courseCode in database.CourseToRegister) {
+                const course = database.CourseToRegister[courseCode];
+                if (course.CodeCourse === inputSubject || course.Name === inputSubject) {
                     for (const groupKey in course.Group) {
                         const group = course.Group[groupKey];
                         const subject = {
                             CourseID: course.CodeCourse,
-                            Subject: course.NameOfCourse,
+                            Subject: course.Name,
                             Group: groupKey,
-                            Credit: course.NumOfCredits,
-                            NumberStu: Object.keys(group.Student).length,
+                            Credit: course.Credit,
+                            NumberStu: Object.keys(group).length,
                             IsRegist: false
                         };
                         foundSubjects.push(subject);
@@ -66,6 +66,7 @@ function CourseRegistationStu() {
         }
         setSubjects(foundSubjects);
     };
+    
 
     const confirmDelete = (index) => {
         const updatedRegistedSub = [...registedSub];
@@ -92,8 +93,8 @@ function CourseRegistationStu() {
         const updatedSubjects = [...subjects];
         const updatedRegistedSub = [...registedSub];
         const course = updatedSubjects[index];
-        const regisStartTime = new Date(database.Course.RegisTime.StartTime);
-        const regisEndTime = new Date(database.Course.RegisTime.EndTime);
+        const regisStartTime = new Date(database.CourseToRegister.RegistTime.StartTime);
+        const regisEndTime = new Date(database.CourseToRegister.RegistTime.EndTime);
         const currentTime = new Date();
     
         if (currentTime >= regisStartTime && currentTime <= regisEndTime) {
@@ -193,7 +194,7 @@ function CourseRegistationStu() {
                 <h1>Đăng kí khóa học</h1>
                 <div className='Infor'>
                     <p>Học kì: 223.</p>
-                    <p style={{fontStyle: 'italic'}}>Thời gian đăng kí: {regisTime}.</p>
+                    <p style={{fontStyle: 'italic'}}>Thời gian đăng kí: {RegistTime}.</p>
                     <p className="red">Sinh viên cần nhập đúng mã môn hoặc tên môn học.</p>
                     <p className="red">Các thao tác ngoài thời gian đăng kí môn sẽ không được chấp nhận.</p>
                 </div>
