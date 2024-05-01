@@ -3,10 +3,6 @@ import { Person } from './Person.js';
 import { getStuData } from '../firebase/firebasefunction';
 import { Score } from './Score.js';
 import { Account } from './Account.js';
-<<<<<<< HEAD
-import { WeeklyFeedback } from './WeeklyFeedback.js';
-=======
->>>>>>> aaf83eff352276190efe9cdc425ff5c2f171074b
 import { Feedback } from './Feedback.js';
 export class Student extends Person {
     #studentScores = new Map();

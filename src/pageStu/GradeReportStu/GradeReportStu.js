@@ -82,7 +82,7 @@ function GradeReportStu() {
                                     <td>{subject.credit}</td>
                                     <td>{subject.componentScore}</td>
                                     <td>{subject.examScore}</td>
-                                    <td>{subject.totalScore}</td>
+                                    <td style={{color: subject.isEdited >= 2 && subject.isDone === true ? 'red' : 'black'}}>{subject.totalScore}</td>
                                 </tr>
                         ))
                         }
