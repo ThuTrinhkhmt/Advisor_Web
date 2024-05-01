@@ -234,6 +234,7 @@ function CourseRegistationStu() {
                                         <td width='100px'>Số tín chỉ</td>
                                         <td width='100px'>Nhóm lớp</td>
                                         <td width='100px'>Sĩ số</td>
+                                        <td width='100px'>Đăng ký</td>
                                     </tr>
                                 </thead>
                                 <tbody>

@@ -109,7 +109,7 @@ function GradeAppealStu() {
                         <p>Ngành: {Student.getFaculity()}</p>
                     </div>
                     <div className="Realtime_infor">
-                        <p>Học kì: 222.</p>
+                        <p>Học kì: 222</p>
                     </div>
                 </div>
                 <div className="Appeal">
@@ -125,7 +125,7 @@ function GradeAppealStu() {
                         <td className='shell'>Môn học</td>
                         <td className='shell'>Nhóm lớp</td>
                         <td className='shell'>Điểm</td>
-                        <td>Xác nhận phúc tra</td>
+                        <td className='shell'>Đăng ký phúc tra</td>
                     </tr>
                 </thead>
                 <tbody>
@@ -150,6 +150,7 @@ function GradeAppealStu() {
                                 <td width='300px'>Mã môn học</td>
                                 <td width='300px'>Môn học</td>
                                 <td width='300px'>Xác nhận của giảng viên</td>
+                                <td width='300px'>Xác nhận sửa điểm</td>
                             </tr>
                         </thead>
                         <tbody>
@@ -166,7 +167,7 @@ function GradeAppealStu() {
                 ) : (
                     <td>Chưa xử lý</td>
                 )}
-                {subject.IsEdited ? (
+                {(subject.IsEdited >= 2) ? (
                     <td>Đã sửa điểm</td>
                 ) : (
                     <td>Chưa sửa điểm</td>

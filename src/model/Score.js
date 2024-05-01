@@ -12,22 +12,20 @@ export class Score {
         this.#finalScore = finalScore;
 		this.#aveScore = aveScore;
 		this.#isEditing = false;
-		this.#isEdited=0;
     }
 
     setAllScore(componentScore, finalScore, aveScore) {
 		this.#componentScore = componentScore;
 		this.#finalScore = finalScore;
 		this.#aveScore = aveScore;
-		this.#isEdited = 1;
 	}
 	setComponentScore(componentScore) {
 		this.#componentScore = componentScore;
-		//if(this.#isAppeal===false) {this.#isEdited = 1;} else this.#isEdited=2;
+		if(this.#isAppeal===false) {this.#isEdited = 1;} else this.#isEdited=2;
 	}
 	setFinalScore(finalScore){
 		this.#finalScore=finalScore;
-		//if(this.#isAppeal===false) {this.#isEdited = 1;} else this.#isEdited=2;
+		if(this.#isAppeal===false) {this.#isEdited = 1;} else this.#isEdited=2;
 	}
 	setAverScore(aveScore){
 		this.#aveScore=aveScore;
@@ -65,6 +63,9 @@ export class Score {
 	}
 	getIsDone() {
 		return this.#isDone;
+	}
+	setIsEdited(isEdited){
+		this.#isEdited=isEdited;
 	}
     getIsEdited() {
 		return this.#isEdited;

@@ -20,6 +20,7 @@ function AppealAnnounce() {
                         const scoreData = snapshot.val();
                         const isAppeal = scoreData.isAppeal;
                         if (isAppeal) {
+                            StuData.getStudentScore(groupData.getCourseID()).setIsAppeal(isAppeal);
                             setStudents((prevStudents) => {
                                 const exists = prevStudents.some(
                                     (student) =>

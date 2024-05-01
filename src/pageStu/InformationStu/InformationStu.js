@@ -73,13 +73,13 @@ function InformationStu() {
                 </div>
                 <div className="row-2">
                     <div className="col">
-                        <strong>Ngày sinh:</strong> 
+                        <strong>Ngày sinh: </strong> 
                         {editable ? 
                             <input type="text" name="dateOfBirth" className="input-birthday" value={student.dateOfBirth} onChange={handleInputChange} /> 
                             : student.dateOfBirth}
                     </div>
                     <div className="col">
-                    <strong>Giới tính:</strong> 
+                    <strong>Giới tính: </strong> 
                     {editable ? 
                             <input type="text" name="gender" className="input-gender" value={student.gender} onChange={handleInputChange} /> 
                             : student.gender}
@@ -87,15 +87,15 @@ function InformationStu() {
                 </div>
                 <div className="row-2">
                     <div className="col">
-                        <strong>MSSV:</strong> {student.id}
+                        <strong>MSSV: </strong> {student.id}
                     </div>
                     <div className="col">
-                        <strong>Khoa:</strong> {student.faculity}
+                        <strong>Khoa: </strong> {student.faculity}
                     </div>
                 </div>
                 <div className="row-2">
                     <div className="col">
-                        <strong>Địa chỉ:</strong> 
+                        <strong>Địa chỉ: </strong> 
                         {editable ? 
                             <input type="text" name="address" className="input-address" value={student.address} onChange={handleInputChange} /> 
                             : student.address}

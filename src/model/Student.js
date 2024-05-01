@@ -34,6 +34,7 @@ export class Student extends Person {
             const snapshot2 = await get(ScoreData);
             const getScore=snapshot2.val(); 
             const value = new Score(getScore.componentScore, getScore.examScore, getScore.totalScore);
+            value.setIsEdited(getScore.isEdited);
             value.setIsAppeal(getScore.isAppeal);
             value.setIsDone(getScore.isDone);
             this.#studentScores.set(courseID, value);
@@ -73,19 +74,26 @@ export class Student extends Person {
             if (course === courseName) {
                 const userScore = ref(db, `Student/${super.getID()}/Course/HK222/${courseName}`);
                 const snapshot = await get(userScore);
-                score.setAllScore(compoScore, finalScore, totalScore)
+                const edited=score.getIsEdited();
                 if(snapshot.exists()){
                     try {
                         await update(userScore, {
                             componentScore: compoScore,
                             examScore: finalScore,
                             totalScore: totalScore,
-                            isEdited: 1
                         });
+                        if(score.getIsAppeal() === true && edited >= 1){
+                            score.setIsEdited(2);
+                            await update(userScore, {
+                                isEdited: 2,
+                                isDone: true
+                            });
+                        }
                     } catch (error) {
                         console.error("Error updating user data:", error);
                     }
                 }
+                score.setAllScore(compoScore, finalScore, totalScore);
                 break;
             }
         }
@@ -96,12 +104,22 @@ export class Student extends Person {
             if (course === courseName) {
                 const userScore = ref(db, `Student/${super.getID()}/Course/HK222/${courseName}`);
                 const snapshot = await get(userScore);
+                const data= snapshot.val();
                 score.setFinalScore(scoreData);
+                const edited=score.getIsEdited();
                 if(snapshot.exists()){
                     try {
                         await update(userScore, {
                             examScore: scoreData
                         });
+                        if(data.isAppeal===true && edited >= 1) {
+                            score.setIsDone(true);
+                            score.setIsEdited(2);
+                            await update(userScore, {
+                                isEdited: 2,
+                                isDone: true
+                            });
+                        }
                     } catch (error) {
                         console.error("Error updating user data:", error);
                     }
@@ -117,14 +135,16 @@ export class Student extends Person {
                 const userScore = ref(db, `Student/${super.getID()}/Course/HK222/${courseName}`);
                 const snapshot = await get(userScore);
                 score.setAverScore(scoreData);
-                score.setIsDone(true);
                 const data= snapshot.val();
+                const edited=score.getIsEdited();
                 if(snapshot.exists()){
                     try {
                         await update(userScore, {
                             totalScore: scoreData
                         });
-                        if(data.isAppeal===true) {
+                        if(data.isAppeal===true  && edited >= 1) {
+                            score.setIsDone(true);
+                            score.setIsEdited(2);
                             await update(userScore, {
                                 isEdited: 2,
                                 isDone: true
@@ -145,11 +165,21 @@ export class Student extends Person {
                 const userScore = ref(db, `Student/${super.getID()}/Course/HK222/${courseName}`);
                 const snapshot = await get(userScore);
                 score.setComponentScore(scoreData);
+                const data= snapshot.val();
+                const edited=score.getIsEdited();
                 if(snapshot.exists()){
                     try {
                         await update(userScore, {
                             componentScore: scoreData
                         });
+                        if(data.isAppeal===true && edited >= 1) {
+                            score.setIsDone(true);
+                            score.setIsEdited(2);
+                            await update(userScore, {
+                                isEdited: 2,
+                                isDone: true
+                            });
+                        }
                     } catch (error) {
                         console.error("Error updating user data:", error);
                     }
@@ -169,6 +199,27 @@ export class Student extends Person {
                     try {
                         await update(userScore, {
                             isDone: isDone
+                        });
+                    } catch (error) {
+                        console.error("Error updating user data:", error);
+                    }
+                }
+                break;
+            }
+        }
+        return null;
+    }
+    async setIsEdited(courseName, isEdited){
+        alert(isEdited);
+        for (let [course, score] of this.#studentScores.entries()) {
+            if (course === courseName) {
+                const userScore = ref(db, `Student/${super.getID()}/Course/HK222/${courseName}`);
+                const snapshot = await get(userScore);
+                score.setIsEdited(isEdited);
+                if(snapshot.exists()){
+                    try {
+                        await update(userScore, {
+                            isEdited: isEdited
                         });
                     } catch (error) {
                         console.error("Error updating user data:", error);
