@@ -1,9 +1,11 @@
-import React, { Fragment, useState, useRef } from 'react';
+import React, { Fragment, useState, useEffect, useRef } from 'react';
 import Header from '../../components/ComponentTea/HeaderTea/HeaderTea';
 import Footer from '../../components/ComponentTea/FooterTea/FooterTea';
 import Nav from '../../components/ComponentTea/NavTea/NavTea';
 import './InformationTea.css';
 
+import { data } from '../../loginPage/Login_page';
+//import { PersonFactory } from '../../model/PersonFactory';
 function InformationTea() {
     const preTeacher = useRef(null);
     const [editable, setEditable] = useState(false);
@@ -11,28 +13,51 @@ function InformationTea() {
 
     //Này là từ giáo viên cậu tự lấy thông tin giáo viên và lưu vô biến teacher cho tớ nha, ở chổ useState á
     const [teacher, setTeacher] = useState({
-        name: "Nguyễn Văn A",
-        dateOfBirth: "01/01/1990",
-        gender: "Nam",
-        faculty: "Khoa Học Máy Tính",
-        address: "123 Đường ABC, Quận XYZ, Thành phố ABC",
-        specialization: "Lập trình web",
-        degree: "Tiến sĩ",
-        position: "Giáo sư"
+        name: "",
+        dateOfBirth: "",
+        gender: "",
+        faculity: "",
+        address: "",
+        specialize: "",
+        degree: "",
+        position: ""
     });
-
+    const [teacherData, setTeacherData] = useState(null);
+    useEffect(() => {
+        const loadTeacher = async () => {
+            setTeacherData(data);
+            setTeacher({
+                name: data.getName(),
+                dateOfBirth: data.getDateOfBirth(),
+                gender: data.getGender(),
+                faculity: data.getFaculity(),
+                address: data.getAddress(),
+                specialize: data.getSpecialize(),
+                degree: data.getDegree(),
+                position: data.getPosition()
+            });
+        };
+        loadTeacher();
+    }, []);
     const handleEdit = () => {
         preTeacher.current = { ...teacher };
         setEditable(true);
     };
 
-    const handleSave = () => {
+    const handleSave = async () => {
+        const fieldsToUpdate = ['name', 'dateOfBirth', 'gender', 'faculity', 'address', 'specialize', 'degree', 'position'];
+
+        for (const field of fieldsToUpdate) {
+            if (teacher[field] !== preTeacher.current[field]) {
+                await teacherData[`set${field.charAt(0).toUpperCase() + field.slice(1)}`](teacher[field]);
+            }
+        }
         setEditable(false);
     };
 
     const handleCancel = () => {
         setEditable(false);
-        setTeacher(preTeacher.current); 
+        setTeacher(preTeacher.current);
     };
 
     const handleInputChange = (e) => {
@@ -44,7 +69,7 @@ function InformationTea() {
         <Fragment>
             <Header />
             <Nav key="Nav" />
-            <div id="InformationPage">
+            <div id="InformationPage2">
                 <h1>Thông Tin Giảng Viên</h1>
                 <div className="img-contain">
                     <img src="../../../img/avt.jpg" alt="Avatar" />
@@ -72,8 +97,8 @@ function InformationTea() {
                     <div className="col-2">
                         <strong>Chuyên môn: </strong> 
                         {editable ? 
-                            <input type="text" name="specialization" className="input-specialization" value={teacher.specialization} onChange={handleInputChange} /> 
-                            : teacher.specialization}
+                            <input type="text" name="specialize" className="input-specialize" value={teacher.specialize} onChange={handleInputChange} /> 
+                            : teacher.specialize}
                     </div>
                     <div className="col-2">
                         <strong>Bằng cấp: </strong> 
@@ -86,14 +111,14 @@ function InformationTea() {
                     <div className="col-2">
                         <strong>Chức vụ: </strong> 
                         {editable ? 
-                            <input type="text" name="position" className="input-position" value={teacher.position} onChange={handleInputChange} /> 
+                            <input typ="text" name="position" className="input-position" value={teacher.position} onChange={handleInputChange} /> 
                             : teacher.position}
                     </div>
                     <div className="col-2">
                         <strong>Khoa: </strong> 
                         {editable ? 
-                            <input type="text" name="faculty" className="input-faculty" value={teacher.faculty} onChange={handleInputChange} /> 
-                            : teacher.faculty}
+                            <input type="text" name="faculity" className="input-faculity" value={teacher.faculity} onChange={handleInputChange} /> 
+                            : teacher.faculity}
                     </div>
                 </div>
                 <div className="row">

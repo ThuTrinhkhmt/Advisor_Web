@@ -1,29 +1,30 @@
-.pageBackground{
+.pageBackground2{
     margin-top : 50px;
     margin-left: 22%;
     padding : 30px;
     min-height: 500px;
+    margin-right: -18px;
 }
-.pageBackground h1{
+.pageBackground2 h1{
     margin : 36px;
     text-align: center;
     margin-bottom: 48px;
 }
 
-.pageBackground .row-2 {
+.pageBackground2 .row-2 {
     display: flex;
     justify-content: space-between;
     margin-bottom: 10px;
   }
   
   /* CSS cho lớp col */
-.pageBackground .col {
+.pageBackground2 .col {
     flex: 1;
     margin-left: 32px;
     margin-bottom: 8px;
   }
 
-.pageBackground .img-contain img{
+.pageBackground2 .img-contain img{
     width: 150px;
     height: auto;
     display: block; 
@@ -32,7 +33,7 @@
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
 }
 
-.pageBackground .img-contain p{
+.pageBackground2 .img-contain p{
     margin: 12px;
     margin-bottom: 48px;
     display: block;
@@ -44,52 +45,51 @@
     letter-spacing: 2px;
     font-size: 36px;
 }
-.pageBackground .empty {
+.pageBackground2 .empty {
     border-bottom: 1px solid #ccc; 
     margin: 64px;
     padding-bottom: 10px;
 }
 
-.pageBackground .chart{
+.pageBackground2 .chart{
     display: block;
     width: 120px;
     height : auto;
     margin-top: 48px;
 }
 
-.pageBackground #myChartCanvas{
+.pageBackground2 #myChartCanvas{
     margin-left: 60px;
 }
 
-.pageBackground .Study-containt {
+.pageBackground2 .Study-containt {
     margin-top: 30px;
     margin-bottom: 40px;
     display: block;
 }
 
-.pageBackground .Study-containt ul {
+.pageBackground2 .Study-containt ul {
     list-style-type: none;
     padding: 0;
     margin-left: 24px;
     width: 94%;
 }
 
-
-.pageBackground .Study-containt li div {
+.pageBackground2 .Study-containt li div {
     margin-bottom: 5px;
     padding: 2px;
 }
 
-.pageBackground .Study-containt li div:last-child {
+.pageBackground2 .Study-containt li div:last-child {
     margin-bottom: 0;
 }
-.pageBackground .chart {
+.pageBackground2 .chart {
     width : 90%;
     height : 500px;
     margin : 0 auto;
 }
 
-.pageBackground .chart-name {
+.pageBackground2 .chart-name {
     text-align: center;
     padding: 10px;
     margin-bottom: 14px;
@@ -100,7 +100,7 @@
     text-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2), 0px 0px 10px rgba(75, 192, 192, 0.1);
     text-transform: uppercase;
 }
-.pageBackground .Study-containt li {
+.pageBackground2 .Study-containt li {
     border: 1px solid #ccc;
     border-radius: 5px;
     padding: 10px;
@@ -109,11 +109,11 @@
     height : 290px;
     font-size: 18px;
 }
-.pageBackground .btn-div {
+.pageBackground2 .btn-div {
     position: relative;
 }
 
-.pageBackground .btn-editing {
+.pageBackground2 .btn-editing {
     position: absolute;
     bottom: 10px;
     right: 14px;
@@ -122,7 +122,7 @@
     cursor: pointer;
 }
 
-.pageBackground .btn-edit2{
+.pageBackground2 .btn-edit2{
     position: absolute;
     padding : 4px;
     border: 1px solid rgba(0, 0, 0, 0.2);
@@ -130,15 +130,15 @@
     right: 10px;
     bottom: -40px;
 }
- .pageBackground .btn-edit1{
+ .pageBackground2 .btn-edit1{
     position: absolute;
     padding : 4px;
     border: 1px solid rgba(0, 0, 0, 0.2);
     display: block;
-    right: 90px;
+    right: 110px;
     bottom: -40px;
 }
-.pageBackground .input-content{
+.pageBackground2 .input-content{
     width : 95% !important;
     height : 100px;
     margin-bottom: 0 !important;
@@ -147,7 +147,7 @@
     padding: 32px;
     font-size: 16px;
 }
-.pageBackground .comment-container {
+.pageBackground2 .comment-container {
     height: 140px;
     overflow-y: auto;
     word-wrap: break-word;
@@ -156,29 +156,29 @@
     margin-left: -2px;
     background-image: linear-gradient(to bottom, rgb(253, 245, 230, 0.1), rgb(253, 245, 230));
 }
-.pageBackground .content-11{
+.pageBackground2 .content-11{
     margin-top: 24px;
     margin-left: 14px;
 }
-.pageBackground .content-12{
+.pageBackground2 .content-12{
     margin-top: 14px;
     margin-left: 14px;
 }
-.pageBackground .content-13{
+.pageBackground2 .content-13{
     margin-top: 10px;
     transform: translateY(-20px);
     margin-left: 8px;
 }
-.pageBackground .content-22{
+.pageBackground2 .content-22{
     margin-top: 10px;
     margin-left: 14px;
 }
-.pageBackground .content-23{
+.pageBackground2 .content-23{
     margin-top: 10px;
     transform: translateY(10px);
     margin-left: 8px;
 }
-.pageBackground .input-score{
+.pageBackground2 .input-score{
     width : 6% !important;
     height : 26px;
     transform: translateY(14px);
@@ -186,14 +186,17 @@
     text-align: center;
     border: 1px solid rgba(0, 0, 0, 0.2);
 }
-.pageBackground .parent-container {
+.pageBackground2 .parent-container {
     display: flex;
     align-items: center;
 }
-.pageBackground .btn-edit1, 
-.pageBackground .btn-edit2,
-.pageBackground .btn-editing{
-    padding: 8px 16px;
+.pageBackground2 .btn-edit1, 
+.pageBackground2 .btn-edit2{
+    width : 80px;
+    height : 36px;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
     font-size: 16px;
     background-color:  rgb(90, 150, 209);
     color: white; 
@@ -201,9 +204,26 @@
     border-radius: 4px;
     cursor: pointer; 
 }
-.pageBackground .btn-add,
-.pageBackground .btn-delete {
-    padding: 8px 16px;
+.pageBackground2 .btn-editing{
+    width : 120px;
+    height : 36px;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    font-size: 16px;
+    background-color:  rgb(90, 150, 209);
+    color: white; 
+    border: none;
+    border-radius: 4px;
+    cursor: pointer; 
+}
+.pageBackground2 .btn-add,
+.pageBackground2 .btn-delete {
+    width : 80px;
+    height : 36px;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
     font-size: 16px;
     background-color:  rgb(65, 119, 173);
     color: #fff; 
@@ -212,23 +232,26 @@
     cursor: pointer; 
 }
 
-.pageBackground .btn-edit1:hover, 
-.pageBackground .btn-edit2:hover,
-.pageBackground .btn-editing:hover,
-.pageBackground .btn-add:hover,
-.pageBackground .btn-delete:hover {
+.pageBackground2 .btn-edit1:hover, 
+.pageBackground2 .btn-edit2:hover,
+.pageBackground2 .btn-editing:hover,
+.pageBackground2 .btn-add:hover,
+.pageBackground2 .btn-delete:hover {
     background-color:  rgb(44, 79, 117);
     color : black;
 }
 
-.pageBackground .button-container2 {
+.pageBackground2 .button-container2 {
     margin-top: 30px;
     margin-bottom: 40px;
     display: flex;
-    justify-content: center;
-    align-items: center;
 }
 
-.pageBackground .btn-add {
-    margin-right: 10px;
+.pageBackground2 .btn-add {
+    width : 80px;
+    height : 36px;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    margin-right: 18px;
 }

@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from 'react';
+import React, { Fragment, useState, useRef } from 'react';
 import { useParams } from 'react-router-dom';
 import Header from '../../components/ComponentTea/HeaderTea/HeaderTea';
 import Footer from '../../components/ComponentTea/FooterTea/FooterTea';
@@ -7,33 +7,60 @@ import ReactQuill from 'react-quill';
 import ReactHtmlParser from 'html-react-parser'; // Import html-react-parser
 import 'react-quill/dist/quill.snow.css';
 import './CourseView.css';
-
 function CourseView() {
   let { courseID, group } = useParams();
-      //Từ courseID và group (này là mã môn và nhóm lớp), cậu tìm ra cái class tài liệu hướng dẫn dì á
+  // Từ courseID và group (này là mã môn và nhóm lớp), cậu tìm ra cái class tài liệu hướng dẫn dì á
+  // Khai báo state cho thông tin của môn học
   const [editing, setEditing] = useState(false);
-  const [title, setTitle] = useState('Tiêu đề môn học');
-  const [content, setContent] = useState('Nội dung môn học');
-  const [links, setLinks] = useState([]);
-  // Ba tham số cuối ở đây là của tài liệu hướng dẫn, tiêu đề nội dung và link, cái editing là của tớ riêng á
-
+  const [course, setCourse] = useState({
+    title: 'Tiêu đề môn học',
+    content: 'Nội dung môn học',
+    links: []
+  });
+  const preCourse = useRef(null);
   const handleEdit = () => {
-    setEditing(!editing);
+    preCourse.current = {...course};
+    setEditing(true);
   };
 
   const handleSave = () => {
     setEditing(false);
+    // Code lưu thông tin môn học ở đây (nếu cần)
+  };
+
+  const handleCancel = () => {
+    setEditing(false);
+    setCourse(preCourse.current);
+    // Code xử lý khi hủy chỉnh sửa (nếu cần)
   };
 
   const handleLinkChange = (e, index) => {
     const { name, value } = e.target;
-    const newLinks = [...links];
-    newLinks[index] = { ...newLinks[index], [name]: value };
-    setLinks(newLinks);
+    const newLinks = [...course.links]; // Tạo bản sao mới của course.links
+    newLinks[index] = { ...newLinks[index], [name]: value }; // Thay đổi giá trị của phần tử tương ứng
+    setCourse(prevCourse => ({
+      ...prevCourse,
+      links: newLinks // Cập nhật lại trạng thái của course với bản sao mới đã thay đổi
+    }));
   };
 
   const handleAddLink = () => {
-    setLinks([...links, { url: '', name: '' }]);
+    setCourse(prevCourse => ({
+      ...prevCourse,
+      links: [...prevCourse.links, { url: '', name: '' }]
+    }));
+  };
+
+  const handleRemoveLink = () => {
+    if(course.links.length > 0)
+    {
+      let newLinks = [...course.links];
+      newLinks = newLinks.slice(0, -1);
+      setCourse(prevCourse => ({
+        ...prevCourse,
+        links: newLinks
+      }));
+    }
   };
 
   return (
@@ -45,25 +72,25 @@ function CourseView() {
           {editing ? (
             <input
               type="text"
-              value={title}
-              onChange={(e) => setTitle(e.target.value)}
+              value={course.title}
+              onChange={(e) => setCourse({ ...course, title: e.target.value })}
             />
           ) : (
-            <h1>{title}</h1>
+            <h1>{course.title}</h1>
           )}
           {editing ? (
             <ReactQuill
-              value={content}
-              onChange={(value) => setContent(value)}
+              value={course.content}
+              onChange={(value) => setCourse({ ...course, content: value })}
               modules={CourseView.modules}
               formats={CourseView.formats}
             />
           ) : (
-            <div>{ReactHtmlParser(content)}</div>
+            <div>{ReactHtmlParser(course.content)}</div>
           )}
           <div className="links">
             <h3>Tài liệu : </h3>
-            {links.map((link, index) => (
+            {course.links.map((link, index) => (
               <div key={index}>
                 {editing ? (
                   <div>
@@ -88,11 +115,14 @@ function CourseView() {
               </div>
             ))}
             {editing && (
-              <button className="link-btn" onClick={handleAddLink}>Thêm Link</button>
+                       <button className="btn-delete-link" 
+                       onClick= {handleRemoveLink}>Xóa link</button>)}
+            {editing && (
+              <button className="link-btn" onClick={handleAddLink}>Thêm link</button>
             )}
           </div>
         </div>
-        <button className='btn' onClick={handleEdit}>
+        <button className='btn' onClick={editing ? handleCancel : handleEdit}>
           {editing ? 'Hủy' : 'Chỉnh sửa'}
         </button>
         {editing && (

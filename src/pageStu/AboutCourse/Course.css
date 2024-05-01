@@ -1,0 +1,66 @@
+#AboutCourse{
+    margin-top : 50px;
+    margin-left: 20%;
+    padding : 30px;
+    min-height: 500px;
+}
+#AboutCourse .header {
+    text-align: center;
+    margin-bottom: 25px;
+}
+#AboutCourse .buttons{
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+    margin-bottom: 10px;
+}
+#AboutCourse .buttons button {
+    width : 200px;
+    height: 40px;
+    font-size: 18px;
+    background-color: rgba(62, 112, 231, 0.479);
+    border-radius: 5px;
+   
+    
+}
+#AboutCourse .Process{
+    border-collapse: separate; /* Đảm bảo các đường biên được tách riêng */
+    border-spacing: 0 20px;
+    width: 100%;
+    
+}
+#AboutCourse .Process .Row{
+    width: 100%;
+    height: 120px;
+    margin-bottom: 20px;
+}
+#AboutCourse .Process .Row p{
+    margin-bottom: 5px;
+    font-size: 18px;
+}
+#AboutCourse .CourseView .Descript h2{
+    margin-bottom: 20px;
+}
+#AboutCourse .CourseView .Descript{
+    margin-bottom: 30px;
+    text-align: justify;
+    width:100%;
+    padding-bottom: 10px; /* Khoảng cách từ border đến nội dung */
+    margin-right: -10px; /* Loại bỏ khoảng cách thừa do padding */
+    border-bottom: 1.5px solid rgba(59, 59, 59, 0.177);
+}
+#AboutCourse .CourseView .Detail h2{
+    margin-bottom: 20px;
+}
+#AboutCourse .CourseView .Detail{
+    margin-bottom: 20px;
+    text-align: justify;
+    
+}
+#AboutCourse .CourseView .Detail ul{
+    margin-bottom: 20px;
+    padding-bottom: 10px; /* Khoảng cách từ border đến nội dung */
+    margin-right: -10px;
+    width:100%;
+    border-bottom: 1.5px solid rgba(59, 59, 59, 0.177);
+}

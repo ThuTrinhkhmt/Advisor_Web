@@ -1,4 +1,4 @@
-#InformationPage {
+#InformationPage2 {
     margin-top: 50px;
     padding: 30px;
     min-height: 500px;
@@ -6,29 +6,29 @@
     margin-bottom: 48px;
 }
 
-#InformationPage h1 {
+#InformationPage2 h1 {
     margin: 32px;
     margin-bottom: 54px !important;
     text-align: center;
 }
 
-#InformationPage .row {
+#InformationPage2 .row {
     display: flex;
     justify-content: space-between;
     margin-bottom: 10px;
 }
 
-#InformationPage .col-2 {
+#InformationPage2 .col-2 {
     flex: 1;
     margin-left: 32px;
     margin-bottom: 14px;
     align-items: flex-start;
     font-size: 18px;
 }
-#InformationPage .col-2:nth-child(even) {
+#InformationPage2 .col-2:nth-child(even) {
     margin-right: 36px;
 }
-#InformationPage .img-contain img {
+#InformationPage2 .img-contain img {
     width: 150px;
     height: auto;
     display: block;
@@ -37,7 +37,7 @@
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
 }
 
-#InformationPage .img-contain p {
+#InformationPage2 .img-contain p {
     margin: 36px;
     margin-bottom: 48px;
     display: block;
@@ -48,8 +48,8 @@
     letter-spacing: 2px;
     font-size: 36px;
 }
-#InformationPage button{
-    padding: 8px 16px;
+#InformationPage2 button{
+    padding: 4px 8px;
     font-size: 16px;
     background-color:  rgb(65, 119, 173);
     color: #fff; 
@@ -57,11 +57,11 @@
     border-radius: 4px;
     cursor: pointer; 
 }
-#InformationPage button:hover{
+#InformationPage2 button:hover{
     background-color:  rgb(44, 79, 117);
 }
 
-#InformationPage .input-name {
+#InformationPage2 .input-name {
     width: 50% !important;
     text-align: center !important; 
     margin: 0 auto !important;
@@ -70,12 +70,12 @@
     border: 1px solid rgba(0, 0, 0, 0.1); 
 }
 
-#InformationPage .input-date,
-#InformationPage .input-gender,
-#InformationPage .input-specialization,
-#InformationPage .input-degree,
-#InformationPage .input-position,
-#InformationPage .input-faculty {
+#InformationPage2 .input-date,
+#InformationPage2 .input-gender,
+#InformationPage2 .input-specialize,
+#InformationPage2 .input-degree,
+#InformationPage2 .input-position,
+#InformationPage2 .input-faculity {
     width: 100%;
     margin-top: 8px;
     display: inline-block;
@@ -83,12 +83,14 @@
     padding: 8px;
     border: 1px solid rgba(0, 0, 0, 0.1); 
 }
-#InformationPage .col{
+#InformationPage2 .col{
     margin-right: 36px;
     font-size: 18px;
+    margin-left: 32px;
     margin-bottom: 18px;
+    width: 100%;
 }
-#InformationPage .input-address {
+#InformationPage2 .input-address {
     width : 100%;
     margin-top: 8px;
     display: inline-block;
@@ -96,16 +98,25 @@
     border: 1px solid rgba(0, 0, 0, 0.1);
 }
 
-#InformationPage .button-container {
+#InformationPage2 .button-container {
     display: flex;
     justify-content: center;
 }
 
-#InformationPage .btn-save,
-#InformationPage .btn-cancel {
+#InformationPage2 .btn-save,
+#InformationPage2 .btn-cancel {
+    width : 80px;
+    height : 36px;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
     margin: 0 5px;
 }
-#InformationPage .btn-editer{
-    padding: 8px 16px !important;
+#InformationPage2 .btn-editer{
+    width : 120px;
+    height : 36px;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
     position: absolute !important;
 }

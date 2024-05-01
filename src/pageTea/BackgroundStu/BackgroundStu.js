@@ -6,14 +6,15 @@ import Nav from '../../components/ComponentTea/NavTea/NavTea';
 import Chart from 'chart.js/auto';
 import 'chartjs-adapter-date-fns';
 import './BackgroundStu.css';
-
+import { data } from '../../loginPage/Login_page';
 function BackgroundStu() {
     let { studentID } = useParams();
     let { courseID } = useParams();
     let { group } = useParams();
     //Từ studentID, courseID và group, cậu phải tìm ra sinh viên đó và tiến trình học tập của nó
     //Ở trang này có nút chỉnh sửa nên cập nhật dữ liệu thường xuyên nè
-
+    const groupdata = data.getAGroup(courseID, group);
+    const studentData = groupdata.getAStudent(studentID);
     //Biến này của tớ
     const gradient = useMemo(() => {
         const ctx = document.createElement('canvas').getContext('2d');
@@ -24,12 +25,12 @@ function BackgroundStu() {
     }, []);
     //Student này nè
     const student = useMemo(() => ({
-        name: "Nguyễn Văn A",
-        studentID: "SV001",
-        dateOfBirth: "01/01/1990",
-        gender: "Nam",
-        faculty: "Khoa Học Máy Tính",
-        address: "123 Đường ABC, Quận XYZ, Thành phố ABC"
+        name: studentData.getName(),
+        studentID: studentID,
+        dateOfBirth: studentData.getDateOfBirth(),
+        gender: studentData.getGender(),
+        faculty: studentData.getFaculity(),
+        address: studentData.getAddress()
     }), []);
     //Tiến trình đây nữa
     const [weeklyFeedback ,setWeeklyFeedback] = useState(() => ([
@@ -135,7 +136,7 @@ function BackgroundStu() {
         <Fragment>
             <Header />
             <Nav key='Nav' />
-            <div className="pageBackground">
+            <div className="pageBackground2">
                 <h1>Thông Tin Sinh Viên</h1>
                 <div className="img-contain">
                     <img src="../../../img/avt.jpg" alt="Avatar" />

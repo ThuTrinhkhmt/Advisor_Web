@@ -1,10 +1,11 @@
-.pageGradeClass{
+.pageGradeClass2{
     margin-top : 50px;
     margin-left: 22%;
     padding : 30px;
     min-height: 500px;
+    margin-right: 18px;
 }
-.pageGradeClass h1 {
+.pageGradeClass2 h1 {
   color : #3e678f;
   text-transform: uppercase;
   margin-top: 24px;
@@ -16,48 +17,48 @@
   text-align: center;
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2); /* Thêm shadow */
 }
-.pageGradeClass td a{
+.pageGradeClass2 td a{
   text-decoration: none;
   color : black
 }
   
-.pageGradeClass table {
+.pageGradeClass2 table {
   width: 100%;
   border-collapse: collapse;
 }
 
-.pageGradeClass table th, table td {
+.pageGradeClass2 table th, table td {
   padding: 8px;
   text-align: left;
   border: 1px solid #ddd;
   font-size: 18px;
 }
 
-.pageGradeClass table th {
+.pageGradeClass2 table th {
   background-color: #f2f2f2;
 }
-.pageGradeClass thead th {
+.pageGradeClass2 thead th {
   font-size: 18px;
 }
-.pageGradeClass .color-draw{
+.pageGradeClass2 .color-draw{
   background: linear-gradient(to bottom, rgba(38, 129, 129, 0.5), rgba(38, 129, 129, 0.8));
   color : white;
 }
 
-.pageGradeClass .editable:hover{
+.pageGradeClass2 .editable:hover{
   background-color: #f2f2f2;
 }
-.pageGradeClass .color-btn{
+.pageGradeClass2 .color-btn{
   background-color :rgba(38, 129, 129, 0.5);
 }
-.pageGradeClass .btn{
+.pageGradeClass2 .btn{
   border: none;
   background-color: none;
 }
-.pageGradeClass .btn-contain{
+.pageGradeClass2 .btn-contain{
   padding: 0;
 }
-.pageGradeClass edit-button {
+.pageGradeClass2 edit-button {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -65,40 +66,40 @@
   background: transparent;
   
 }
-.pageGradeClass .hover-btn:hover {
+.pageGradeClass2 .hover-btn:hover {
   background-color: #f2f2f2;
 }
-.pageGradeClass table tr:nth-child(even) {
+.pageGradeClass2 table tr:nth-child(even) {
   background-color: #ffffff; /* Màu trắng */
 }
-.pageGradeClass table tr:nth-child(odd) {
+.pageGradeClass2 table tr:nth-child(odd) {
   background-color: #ffffff; /* Màu trắng */
 }
-.pageGradeClass .editable {
+.pageGradeClass2 .editable {
   cursor: pointer;
   padding: 4px;
   width : 140px;
 }
-.pageGradeClass .dif{
+.pageGradeClass2 .dif{
   cursor: pointer;
   padding: 4px;
   width : 180px;
 }
-.pageGradeClass .input-update {
+.pageGradeClass2 .input-update {
   margin: 0;
   width: 130px; 
   height: 30px;
   padding: 8px;
 }
-.pageGradeClass .input-update1{
+.pageGradeClass2 .input-update1{
   margin: 0;
   width: 170px;
   height: 30px;
   padding: 8px;
 }
-.pageGradeClass .edited {
+.pageGradeClass2 .edited {
   background-color: rgba(255, 0, 0, 0.5)
 }
-.pageGradeClass .centerTable{
+.pageGradeClass2 .centerTable{
   text-align: center;
 }

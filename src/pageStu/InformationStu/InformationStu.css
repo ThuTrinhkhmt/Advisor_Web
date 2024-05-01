@@ -1,29 +1,32 @@
-#InformationPage{
-    margin-top : 50px;
-    margin-left: 20%;
-    padding : 30px;
+#InformationPage1{
+    margin-top: 50px;
+    padding: 30px;
     min-height: 500px;
+    margin-left: 20%;
+    margin-bottom: 48px;
 }
 
-h1 {
+#InformationPage1 h1 {
     margin: 32px;
+    margin-bottom: 54px !important;
+    text-align: center;
 }
 
-.row-2 {
+#InformationPage1 .row-2 {
     display: flex;
     justify-content: space-between;
-    margin-bottom: 10px; /* Khoảng cách giữa các hàng */
+    margin-bottom: 10px; 
 }
 
 /* CSS cho lớp col */
-.col {
+#InformationPage1 .col {
     flex: 1; /* Chia đều không gian cho các cột */
     margin-left: 32px;
-    margin-bottom: 8px;
-    align-items: flex-start; /* Căn nội dung về bên trái */
+    margin-bottom: 14px;
+    align-items: flex-start; 
+    font-size: 18px;
 }
-
-.img-contain img {
+#InformationPage1 .img-contain img {
     width: 150px;
     height: auto;
     display: block;
@@ -32,7 +35,7 @@ h1 {
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
 }
 
-.img-contain p {
+#InformationPage1 .img-contain p {
     margin: 12px;
     margin-bottom: 48px;
     display: block;
@@ -42,4 +45,56 @@ h1 {
     line-height: 1.5;
     letter-spacing: 2px;
     font-size: 36px;
+}
+#InformationPage1 button{
+    padding: 4px 8px;
+    font-size: 16px;
+    background-color:  rgb(65, 119, 173);
+    color: #fff; 
+    border: none;
+    border-radius: 4px;
+    cursor: pointer; 
+}
+#InformationPage1 button:hover{
+    background-color:  rgb(44, 79, 117);
+}
+#InformationPage1 .input-birthday,
+#InformationPage1 .input-gender
+ {
+    width: 100%;
+    margin-top: 8px;
+    display: inline-block;
+    margin-bottom: 8px;
+    padding: 8px;
+    border: 1px solid rgba(0, 0, 0, 0.1); 
+}
+#InformationPage1 .input-address {
+    width : 100%;
+    margin-top: 8px;
+    display: inline-block;
+    padding: 8px;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+}
+#InformationPage1 .button-container {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 30px;
+}
+#InformationPage1 .btn-save,
+#InformationPage1 .btn-cancel {
+    width : 80px;
+    height : 36px;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    margin: 0 5px;
+}
+#InformationPage1 .btn-editer{
+    width : 120px;
+    height : 36px;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    position: absolute !important;
+    margin-bottom: 20px !important;
 }

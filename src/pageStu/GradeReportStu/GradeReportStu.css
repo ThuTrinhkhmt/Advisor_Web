@@ -1,6 +1,57 @@
-#SSkillPage{
-    margin-top : 50px;
-    margin-left: 20%;
-    padding : 30px;
+#GradeReportStu{
+    margin-top: 50px;
+    padding: 30px;
     min-height: 500px;
+    margin-left: 24%;
+    margin-bottom: 36px;
+    margin-right: 18px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+#Grade_table {
+    width: 100%;
+    margin-bottom: 20px;
+}
+#GradeReportStu h1{
+    text-align: center;
+    line-height: 32px;
+    font-size: 36px;
+    margin-bottom: 52px;
+}
+#GradeReportStu #Student_infor{
+    display: flex;
+    flex-direction: column;
+    justify-content: left; 
+    align-items: left; 
+    gap: 5px;
+    color:rgb(83, 133, 243);
+}
+#GradeReportStu .Select_sem{
+    height: 30px;
+}
+#GradeReportStu #Grade_table td{
+    text-align: center; 
+}
+#GradeReportStu .review{
+    display: flex;
+    flex-direction: column;
+    justify-content: left; 
+    align-items: left; 
+    gap:5px;
+    border-radius: 10px;  
+    margin-bottom: 20px;
+}
+#GradeReportStu .title1
+{
+    background-color: rgba(62, 112, 231, 0.479);
+}
+
+#GradeReportStu p{
+    margin: 4px;
+}
+#GradeReportStu  .strong{
+    font-weight: bold;
+    font-size: 24px;
+    color : white;
 }

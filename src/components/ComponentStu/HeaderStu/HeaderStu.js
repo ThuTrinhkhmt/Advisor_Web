@@ -4,10 +4,14 @@ import { Link } from 'react-router-dom';
 import './HeaderStu.css';
 
 function HeaderStu() {
+    const handleLogout = () => {
+        localStorage.removeItem('role');
+        //localStorage.removeItem('username');
+      };
     return (
         <div id="Header">
             <div className="WebName">Student Advisor Web</div>
-            <Link to="/studentServer" className = "close">
+            <Link to="/" className = "close" onClick={handleLogout}>
                 <div className="Close">
                 Đăng xuất
                 </div>
