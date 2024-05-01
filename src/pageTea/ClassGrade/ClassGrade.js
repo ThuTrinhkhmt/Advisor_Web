@@ -9,7 +9,6 @@ function ClassGrade() {
     let { courseID, group } = useParams();
     const groupData=data.getAGroup(courseID, group);
     const arrayStu= groupData.getStudents();
-    const [StuGrade, setStuGrade] = useState(null);
     //Từ courseID và group (này là mã môn và nhóm lớp), cậu tìm danh sách sinh viên trong lớp đó cho tớ
     //Cậu lấy class students rồi quăng vô chổ students cho tớ á, quăng ở chổ useState(trong này nè), tớ nghĩ thế
     const [students, setStudents] = useState([]);
@@ -56,55 +55,51 @@ function ClassGrade() {
     };
     
     const handleSaveScore = async (index) => {
-        alert("2");
         if (window.confirm("Bạn có muốn cập nhật điểm không?")) {
             const updatedStudents = [...students];
             updatedStudents[index].isEditing = false;
-            updatedStudents[index].isEdited++;
-            setStudents(updatedStudents);
             setUnsavedChanges(false);
-            const fieldsToUpdate = ['componentScore', 'examScore'];
+            const fieldsToUpdate = ['componentScore', 'examScore','totalScore'];
             let changedFieldsCount = 0;
+            // Lặp qua các trường cần cập nhật
             fieldsToUpdate.forEach(field => {
-                if (students[index][field] !== prevStudents.current[index][field]) {
-                    changedFieldsCount++; // Tăng biến đếm nếu có thay đổi
-                }
-            });
-            alert(changedFieldsCount);
-            if(changedFieldsCount === 1){
-                setStuGrade(arrayStu[index]);
-                //alert(arrayStu[index].getName());
-                await arrayStu[index].setStudentExamScore(courseID, students[index]['examScore']);
+            // Kiểm tra nếu giá trị đã thay đổi
+            if (students[index][field] !== prevStudents.current[index][field]) {
+                changedFieldsCount++; // Tăng biến đếm nếu có thay đổi
             }
+            });
+            if(changedFieldsCount===3) {
+                await arrayStu[index].setScore(courseID, updatedStudents[index]['componentScore'], 
+                updatedStudents[index]['examScore'], updatedStudents[index]['totalScore']);
+                const now = new Date();
+                const futureDate = new Date(now);
+                futureDate.setDate(now.getDate() + 30);
+                groupData.setStartDay(now);
+                groupData.setEndDay(futureDate);
+                const day = now.getDate(); // Ngày trong tháng (1-31)
+                const month = now.getMonth() + 1; // Tháng (0-11), cần cộng thêm 1 để được từ 1-12
+                const year = now.getFullYear(); // Năm
+                alert(`Ngày bắt đầu mở phúc khảo: ${day}/${month}/${year}`);
+                const day1 = futureDate.getDate(); // Ngày trong tháng
+                const month1 = futureDate.getMonth() + 1; // Tháng (cần cộng thêm 1)
+                const year1 = futureDate.getFullYear(); // Năm
+                alert(`Ngày kết thúc phúc khảo: ${day1}/${month1}/${year1}`);
+                const formattedDate = now.toLocaleDateString();
+                const formattedDate2 = futureDate.toLocaleDateString();
+                arrayStu[index].setDay(courseID, formattedDate, formattedDate2);
+            }else{
+                for (const field of fieldsToUpdate) {
+                    if (updatedStudents[index][field] !== prevStudents.current[index][field]) {
+                        if(field==='componentScore') await arrayStu[index].setComponentScore(courseID, updatedStudents[index]['componentScore']);
+                        else if(field==='examScore') await arrayStu[index].setExamScore(courseID, updatedStudents[index]['examScore']);
+                        else await arrayStu[index].setTotalScore(courseID, updatedStudents[index]['totalScore']);
+                    }
+                }
+            }
+            updatedStudents[index].isEdited=arrayStu[index].getStudentScore(courseID).getIsEdited();
+            setStudents(updatedStudents);
         } else {
             setStudents([...prevStudents.current]); // Khôi phục lại trạng thái trước khi chỉnh sửa
-            setUnsavedChanges(false);
-        }
-        setEditMode(false);
-    };
-
-    const handleBlur = async (index) => {
-        if (window.confirm("Bạn có muốn cập nhật điểm không?")) {
-            const updatedStudents = [...students];
-            updatedStudents[index].isEditing = false;
-            updatedStudents[index].isEdited++;
-            setStudents(updatedStudents);
-            setUnsavedChanges(false);
-            const fieldsToUpdate = ['componentScore', 'examScore'];
-            let changedFieldsCount = 0;
-            fieldsToUpdate.forEach(field => {
-                if (students[index][field] !== prevStudents.current[index][field]) {
-                    changedFieldsCount++; // Tăng biến đếm nếu có thay đổi
-                }
-            });
-            alert(changedFieldsCount);
-            if(changedFieldsCount === 1){
-                setStuGrade(arrayStu[index]);
-                //alert(arrayStu[index].getName());
-                await arrayStu[index].setStudentExamScore(courseID, students[index]['examScore']);
-            }
-        } else {
-            setStudents([...prevStudents.current]);
             setUnsavedChanges(false);
         }
         setEditMode(false);
@@ -149,7 +144,6 @@ function ClassGrade() {
                                             name="componentScore"
                                             value={student.componentScore}
                                             onChange={(event) => handleChange(event, index)}
-                                            onBlur={() => handleBlur(index)}
                                         />
                                     ) : (
                                         student.componentScore
@@ -167,7 +161,6 @@ function ClassGrade() {
                                             name="examScore"
                                             value={student.examScore}
                                             onChange={(event) => handleChange(event, index)}
-                                            onBlur={() => handleBlur(index)}
                                         />
                                     ) : (
                                         student.examScore
@@ -185,7 +178,6 @@ function ClassGrade() {
                                             name="totalScore"
                                             value={student.totalScore}
                                             onChange={(event) => handleChange(event, index)}
-                                            onBlur={() => handleBlur(index)}
                                         />
                                     ) : (
                                         student.totalScore

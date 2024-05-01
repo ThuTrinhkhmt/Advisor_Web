@@ -4,21 +4,16 @@ import { Group } from './Group.js';
 export class Course {
     #idCourse;
     #name;
-    #title;
-    #content;
-    #documents = new Map();
     #numOfCredit;
     #groups = [];
     constructor(idCourse) {
         this.#idCourse=idCourse;
-        this.loadFromDatabase();
     }
 
     async loadFromDatabase() {
         const CourseData = await getCourseData(this.#idCourse);
         if (CourseData) {
             this.#name = CourseData.NameOfCourse;
-            this.#content = CourseData.Desciption;
             this.#numOfCredit = CourseData.NumOfCredits;
             const arrayGroup = Object.keys(CourseData.Group || {});
             for (const groupID of arrayGroup) {
@@ -63,36 +58,12 @@ export class Course {
         return this.#idCourse;
     }
 
-    setTitle(title) {
-        this.#title = title;
-    }
-
-    setContent(content) {
-        this.#content = content;
-    }
-
-    getContent() {
-        return this.#content;
-    }
-
-    getTitle() {
-        return this.#title;
-    }
-
     setNumOfCredit(numOfCredit) {
         this.#numOfCredit = numOfCredit;
     }
 
     getNumOfCredit() {
         return this.#numOfCredit;
-    }
-
-    addDocument(document) {
-        this.#documents.push(document);
-    }
-
-    getDocuments() {
-        return this.#documents;
     }
     getGroup(){
         return this.#groups;

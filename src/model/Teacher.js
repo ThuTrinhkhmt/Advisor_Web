@@ -2,6 +2,7 @@ import { db, ref, set, get, update} from '../firebase/firebase';
 import { Person } from './Person.js';
 import { getTeaData } from '../firebase/firebasefunction';
 import { Group } from './Group.js';
+import { Course } from './Course.js';
 export class Teacher extends Person {
     #specialize;
     #degree;
@@ -31,7 +32,10 @@ export class Teacher extends Person {
                     await groupData.loadFromDatabase();
                     this.#groups.push(groupData);
                 }
+                //const course= new Course(courseID);
+                //await course.loadFromDatabase();
             }
+
         }
     }
 
