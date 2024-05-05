@@ -78,6 +78,11 @@ body{
     margin-inline: 5px;
     width: 145px;
     height: 30px; 
+    margin-bottom: 0;
+    cursor: pointer;
+}
+.login_page #Buttons .btn-loginpage:hover{
+    background-color:rgb(99, 140, 194);
 }
 .login_page #Goto{
     text-decoration: none; /* Tắt hiệu ứng gạch chân */

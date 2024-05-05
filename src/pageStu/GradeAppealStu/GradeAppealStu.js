@@ -106,7 +106,7 @@ function GradeAppealStu() {
                     <div className="Student_infor">
                         <p>Họ tên: {Student.getName()}</p>
                         <p>Mssv: {Student.getID()}</p>
-                        <p>Ngành: {Student.getFaculity()}</p>
+                        <p>Khoa: {Student.getFaculity()}</p>
                     </div>
                     <div className="Realtime_infor">
                         <p>Học kì: 222</p>

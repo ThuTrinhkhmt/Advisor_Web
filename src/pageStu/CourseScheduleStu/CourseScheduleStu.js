@@ -13,7 +13,7 @@ function SubjectTab({ subjectArr }) {
             {subjectArr.map((course, index) => (
                 <div className="Subject" key={index}>
                     <div className='NameSub'>
-                        <Link to={`/StuCourse/${course.CodeCourse}/${course.Class}/${course.Teacher}`}>{course.Name}({course.CodeCourse}) - {course.Teacher}</Link>
+                        <Link to={`/StuCourse/${course.CodeCourse}/${course.Class}/${course.Teacher}`}>{course.Name} ({course.CodeCourse}) - {course.Teacher}</Link>
                     </div>
                     <div className='GroupSub'>
                         <p>Nhóm: {course.Class}</p>
